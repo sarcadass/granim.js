@@ -1,0 +1,164 @@
+/*
+	Global Styles
+*/
+
+body {
+	margin: 0;
+	font-family: Roboto, Helvetica, Arial, sans-serif;
+	color: #252525;
+}
+
+h1, h2, h3 {
+	color: #16a085;
+}
+
+h1 {
+	font-size: 2.875em;
+	font-weight: 400;
+}
+
+h2 {
+	font-size: 1.75em;
+	margin-bottom: 10px;
+}
+
+.clearfix:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
+* html .clearfix             { zoom: 1; } /* IE6 */
+*:first-child+html .clearfix { zoom: 1; } /* IE7 */
+
+.snippet {
+	display: inline-block;
+	background-color: #eee;
+	padding: 2px 5px;
+	border-radius: 2px;
+	color: #444;
+	font-size: 15px;
+}
+
+.container {
+	width: 1200px;
+	max-width: 100%;
+	padding: 0 15px;
+	margin: 0 auto;
+	box-sizing: border-box;
+}
+
+.bloc {
+	margin-bottom: 75px;
+	@include mob {margin-bottom: 50px}
+}
+
+.tab-titles {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+
+	li {
+		display: inline-block;
+		&.active {
+			background-color: #f5f2f0;
+			a {font-weight: bold}
+		}
+
+		a {
+			display: inline-block;
+			padding: 10px 20px;
+			text-decoration: none;
+			color: #333;
+		}
+	}
+}
+
+.tab-content {
+	background-color: #f5f2f0;
+
+	.tab {
+		padding: 15px;
+		display: none;
+		&.active {display: block}
+	}
+}
+
+@include mob{
+	pre {
+		font-size: 75%;
+	}
+}
+
+.cta-social {
+	position: relative;
+	font-size: 14px;
+	display: inline-block;
+	color: #fff;
+	padding: 5px 10px 5px 30px;
+	text-decoration: none;
+	margin-right: 15px;
+	&:last-child {margin-right: 0}
+	&.cta-facebook {
+		background-color: #3b5998;
+		transition: background .3s;
+		@include tab-desk {
+			&:hover {
+				background-color: lighten(#3b5998, 5%);
+			}
+		}
+
+		svg {
+			position: absolute;
+			left: 7px;
+
+			path {
+				fill: #fff;
+			}
+		}
+	}
+	&.cta-twitter {
+		background-color: #1dcaff;
+		transition: background .3s;
+		@include tab-desk {
+			&:hover {
+				background-color: lighten(#1dcaff, 5%);
+			}
+		}
+
+		svg {
+			position: absolute;
+			left: 7px;
+
+			path {
+				fill: #fff;
+			}
+		}
+	}
+}
+
+a.github {
+	display: inline-block;
+	width: 25px;
+	height: 25px;
+	margin: 11px 5px 0 0;
+	@include mob {
+		margin: 0;
+		padding: 9px 0;
+		height: inherit;
+	}
+
+	svg {
+		height: 25px;
+
+		&:hover path {
+			fill: #1abc9c;
+		}
+		path {
+			fill: #888;
+			transition: fill .3s;
+		}
+	}
+}

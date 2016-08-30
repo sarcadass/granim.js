@@ -1,0 +1,29 @@
+// Responsive breakpoints
+$sm: 768px;
+$md: 992px;
+$lg: 1200px;
+
+@mixin mob {
+	@media screen and (max-width: #{$sm - 1}) {@content}
+}
+@mixin tab {
+	@media screen and (min-width: #{$sm}) and (max-width: #{$md - 1}) {@content}
+}
+@mixin desk {
+	@media screen and (min-width: #{$md}) {@content}
+}
+@mixin desk-small {
+	@media screen and (min-width: #{$md}) and (max-width: #{$lg - 1}) {@content}
+}
+@mixin desk-big {
+	@media screen and (min-width: #{$lg}) {@content}
+}
+@mixin mob-tab {
+	@media screen and (max-width: #{$md - 1}) {@content}
+}
+@mixin tab-desk {
+	@media screen and (min-width: #{$sm}) {@content}
+}
+@mixin retina {
+	@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {@content}
+}

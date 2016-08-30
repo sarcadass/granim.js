@@ -1,0 +1,133 @@
+/*
+	Home Page
+*/
+
+body.home {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	overflow: hidden;
+	&.background-gradient-light .content-wrapper {
+		color: #111;
+		fill: #111;
+	}
+	&.background-gradient-dark .content-wrapper {
+		color: #eee;
+		fill: #eee;
+	}
+
+	#canvas-wrapper {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+
+		#granim-canvas {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			z-index: -1;
+			background-size: cover;
+			background-position: 0 85%;
+		}
+
+		.content-wrapper {
+			text-align: center;
+			transition-property: color, fill;
+			transition-duration: 1.5s;
+			visibility: hidden;
+			font-size: 16px;
+			@include mob {font-size: 13px}
+
+			.title {
+				margin: 0;
+				overflow: hidden;
+
+				svg	{
+					display: block;
+					width: 768px;
+					max-width: 90%;
+					margin: 0 auto;
+
+					@include mob-tab {
+						width: 500px;
+					}
+				}
+
+				span {
+					text-indent: 9999px;
+					display: block;
+					height: 0;
+				}
+			}
+
+			.description {
+				margin: 20px 0 25px;
+				line-height: 1.5;
+
+				.app-size {font-size: 90%}
+			}
+
+			nav {
+				a {
+					display: inline-block;
+					padding: 5px 10px;
+					margin-right: 15px;
+					border: solid 1px;
+					color: inherit;
+					text-transform: uppercase;
+					text-decoration: none;
+					box-shadow: 0 0 0;
+					transition: box-shadow 1s;
+					&:last-child {
+						margin-right: 0;
+					}
+					&:hover {
+						box-shadow: 0 0 5px;
+					}
+				}
+			}
+		}
+	}
+
+	&.background-gradient-light #social-wrapper .github path {
+		fill: #111;
+	}
+	&.background-gradient-dark #social-wrapper .github path {
+		fill: #fff;
+	}
+
+	#social-wrapper {
+		position: fixed;
+		text-align: right;
+		top: 15px;
+		right: 15px;
+
+		.github {
+			padding: 0;
+			margin: 0 15px 0 0;
+			vertical-align: middle;
+
+			path {
+				fill: #111;
+			}
+		}
+
+		@include mob {
+			.github {
+				width: 30px;
+				margin: 0;
+			}
+			.cta-social {display: none}
+		}
+
+		path {
+			transition: fill 1.5s;
+		}
+	}
+}

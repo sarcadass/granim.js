@@ -1,0 +1,51 @@
+/*
+	Footer
+*/
+
+.footer {
+	@include mob {margin-top: -15px}
+
+	p {
+		width: 50%;
+		float: left;
+		font-size: 14px;
+		line-height: 1.4;
+		@include mob {
+			font-size: 12px;
+		}
+
+		a {
+			color: #3498db;
+			text-decoration: none;
+			&:hover {
+				color: lighten(#3498db, 15%);
+			}
+		}
+	}
+
+	.bloc-social {
+		width: 50%;
+		margin-top: 19px;
+		float: left;
+		text-align: right;
+	}
+
+	@include mob {
+		p, .bloc-social {
+			float: none;
+			text-align: center;
+		}
+
+		p {width: 100%}
+
+		.bloc-social {
+			width: 290px;
+			margin-left: auto;
+			margin-right: auto;
+
+			.cta-facebook {
+				margin: 0 0 15px;
+			}
+		}
+	}
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Granim - Easy javascript gradient animation on canvas</title>
+	<meta charset="UTF-8">
+	<title>Granim.js</title>
+	<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="home">
+	<div id="canvas-wrapper">
+		<canvas id="granim-canvas"></canvas>
+		<h1>Granim</h1>
+	</div>
+
+	<div class="granim-controls">
+		<a href="#default-state" id="default-state-cta">To default state</a>
+		<a href="#green-state" id="green-state-cta">To green state</a>
+	</div>
+
+	<script src="../dist/granim.js"></script>
+	<script>
+	var granimInstance;
+
+	document.addEventListener('DOMContentLoaded', function() {
+		var canvasEl = document.getElementById('granim-canvas');
+		/*
+		 direction:
+		 - diagonal
+		 - left-right
+		 - top-bottom
+		 */
+
+		canvasEl.addEventListener('granim:start', function(ev) {
+			console.log(ev);
+		});
+		canvasEl.addEventListener('granim:end', function(ev) {
+			console.log(ev);
+		});
+		canvasEl.addEventListener('granim:loop', function(ev) {
+			console.log(ev);
+		});
+		canvasEl.addEventListener('granim:gradientChange', function(ev) {
+			console.log(ev);
+		});
+
+
+
+		granimInstance = new Granim({
+			name: 'main-gradient',
+			element: '#granim-canvas',
+			direction: 'left-right',
+			isPausedWhenNotInView: true,
+			opacity: [1, 1],
+			stateTransitionSpeed: 1000,
+			states : {
+				"default-state": {
+					gradients: [
+						['#73072F', '#614C03'],
+						['#C4962C', '#614C03'],
+						['#4700FC', '#C000FC']
+					],
+					transitionSpeed: 2000,
+					loop: true
+				},
+
+				"green-state": {
+					gradients: [
+						['#FDFC47', '#24FE41'],
+						['#52c234', '#061700']
+					],
+					transitionSpeed: 2000,
+					loop: false
+				}
+			}
+			/*
+			onStart: function() {
+				console.log('CB: onStart');
+			},
+			onGradientChange: function(details) {
+				console.log('CB: onGradientChange, details: ');
+				console.log(details);
+			},
+			onEnd: function() {
+				console.log('CB: onEnd');
+			}
+			*/
+		});
+
+
+		document.querySelector('#green-state-cta').addEventListener('click', function(event) {
+			event.preventDefault();
+			granimInstance.changeState('green-state');
+		});
+
+		document.querySelector('#default-state-cta').addEventListener('click', function(event) {
+			event.preventDefault();
+			granimInstance.changeState('default-state');
+		});
+	});
+	</script>
+</body>
+</html>

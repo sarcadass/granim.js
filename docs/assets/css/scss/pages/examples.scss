@@ -1,0 +1,81 @@
+/*
+	Examples Page
+*/
+
+body.examples {
+	padding-top: 50px;
+}
+
+.sandbox {
+	position: relative;
+	height: 300px;
+	border: solid 2px #eee;
+
+	canvas {
+		position: absolute;
+		display: block;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+	}
+}
+
+.code-wrapper {margin-top: 30px}
+
+#canvas-image {
+	background-image: url("../img/bg-forest.jpg");
+	background-position-x: 50%;
+}
+
+.canvas-image-wrapper {
+	background-color: #eee;
+	text-align: center;
+
+	.bloc-logo {
+		display: inline-block;
+		margin-top: 120px;
+		float: none;
+	}
+}
+
+.canvas-interactive-wrapper {
+	text-align: center;
+
+	.cta-wrapper {
+		margin-top: 130px;
+		a {
+			position: relative;
+			display: inline-block;
+			padding: 3px 7px;
+			border: solid 1px transparent;
+			margin-right: 50px;
+			z-index: 1;
+			text-decoration: none;
+			color: #222;
+			transition: border .3s;
+			&:last-child {margin-right: 0}
+			&.active {
+				font-weight: bold;
+				border-color: #222;
+			}
+			@include desk {
+				&:hover {border-color: rgba(0,0,0,.25)}
+			}
+		}
+
+		@include mob {
+			margin-top: 90px;
+			a {
+				display: block;
+				border: none;
+				margin: 0 0 20px;
+				&:last-child {
+					margin-bottom: 0;
+				}
+			}
+		}
+	}
+}

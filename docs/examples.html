@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Examples | Granim.js</title>
+    <meta name="description" content="Examples for granim.js. Gradients animations in javascript.">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <link type="text/css" rel="stylesheet" href="assets/css/style.css">
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,700">
+    <!-- Facebook Metas-->
+    <meta property="og:url" content="http://sarcadass.github.io/granim.js">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Granim.js">
+    <meta property="og:description" content="Create fluid and interactive gradients animations with this small (&lt; 10kB) .js library">
+    <meta property="og:image" content="http://sarcadass.github.io/granim.js/assets/img/social-image.png">
+    <!-- Twitter Metas-->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:creator" content="@Sarcadass">
+    <meta property="twitter:title" content="Granim.js">
+    <meta property="twitter:description" content="Create fluid and interactive gradients animations with this small (&lt; 10kB) .js library">
+    <meta property="twitter:image" content="http://sarcadass.github.io/granim.js/assets/img/social-image.png">
+    <meta property="twitter:image:width" content="1200">
+    <meta property="twitter:image:height" content="630">
+    <link type="text/css" rel="stylesheet" href="assets/css/prism.css">
+  </head>
+  <body class="examples">
+    <header class="main-header">
+      <div class="container clearfix">
+        <div class="bloc-logo">
+          <canvas id="logo-canvas"></canvas><a class="logo-mask" href="index.html">Granim.js</a>
+        </div>
+        <div class="main-nav">
+          <div class="hamburger-icon"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          <nav>
+            <ul class="clearfix">
+              <li><a class="text" href="https://github.com/sarcadass/granim.js/releases" about="_blank" rel="external">Download</a></li>
+              <li><a class="text" href="api.html">API</a></li>
+              <li><a class="text active" href="examples.html">Examples</a></li>
+              <li><a class="github" href="https://github.com/sarcadass/granim.js" about="_blank" title="Github" rel="external"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25">
+    <g>
+        <path fill-rule="evenodd" clip-rule="evenodd" fill="#221E1B" d="M12.476,0C5.587,0,0,5.586,0,12.476
+		c0,5.512,3.575,10.189,8.533,11.842c0.623,0.113,0.853-0.271,0.853-0.604c0-0.296-0.011-1.279-0.017-2.32
+		c-3.471,0.754-4.203-1.473-4.203-1.473c-0.568-1.444-1.386-1.827-1.386-1.827c-1.132-0.772,0.085-0.758,0.085-0.758
+		c1.253,0.088,1.913,1.286,1.913,1.286c1.113,1.908,2.919,1.356,3.631,1.039c0.112-0.81,0.435-1.358,0.791-1.67
+		c-2.771-0.315-5.684-1.385-5.684-6.167c0-1.362,0.487-2.475,1.286-3.349c-0.13-0.314-0.558-1.582,0.121-3.301
+		c0,0,1.047-0.336,3.432,1.278c0.995-0.276,2.062-0.415,3.122-0.419c1.061,0.004,2.129,0.143,3.125,0.419
+		c2.384-1.614,3.43-1.278,3.43-1.278c0.68,1.719,0.25,2.987,0.122,3.301c0.801,0.874,1.283,1.986,1.283,3.349
+		c0,4.792-2.918,5.847-5.696,6.157c0.447,0.385,0.847,1.146,0.847,2.309c0,1.671-0.015,3.015-0.015,3.424
+		c0,0.333,0.224,0.723,0.855,0.602c4.957-1.652,8.526-6.329,8.526-11.84C24.953,5.586,19.365,0,12.476,0z"/>
+        <path fill="#221E1B" d="M4.726,17.914c-0.028,0.062-0.124,0.081-0.213,0.037c-0.091-0.04-0.142-0.124-0.113-0.188
+		c0.028-0.063,0.125-0.082,0.214-0.038C4.705,17.766,4.757,17.852,4.726,17.914L4.726,17.914z M4.572,17.8"/>
+        <path fill="#221E1B" d="M5.231,18.477c-0.059,0.057-0.176,0.031-0.255-0.058c-0.081-0.086-0.096-0.202-0.036-0.256
+		c0.061-0.058,0.173-0.033,0.256,0.055C5.277,18.306,5.293,18.421,5.231,18.477L5.231,18.477z M5.112,18.351"/>
+        <path fill="#221E1B" d="M5.723,19.195c-0.076,0.055-0.201,0.003-0.278-0.105c-0.077-0.112-0.077-0.245,0.001-0.298
+		c0.078-0.055,0.201-0.006,0.279,0.103C5.801,19.009,5.801,19.142,5.723,19.195L5.723,19.195z M5.723,19.195"/>
+        <path fill="#221E1B" d="M6.397,19.892c-0.069,0.074-0.214,0.055-0.321-0.049c-0.108-0.102-0.14-0.245-0.072-0.319
+		c0.07-0.076,0.216-0.054,0.324,0.048C6.437,19.673,6.469,19.815,6.397,19.892L6.397,19.892z M6.397,19.892"/>
+        <path fill="#221E1B" d="M7.328,20.294c-0.031,0.097-0.171,0.141-0.313,0.101c-0.141-0.043-0.233-0.158-0.205-0.256
+		c0.029-0.099,0.171-0.146,0.313-0.101C7.263,20.08,7.355,20.194,7.328,20.294L7.328,20.294z M7.328,20.294"/>
+        <path fill="#221E1B" d="M8.347,20.368c0.004,0.102-0.116,0.188-0.264,0.189c-0.149,0.005-0.271-0.079-0.272-0.181
+		c0-0.104,0.117-0.188,0.267-0.19C8.226,20.185,8.347,20.266,8.347,20.368L8.347,20.368z M8.347,20.368"/>
+        <path fill="#221E1B" d="M9.297,20.206c0.018,0.1-0.084,0.203-0.232,0.231c-0.145,0.025-0.279-0.036-0.297-0.135
+		C8.749,20.2,8.856,20.097,8.999,20.07C9.147,20.044,9.279,20.104,9.297,20.206L9.297,20.206z M9.297,20.206"/>
+    </g>
+</svg>
+</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+    <div class="main-content">
+      <div class="container bloc">
+        <h1>Examples</h1>
+        <h2>Basic gradients animation</h2>
+        <p>Basic gradients animation with 3 gradients in queue composed of 2 colors.</p>
+        <div class="sandbox">
+          <canvas id="canvas-basic"></canvas>
+        </div>
+        <div class="code-wrapper">
+          <ul class="tab-titles">
+            <li class="active"><a href="#basic-js" data-toggle="tab">JS</a></li>
+            <li><a href="#basic-html" data-toggle="tab">HTML</a></li>
+            <li><a href="#basic-css" data-toggle="tab">CSS</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab active" id="basic-js" data-toggle="pill">
+              <pre><code class="language-js">var granimInstance = new Granim({
+    element: '#canvas-basic',
+    name: 'basic-gradient',
+    direction: 'left-right',
+    opacity: [1, 1],
+    isPausedWhenNotInView: true,
+    states : {
+      "default-state": {
+          gradients: [
+              ['#AA076B', '#61045F'],
+              ['#02AAB0', '#00CDAC'],
+              ['#DA22FF', '#9733EE']
+          ]
+    }
+});</code></pre>
+            </div>
+            <div class="tab" id="basic-html" data-toggle="pill">
+              <pre><code class="language-html">&lt;canvas id=&quot;canvas-basic&quot;&gt;&lt;/canvas&gt;</code></pre>
+            </div>
+            <div class="tab" id="basic-css" data-toggle="pill">
+              <pre><code class="language-css">#canvas-basic {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container bloc">
+        <h2>Gradients with an image</h2>
+        <p>Gradients with 3 colors, different opacity and a background image.</p>
+        <div class="sandbox">
+          <canvas id="canvas-image"></canvas>
+        </div>
+        <div class="code-wrapper">
+          <ul class="tab-titles">
+            <li class="active"><a href="#image-js" data-toggle="tab">JS</a></li>
+            <li><a href="#image-html" data-toggle="tab">HTML</a></li>
+            <li><a href="#image-css" data-toggle="tab">CSS</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab active" id="image-js" data-toggle="pill">
+              <pre><code class="language-js">var granimInstance = new Granim({
+    element: '#canvas-image',
+    direction: 'top-bottom',
+    opacity: [1, .5, 0],
+    isPausedWhenNotInView: true,
+    states : {
+        "default-state": {
+            gradients: [
+                ['#485563', '#29323c', '#29323c'],
+                ['#00c6ff', '#0072ff', '#0072ff']
+            ],
+            transitionSpeed: 10000
+        }
+    }
+);</code></pre>
+            </div>
+            <div class="tab" id="image-html" data-toggle="pill">
+              <pre><code class="language-html">&lt;canvas id=&quot;canvas-image&quot;&gt;&lt;/canvas&gt;</code></pre>
+            </div>
+            <div class="tab" id="image-css" data-toggle="pill">
+              <pre><code class="language-css">#canvas-image {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: url("../img/bg-forest.jpg");
+    background-position-x: 50%;
+}</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container bloc">
+        <h2>Gradients with an image mask</h2>
+        <p>
+          Gradients with an image mask to create a gradient animation under a shape.<br>
+          Look at the logo on the left of the header.
+        </p>
+        <div class="sandbox canvas-image-wrapper">
+          <div class="bloc-logo">
+            <canvas id="canvas-image-mask"></canvas><a class="logo-mask" href="index.html">Granim.js</a>
+          </div>
+        </div>
+        <div class="code-wrapper">
+          <ul class="tab-titles">
+            <li class="active"><a href="#image-mask-js" data-toggle="tab">JS</a></li>
+            <li><a href="#image-mask-html" data-toggle="tab">HTML</a></li>
+            <li><a href="#image-mask-css" data-toggle="tab">CSS</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab active" id="image-mask-js" data-toggle="pill">
+              <pre><code class="language-js">var granimInstance = new Granim({
+    element: '#logo-canvas',
+    direction: 'left-right',
+    opacity: [1, 1],
+    states : {
+        "default-state": {
+            gradients: [
+                ['#EB3349', '#F45C43'],
+                ['#FF8008', '#FFC837'],
+                ['#4CB8C4', '#3CD3AD'],
+                ['#24C6DC', '#514A9D'],
+                ['#FF512F', '#DD2476'],
+                ['#DA22FF', '#9733EE']
+            ],
+            transitionSpeed: 2000
+        }
+    }
+);</code></pre>
+            </div>
+            <div class="tab" id="image-mask-html" data-toggle="pill">
+              <pre><code class="language-html">&lt;div class=&quot;blov-logo&quot;&gt;
+    &lt;canvas id=&quot;canvas-basic&quot;&gt;&lt;/canvas&gt;
+    &lt;a href=&quot;index.html&quot; class=&quot;logo-mask&quot;&gt;Granim.js&lt;/a&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+            <div class="tab" id="image-mask-css" data-toggle="pill">
+              <pre><code class="language-css">.bloc-logo {
+    position: relative;
+    width: 130px;
+    height: 49px;
+    float: left;
+}
+<br>
+.bloc-logo canvas,
+.bloc-logo .logo-mask {
+    display: block;
+    width: 130px;
+    height: 49px;
+}
+<br>
+.bloc-logo .logo-mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-size: 130px;
+    background-image: url("../img/logo-mask.png");
+    text-indent: -9999px;
+}</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container bloc">
+        <h2>Interactive Gradients</h2>
+        <p>Create a gradients animation that responds to events.</p>
+        <div class="sandbox canvas-interactive-wrapper">
+          <canvas id="canvas-interactive"></canvas>
+          <div class="cta-wrapper"><a class="active" id="default-state-cta" href="#default-state">Default state</a><a id="violet-state-cta" href="#violet-state">Violet animated state</a><a id="orange-state-cta" href="#orange-state">Orange static state</a></div>
+        </div>
+        <div class="code-wrapper">
+          <ul class="tab-titles">
+            <li class="active"><a href="#interactive-js" data-toggle="tab">JS</a></li>
+            <li><a href="#interactive-html" data-toggle="tab">HTML</a></li>
+            <li><a href="#interactive-css" data-toggle="tab">CSS</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab active" id="interactive-js" data-toggle="pill">
+              <pre><code class="language-js">var granimInstance = new Granim({
+	element: '#canvas-interactive',
+	name: 'interactive-gradient',
+	elToSetClassOn: '.canvas-interactive-wrapper',
+	direction: 'diagonal',
+	opacity: [1, 1],
+	isPausedWhenNotInView: true,
+	stateTransitionSpeed: 500,
+	states : {
+		"default-state": {
+			gradients: [
+				['#B3FFAB', '#12FFF7'],
+				['#ADD100', '#7B920A'],
+				['#1A2980', '#26D0CE']
+			],
+			transitionSpeed: 10000
+		},
+		"violet-state": {
+			gradients: [
+				['#9D50BB', '#6E48AA'],
+				['#4776E6', '#8E54E9']
+			],
+			transitionSpeed: 2000
+		},
+		"orange-state": {
+			gradients: [ ['#FF4E50', '#F9D423'] ],
+			loop: false
+		}
+	}
+});
+<br>
+$('#default-state-cta').on('click', function(event) {
+    event.preventDefault();
+    granimInstance.changeState('default-state');
+    setClass('#default-state-cta')
+});
+$('#violet-state-cta').on('click', function(event) {
+    event.preventDefault();
+    granimInstance.changeState('violet-state');
+    setClass('#violet-state-cta')
+});
+$('#orange-state-cta').on('click', function(event) {
+    event.preventDefault();
+    granimInstance.changeState('orange-state');
+    setClass('#orange-state-cta')
+});
+<br>
+function setClass(element) {
+    $('.canvas-interactive-wrapper a').removeClass('active');
+    $(element).addClass('active');
+}</code></pre>
+            </div>
+            <div class="tab" id="interactive-html" data-toggle="pill">
+              <pre><code class="language-html">&lt;div class=&quot;canvas-interactive-wrapper&quot;&gt;
+    &lt;canvas id=&quot;canvas-interactive&quot;&gt;&lt;/canvas&gt;
+    &lt;div class=&quot;cta-wrapper&quot;&gt;
+        &lt;a href=&quot;#default-state&quot; id=&quot;default-state-cta&quot; class=&quot;active&quot;&gt;Default state&lt;/a&gt;
+        &lt;a href=&quot;#violet-state&quot; id=&quot;violet-state-cta&quot; class=&quot;active&quot;&gt;Violet state&lt;/a&gt;
+        &lt;a href=&quot;#orange-state&quot; id=&quot;orange-state-cta&quot; class=&quot;active&quot;&gt;Orange state&lt;/a&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+            <div class="tab" id="interactive-css" data-toggle="pill">
+              <pre><code class="language-css">.canvas-interactive-wrapper {
+    position: relative
+    height: 300px;
+    text-align: center;
+}
+<br>
+.canvas-interactive-wrapper canvas {
+   position: absolute;
+   display: block;
+   width: 100%;
+   height: 100%;
+   top: 0;
+   right: 0;
+   bottom: 0;
+   left: 0;
+}
+<br>
+.canvas-interactive-wrapper .cta-wrapper {
+    margin-top: 130px;
+}
+<br>
+.canvas-interactive-wrapper .cta-wrapper a {
+    position: relative;
+    display: inline-block;
+    padding: 3px 7px;
+    border: solid 1px transparent;
+    margin-right: 50px;
+    z-index: 1;
+    text-decoration: none;
+    color: #222;
+    transition: border .3s;
+}
+<br>
+.canvas-interactive-wrapper .cta-wrapper a.active {
+    font-weight: bold;
+    border-color: #222;
+}</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer container bloc clearfix">
+        <p>
+          Created by <a href="https://twitter.com/Sarcadass" target="_blank">@Sarcadass</a>.<br>
+          Thanks to <a href="https://twitter.com/designcouch" target="_blank">@designcouch</a>
+          for the <a href="https://codepen.io/designcouch/pen/Atyop" target="_blank">hamburger icon</a>.
+          Inspired by <a href="http://uigradients.com/" target="_blank">uiGradients</a>.
+        </p>
+        <div class="bloc-social"><a class="cta-social cta-facebook" href="http://www.facebook.com/sharer.php?u=http://sarcadass.github.io/granim.js" target="_blank">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+<path d="M8,5.333H6V8h2v8h3.334V8h2.428L14,5.333h-2.666V4.222c0-0.637,0.127-0.889,0.742-0.889H14V0h-2.539
+	C9.064,0,8,1.055,8,3.077V5.333z"/>
+</svg>
+            Share on Facebook</a><a class="cta-social cta-twitter" href="https://twitter.com/share?text=Create%20fluid%20and%20interactive%20gradients%20animations%20with%20this%20small%20%28&lt;%2010kB%29%20.js%20library&amp;via=Sarcadass&amp;url=http%3A%2F%2Fsarcadass.github.io%2Fgranim.js" target="_blank">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+<path d="M16,3.538c-0.588,0.261-1.221,0.437-1.885,0.516c0.677-0.406,1.198-1.049,1.442-1.816c-0.634,0.376-1.337,0.65-2.084,0.797
+	c-0.599-0.638-1.452-1.037-2.396-1.037c-2.119,0-3.676,1.977-3.198,4.03c-2.727-0.137-5.146-1.444-6.765-3.43
+	c-0.86,1.475-0.446,3.405,1.016,4.383C1.592,6.964,1.085,6.817,0.644,6.571C0.607,8.092,1.698,9.514,3.276,9.83
+	C2.814,9.956,2.308,9.985,1.793,9.887C2.21,11.19,3.422,12.14,4.86,12.166c-1.38,1.082-3.119,1.565-4.86,1.36
+	C1.453,14.458,3.179,15,5.032,15c6.094,0,9.539-5.146,9.33-9.763C15.003,4.774,15.561,4.195,16,3.538z"/>
+</svg>
+            Share on Twitter</a></div>
+      </div>
+    </div>
+    <script src="assets/js/vendor/jquery-3.1.0.min.js"></script>
+    <script src="assets/js/vendor/granim.min.js"></script>
+    <script src="assets/js/vendor/prism.js"></script>
+    <script src="assets/js/vendor/bootstrap.min.js"></script>
+    <script type="text/javascript">var pageId = 'examples';</script>
+    <script src="assets/js/script.js"></script>
+    <script type="text/javascript">
+      (function(i, s, o, g, r, a, m) {
+          i['GoogleAnalyticsObject'] = r;
+          i[r] = i[r] || function() {
+                      (i[r].q = i[r].q || []).push(arguments)
+                  }, i[r].l = 1 * new Date();
+          a = s.createElement(o),
+                  m = s.getElementsByTagName(o)[0];
+          a.async = 1;
+          a.src = g;
+          m.parentNode.insertBefore(a, m)
+      })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+      ga('create', 'UA-83387901-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </body>
+</html>

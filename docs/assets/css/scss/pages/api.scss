@@ -1,0 +1,79 @@
+/*
+	API Page
+*/
+
+body.api {
+	padding-top: 50px;
+}
+
+table.api-list {
+	width: 100%;
+	text-align: left;
+	border-spacing: 0;
+	@include tab-desk {margin-top: 30px}
+
+	tr:last-child td {border-bottom: none}
+
+	th {text-align: left}
+
+	td {
+		padding-top: 15px;
+		vertical-align: top;
+		line-height: 1.3;
+
+		@include tab-desk {
+			padding-bottom: 15px;
+			border-bottom: solid 1px #ddd;
+		}
+		&:nth-child(1) {
+			color: #1abc9c;
+			font-weight: bold;
+		}
+		@include tab-desk {
+			&:nth-child(1) {width: 20%}
+			&:nth-child(2) {width: 15%}
+			&:nth-child(3) {width: 15%}
+			&:nth-child(4) {width: 50%}
+		}
+
+		.required {
+			font-size: 12px;
+			font-weight: normal;
+			color: #a9a9a9;
+			vertical-align: middle;
+		}
+	}
+
+	ul {
+		padding-left: 30px;
+		margin: 7px 0;
+
+		li {
+			margin-bottom: 5px;
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+
+	@include mob {
+		thead {display: none}
+
+		tr {
+			display: block;
+			padding-bottom: 15px;
+			border-bottom: solid 1px #ddd;
+			&:last-child {
+				border-bottom: none;
+			}
+		}
+
+		td {
+			display: block;
+			&:before {font-weight: bold}
+			&:nth-child(2):before {content: "Default: "}
+			&:nth-child(3):before {content: "Type: "}
+			&:nth-child(4):before {content: "Description: "}
+		}
+	}
+}
