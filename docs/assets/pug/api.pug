@@ -36,7 +36,7 @@ html(lang="en")
         .main-content
             .container.bloc
                 h1 API
-                h2 Options
+                h2 options
                 p All the global options available.
                 table.api-list
                     thead
@@ -58,7 +58,8 @@ html(lang="en")
                             td false
                             td String
                             td
-                                | This is the name used to add a  dark / light class on the body depending on the gradient lightness,
+                                | This is the prefix used for the dark / light class name added
+                                | on the <span class="snippet">options.elToSetClassOn</span> element depending on the average gradient lightness,
                                 | the class will be updated during the animation.
                                 | If you don't set a name, the class won't be set.
                         tr
@@ -67,7 +68,7 @@ html(lang="en")
                             td String
                             td
                                 | The element to set the dark / light class on (e.g. <span class="snippet">'#canvas-wrapper'</span>).
-                                | Is useful only if you set a <span class="snippet">name</span>.
+                                | Is useful only if you set a <span class="snippet">options.name</span>.
                         tr
                             td direction
                             td 'diagonal'
@@ -109,7 +110,7 @@ html(lang="en")
 
 
             .container.bloc
-                h2 States
+                h2 options.states
                 p
                     | All the options available to customize the states and
                     | the different gradients.<br>
@@ -211,8 +212,8 @@ html(lang="en")
                         | granimInstance.clear();
 
             .container.bloc
-                h2 Default configuration
-                p Default configuration with two states and callbacks set.
+                h2 Basic configuration
+                p Basic configuration with two states and callbacks set.
                 pre
                     code.language-js
                         | var granimInstance = new Granim({

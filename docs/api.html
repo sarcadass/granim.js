@@ -73,7 +73,7 @@
     <div class="main-content">
       <div class="container bloc">
         <h1>API</h1>
-        <h2>Options</h2>
+        <h2>options</h2>
         <p>All the global options available.</p>
         <table class="api-list">
           <thead>
@@ -99,7 +99,8 @@
               <td>false</td>
               <td>String</td>
               <td>
-                This is the name used to add a  dark / light class on the body depending on the gradient lightness,
+                This is the prefix used for the dark / light class name added
+                on the <span class="snippet">options.elToSetClassOn</span> element depending on the average gradient lightness,
                 the class will be updated during the animation.
                 If you don't set a name, the class won't be set.
               </td>
@@ -110,7 +111,7 @@
               <td>String</td>
               <td>
                 The element to set the dark / light class on (e.g. <span class="snippet">'#canvas-wrapper'</span>).
-                Is useful only if you set a <span class="snippet">name</span>.
+                Is useful only if you set a <span class="snippet">options.name</span>.
               </td>
             </tr>
             <tr>
@@ -161,7 +162,7 @@
         </table>
       </div>
       <div class="container bloc">
-        <h2>States</h2>
+        <h2>options.states</h2>
         <p>
           All the options available to customize the states and
           the different gradients.<br>
@@ -274,8 +275,8 @@ granimInstance.pause();
 granimInstance.clear();</code></pre>
       </div>
       <div class="container bloc">
-        <h2>Default configuration</h2>
-        <p>Default configuration with two states and callbacks set.</p>
+        <h2>Basic configuration</h2>
+        <p>Basic configuration with two states and callbacks set.</p>
         <pre><code class="language-js">var granimInstance = new Granim({
    element: '',
    name: 'granim',
