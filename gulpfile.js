@@ -18,7 +18,7 @@ var gulp = require('gulp'),
 
 // LIB
 gulp.task('build', function() {
-	return browserify({ entries: './lib/Granim.js', debug: isSourcemaps }).bundle()
+	return browserify({ entries: 'standalone.js', debug: isSourcemaps }).bundle()
 		.pipe(source('./granim.js'))
 		.pipe(buffer())
 		.pipe(gulpif(!isSourcemaps, header('/*! Granim v' + appVersion + ' */\n')))

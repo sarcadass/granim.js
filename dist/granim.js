@@ -97,7 +97,7 @@ Granim.prototype.getCurrentColors = require('./getCurrentColors.js');
 
 Granim.prototype.pauseWhenNotInView = require('./pauseWhenNotInView.js');
 
-window.Granim = Granim;
+module.exports = Granim;
 
 },{"./animateColors.js":2,"./changeState.js":3,"./clear.js":4,"./colorDiff.js":5,"./eventPolyfill.js":6,"./getCurrentColors.js":7,"./getDimensions.js":8,"./getLightness.js":9,"./hexToRgb.js":10,"./makeGradient.js":11,"./pause.js":12,"./pauseWhenNotInView.js":13,"./play.js":14,"./refreshColors.js":15,"./setColors.js":16,"./setDirection.js":17}],2:[function(require,module,exports){
 'use strict';
@@ -535,4 +535,7 @@ module.exports = function() {
 	}
 };
 
-},{}]},{},[1]);
+},{}],18:[function(require,module,exports){
+window.Granim = require('./lib/Granim.js');
+
+},{"./lib/Granim.js":1}]},{},[18]);
