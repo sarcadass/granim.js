@@ -218,12 +218,17 @@ html(lang="en")
 
             .container.bloc
                 h2 Interactive Gradients
-                p Create a gradients animation that responds to events.
+                p
+                    | Create a gradients animation that responds to events.<br>
+                    | Click on the different states in the gradient animation to see the gradients change.
                 .sandbox.canvas-interactive-wrapper
-                        canvas#canvas-interactive
-                        .cta-wrapper
+                    canvas#canvas-interactive
+                    .cta-wrapper
+                        span
                             a#default-state-cta.active(href='#default-state') Default state
+                        span
                             a#violet-state-cta(href='#violet-state') Violet animated state
+                        span
                             a#orange-state-cta(href='#orange-state') Orange static state
                 .code-wrapper
                     ul.tab-titles
@@ -269,6 +274,7 @@ html(lang="en")
                                     | 	}
                                     | });
                                     | <br>
+                                    | // With jQuery
                                     | $('#default-state-cta').on('click', function(event) {
                                     |     event.preventDefault();
                                     |     granimInstance.changeState('default-state');
@@ -297,8 +303,8 @@ html(lang="en")
                                     = '    <canvas id="canvas-interactive"></canvas>\n'
                                     = '    <div class="cta-wrapper">\n'
                                     = '        <a href="#default-state" id="default-state-cta" class="active">Default state</a>\n'
-                                    = '        <a href="#violet-state" id="violet-state-cta" class="active">Violet state</a>\n'
-                                    = '        <a href="#orange-state" id="orange-state-cta" class="active">Orange state</a>\n'
+                                    = '        <a href="#violet-state" id="violet-state-cta">Violet state</a>\n'
+                                    = '        <a href="#orange-state" id="orange-state-cta">Orange state</a>\n'
                                     = '    </div>\n'
                                     = '</div>'
 
@@ -339,7 +345,6 @@ html(lang="en")
                                     | }
                                     | <br>
                                     | .canvas-interactive-wrapper .cta-wrapper a.active {
-                                    |     font-weight: bold;
                                     |     border-color: #222;
                                     | }
 

@@ -45,36 +45,42 @@ body.examples {
 	text-align: center;
 
 	.cta-wrapper {
-		margin-top: 130px;
-		a {
+		margin-top: 136px;
+
+		span {
 			position: relative;
 			display: inline-block;
-			padding: 3px 7px;
-			border: solid 1px transparent;
 			margin-right: 50px;
 			z-index: 1;
-			text-decoration: none;
-			color: #222;
-			transition: border .3s;
 			&:last-child {margin-right: 0}
-			&.active {
-				font-weight: bold;
-				border-color: #222;
-			}
-			@include desk {
-				&:hover {border-color: rgba(0,0,0,.25)}
+
+			a {
+				display: inline-block;
+				padding: 3px 7px;
+				border: solid 1px transparent;
+				text-decoration: none;
+				font-size: 17px;
+				color: #222;
+				transition: border .3s;
+				&.active {
+					border-color: #222;
+				}
+				@include desk {
+					&:hover {border-color: rgba(0,0,0,.25)}
+					&.active:hover {border-color: #222}
+				}
 			}
 		}
 
 		@include mob {
-			margin-top: 90px;
-			a {
+			margin-top: 91px;
+
+			span {
 				display: block;
-				border: none;
 				margin: 0 0 20px;
-				&:last-child {
-					margin-bottom: 0;
-				}
+				&:last-child {margin-bottom: 0}
+
+				a {font-size: 15px}
 			}
 		}
 	}

@@ -10,7 +10,7 @@ $lg: 1200px;
 	@media screen and (min-width: #{$sm}) and (max-width: #{$md - 1}) {@content}
 }
 @mixin desk {
-	@media screen and (min-width: #{$md}) {@content}
+	@media screen and (min-width: #{$sm + 1}) {@content}
 }
 @mixin desk-small {
 	@media screen and (min-width: #{$md}) and (max-width: #{$lg - 1}) {@content}

@@ -243,10 +243,13 @@
       </div>
       <div class="container bloc">
         <h2>Interactive Gradients</h2>
-        <p>Create a gradients animation that responds to events.</p>
+        <p>
+          Create a gradients animation that responds to events.<br>
+          Click on the different states in the gradient animation to see the gradients change.
+        </p>
         <div class="sandbox canvas-interactive-wrapper">
           <canvas id="canvas-interactive"></canvas>
-          <div class="cta-wrapper"><a class="active" id="default-state-cta" href="#default-state">Default state</a><a id="violet-state-cta" href="#violet-state">Violet animated state</a><a id="orange-state-cta" href="#orange-state">Orange static state</a></div>
+          <div class="cta-wrapper"><span><a class="active" id="default-state-cta" href="#default-state">Default state</a></span><span><a id="violet-state-cta" href="#violet-state">Violet animated state</a></span><span><a id="orange-state-cta" href="#orange-state">Orange static state</a></span></div>
         </div>
         <div class="code-wrapper">
           <ul class="tab-titles">
@@ -287,6 +290,7 @@
 	}
 });
 <br>
+// With jQuery
 $('#default-state-cta').on('click', function(event) {
     event.preventDefault();
     granimInstance.changeState('default-state');
@@ -313,8 +317,8 @@ function setClass(element) {
     &lt;canvas id=&quot;canvas-interactive&quot;&gt;&lt;/canvas&gt;
     &lt;div class=&quot;cta-wrapper&quot;&gt;
         &lt;a href=&quot;#default-state&quot; id=&quot;default-state-cta&quot; class=&quot;active&quot;&gt;Default state&lt;/a&gt;
-        &lt;a href=&quot;#violet-state&quot; id=&quot;violet-state-cta&quot; class=&quot;active&quot;&gt;Violet state&lt;/a&gt;
-        &lt;a href=&quot;#orange-state&quot; id=&quot;orange-state-cta&quot; class=&quot;active&quot;&gt;Orange state&lt;/a&gt;
+        &lt;a href=&quot;#violet-state&quot; id=&quot;violet-state-cta&quot;&gt;Violet state&lt;/a&gt;
+        &lt;a href=&quot;#orange-state&quot; id=&quot;orange-state-cta&quot;&gt;Orange state&lt;/a&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
             </div>
@@ -353,7 +357,6 @@ function setClass(element) {
 }
 <br>
 .canvas-interactive-wrapper .cta-wrapper a.active {
-    font-weight: bold;
     border-color: #222;
 }</code></pre>
             </div>
