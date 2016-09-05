@@ -1,6 +1,6 @@
 {
   "name": "granim",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Create fluid and interactive gradients animations with this small js library.",
   "main": "index.js",
   "scripts": {
