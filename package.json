@@ -6,6 +6,13 @@
   "scripts": {
     "start": "cd docs/ && node server.js"
   },
+  "bugs": {
+    "url": "https://github.com/sarcadass/granim.js/issues"
+  },
+  "repository": {
+    "type" : "git",
+    "url": "https://github.com/sarcadass/granim.js"
+  },
   "httpPort": 8080,
   "keywords": [
     "gradient",
