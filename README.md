@@ -7,7 +7,7 @@ Create fluid and interactive gradients animations with this small (< 10 kB) js l
 
 ### From npm
 
-Run `npm install granim --save`
+* Run `npm install granim --save`
 
 ### Static
 
@@ -30,7 +30,7 @@ var granimInstance = new Granim({
    states : {
        "default-state": {
            gradients: [
-               ['#834d9b', '#d04ed6'],
+               ['#834D9B', '#D04ED6'],
                ['#1CD8D2', '#93EDC7']
            ]
        }
