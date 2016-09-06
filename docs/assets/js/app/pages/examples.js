@@ -8,6 +8,7 @@ module.exports = {
 	examples: {
 		init: function() {
 			this.basic();
+			this.radial();
 			this.image();
 			this.imageMask();
 			this.interactive();
@@ -26,6 +27,25 @@ module.exports = {
 							['#AA076B', '#61045F'],
 							['#02AAB0', '#00CDAC'],
 							['#DA22FF', '#9733EE']
+						]
+					}
+				}
+			});
+		},
+
+		radial: function() {
+			var animation = new Granim({
+				element: '#canvas-radial',
+				name: 'radial-gradient',
+				direction: 'radial',
+				opacity: [1, 1],
+				isPausedWhenNotInView: true,
+				states : {
+					"default-state": {
+						gradients: [
+							['#EEEEEE', '#000000'],
+							['#EEEEEE', '#00CDAC'],
+							['#EEEEEE', '#9733EE']
 						]
 					}
 				}
