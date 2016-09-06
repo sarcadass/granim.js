@@ -121,6 +121,54 @@
         </div>
       </div>
       <div class="container bloc">
+        <h2>Radial gradients animation</h2>
+        <p>Radial gradients animation with 3 gradients in queue composed of 2 colors.</p>
+        <div class="sandbox">
+          <canvas id="canvas-radial"></canvas>
+        </div>
+        <div class="code-wrapper">
+          <ul class="tab-titles">
+            <li class="active"><a href="#radial-js" data-toggle="tab">JS</a></li>
+            <li><a href="#radial-html" data-toggle="tab">HTML</a></li>
+            <li><a href="#radial-css" data-toggle="tab">CSS</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab active" id="radial-js" data-toggle="pill">
+              <pre><code class="language-js">var granimInstance = new Granim({
+    element: '#canvas-radial',
+    name: 'radial-gradient',
+    direction: 'radial',
+    opacity: [1, 1],
+    isPausedWhenNotInView: true,
+    states : {
+      "default-state": {
+          gradients: [
+              ['#ffb347', '#ffcc33'],
+              ['#83a4d4', '#b6fbff'],
+              ['#9D50BB', '#6E48AA']
+          ]
+    }
+});</code></pre>
+            </div>
+            <div class="tab" id="radial-html" data-toggle="pill">
+              <pre><code class="language-html">&lt;canvas id=&quot;canvas-radial&quot;&gt;&lt;/canvas&gt;</code></pre>
+            </div>
+            <div class="tab" id="radial-css" data-toggle="pill">
+              <pre><code class="language-css">#canvas-radial {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container bloc">
         <h2>Gradients with an image</h2>
         <p>Gradients with 3 colors, different opacity and a background image.</p>
         <div class="sandbox">

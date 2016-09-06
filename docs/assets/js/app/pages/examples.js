@@ -43,9 +43,9 @@ module.exports = {
 				states : {
 					"default-state": {
 						gradients: [
-							['#EEEEEE', '#000000'],
-							['#EEEEEE', '#00CDAC'],
-							['#EEEEEE', '#9733EE']
+							['#ffb347', '#ffcc33'],
+							['#83a4d4', '#b6fbff'],
+							['#9D50BB', '#6E48AA']
 						]
 					}
 				}
