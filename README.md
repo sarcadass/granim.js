@@ -35,6 +35,6 @@ var granimInstance = new Granim({
            ]
        }
    }
-);
+});
 </script>
 ```
