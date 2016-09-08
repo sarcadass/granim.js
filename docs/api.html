@@ -154,6 +154,12 @@
               <td>Duration of the animation when changing state.</td>
             </tr>
             <tr>
+              <td>defaultStateName</td>
+              <td>'default-state'</td>
+              <td>String</td>
+              <td>The name of the default state.</td>
+            </tr>
+            <tr>
               <td>states <span class="required">(required)</span></td>
               <td>/</td>
               <td>Object</td>
@@ -168,7 +174,7 @@
           All the options available to customize the states and
           the different gradients.<br>
           Create a state with the name you want then add these parameters.<br>
-          Your first state should be named <strong>"default-state"</strong>.
+          By default, the name of your first state is <span class="snippet">'default-state'</span>, you can change it with <span class="snippet">options.defaultStateName</span>.
         </p>
         <table class="api-list">
           <thead>

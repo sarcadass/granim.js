@@ -105,6 +105,11 @@ html(lang="en")
                             td Int
                             td Duration of the animation when changing state.
                         tr
+                            td defaultStateName
+                            td 'default-state'
+                            td String
+                            td The name of the default state.
+                        tr
                             td states <span class="required">(required)</span>
                             td /
                             td Object
@@ -117,7 +122,7 @@ html(lang="en")
                     | All the options available to customize the states and
                     | the different gradients.<br>
                     | Create a state with the name you want then add these parameters.<br>
-                    | Your first state should be named <strong>"default-state"</strong>.
+                    | By default, the name of your first state is <span class="snippet">'default-state'</span>, you can change it with <span class="snippet">options.defaultStateName</span>.
                 table.api-list
                     thead
                         tr
