@@ -279,43 +279,40 @@ granimInstance.clear();</code></pre>
         <h2>Basic configuration</h2>
         <p>Basic configuration with two states and callbacks set.</p>
         <pre><code class="language-js">var granimInstance = new Granim({
-   element: '',
-   name: 'granim',
-   elToSetClassOn: 'body',
-   direction: 'diagonal',
-   isPausedWhenNotInView: false,
-   opacity: [1, 1],
-   stateTransitionSpeed: 1000,
-   states : {
-       "default-state": {
-           gradients: [
-               ['#834d9b', '#d04ed6'],
-               ['#1CD8D2', '#93EDC7']
-           ],
-           transitionSpeed: 5000,
-           loop: true
-       },
-       "dark-state": {
-           gradients: [
-               ['#757F9A', '#D7DDE8'],
-               ['#5C258D', '#4389A2']
-           ],
-           transitionSpeed: 5000,
-           loop: true
-       }
-   },
-<br>
+    element: '',
+    name: 'granim',
+    elToSetClassOn: 'body',
+    direction: 'diagonal',
+    isPausedWhenNotInView: false,
+    opacity: [1, 1],
+    stateTransitionSpeed: 1000,
+    states : {
+        "default-state": {
+            gradients: [
+                ['#834d9b', '#d04ed6'],
+                ['#1CD8D2', '#93EDC7']
+            ],
+            transitionSpeed: 5000,
+            loop: true
+        },
+        "dark-state": {
+            gradients: [
+                ['#757F9A', '#D7DDE8'],
+                ['#5C258D', '#4389A2']
+            ],
+            transitionSpeed: 5000,
+            loop: true
+        }
+    },
     onStart: function() {
-       console.log('Granim: onStart');
+        console.log('Granim: onStart');
     },
-<br>
     onGradientChange: function(colorDetails) {
-       console.log('Granim: onGradientChange, details: ');
-       console.log(colorDetails);
+        console.log('Granim: onGradientChange, details: ');
+        console.log(colorDetails);
     },
-<br>
     onEnd: function() {
-       console.log('Granim: onEnd');
+        console.log('Granim: onEnd');
     }
 );</code></pre>
         <p>
@@ -325,31 +322,31 @@ granimInstance.clear();</code></pre>
           <strong>adapt the opacity</strong>.
         </p>
         <pre><code class="language-js">var granimInstance = new Granim({
-   element: '',
-   name: 'granim',
-   elToSetClassOn: 'body',
-   direction: 'diagonal',
-   isPausedWhenNotInView: false,
-   opacity: [1, 1, .5, 1],
-   stateTransitionSpeed: 1000,
-   states : {
-       "default-state": {
-           gradients: [
-               ['#834d9b', '#d04ed6', '#1CD8D2', '#93EDC7'],
-               ['#1CD8D2', '#93EDC7', '#757F9A', '#4389A2']
-           ],
-           transitionSpeed: 5000,
-           loop: true
-       },
-       "dark-state": {
-           gradients: [
-               ['#757F9A', '#D7DDE8', '#1CD8D2', '#93EDC7'],
-               ['#5C258D', '#4389A2', '#1CD8D2', '#93EDC7']
-           ],
-           transitionSpeed: 5000,
-           loop: true
-       }
-   }
+    element: '',
+    name: 'granim',
+    elToSetClassOn: 'body',
+    direction: 'diagonal',
+    isPausedWhenNotInView: false,
+    opacity: [1, 1, .5, 1],
+    stateTransitionSpeed: 1000,
+    states : {
+        "default-state": {
+            gradients: [
+                ['#834d9b', '#d04ed6', '#1CD8D2', '#93EDC7'],
+                ['#1CD8D2', '#93EDC7', '#757F9A', '#4389A2']
+            ],
+            transitionSpeed: 5000,
+            loop: true
+        },
+        "dark-state": {
+            gradients: [
+                ['#757F9A', '#D7DDE8', '#1CD8D2', '#93EDC7'],
+                ['#5C258D', '#4389A2', '#1CD8D2', '#93EDC7']
+            ],
+            transitionSpeed: 5000,
+            loop: true
+        }
+    }
 );</code></pre>
       </div>
       <div class="footer container bloc clearfix">

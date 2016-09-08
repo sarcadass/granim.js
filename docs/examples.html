@@ -93,13 +93,13 @@
     opacity: [1, 1],
     isPausedWhenNotInView: true,
     states : {
-      "default-state": {
-          gradients: [
-              ['#AA076B', '#61045F'],
-              ['#02AAB0', '#00CDAC'],
-              ['#DA22FF', '#9733EE']
-          ]
-      }
+        "default-state": {
+            gradients: [
+                ['#AA076B', '#61045F'],
+                ['#02AAB0', '#00CDAC'],
+                ['#DA22FF', '#9733EE']
+            ]
+        }
     }
 });</code></pre>
             </div>
@@ -142,13 +142,13 @@
     opacity: [1, 1],
     isPausedWhenNotInView: true,
     states : {
-      "default-state": {
-          gradients: [
-              ['#ffb347', '#ffcc33'],
-              ['#83a4d4', '#b6fbff'],
-              ['#9D50BB', '#6E48AA']
-          ]
-      }
+        "default-state": {
+            gradients: [
+                ['#ffb347', '#ffcc33'],
+                ['#83a4d4', '#b6fbff'],
+                ['#9D50BB', '#6E48AA']
+            ]
+        }
     }
 });</code></pre>
             </div>
@@ -310,34 +310,34 @@
           <div class="tab-content">
             <div class="tab active" id="interactive-js" data-toggle="pill">
               <pre><code class="language-js">var granimInstance = new Granim({
-	element: '#canvas-interactive',
-	name: 'interactive-gradient',
-	elToSetClassOn: '.canvas-interactive-wrapper',
-	direction: 'diagonal',
-	opacity: [1, 1],
-	isPausedWhenNotInView: true,
-	stateTransitionSpeed: 500,
-	states : {
-		"default-state": {
-			gradients: [
-				['#B3FFAB', '#12FFF7'],
-				['#ADD100', '#7B920A'],
-				['#1A2980', '#26D0CE']
-			],
-			transitionSpeed: 10000
-		},
-		"violet-state": {
-			gradients: [
-				['#9D50BB', '#6E48AA'],
-				['#4776E6', '#8E54E9']
-			],
-			transitionSpeed: 2000
-		},
-		"orange-state": {
-			gradients: [ ['#FF4E50', '#F9D423'] ],
-			loop: false
-		}
-	}
+    element: '#canvas-interactive',
+    name: 'interactive-gradient',
+    elToSetClassOn: '.canvas-interactive-wrapper',
+    direction: 'diagonal',
+    opacity: [1, 1],
+    isPausedWhenNotInView: true,
+    stateTransitionSpeed: 500,
+    states : {
+        "default-state": {
+            gradients: [
+                ['#B3FFAB', '#12FFF7'],
+                ['#ADD100', '#7B920A'],
+                ['#1A2980', '#26D0CE']
+            ],
+            transitionSpeed: 10000
+        },
+        "violet-state": {
+            gradients: [
+                ['#9D50BB', '#6E48AA'],
+                ['#4776E6', '#8E54E9']
+            ],
+            transitionSpeed: 2000
+        },
+        "orange-state": {
+            gradients: [ ['#FF4E50', '#F9D423'] ],
+            loop: false
+        }
+    }
 });
 <br>
 // With jQuery
@@ -360,7 +360,7 @@ $('#orange-state-cta').on('click', function(event) {
 function setClass(element) {
     $('.canvas-interactive-wrapper a').removeClass('active');
     $(element).addClass('active');
-}</code></pre>
+};</code></pre>
             </div>
             <div class="tab" id="interactive-html" data-toggle="pill">
               <pre><code class="language-html">&lt;div class=&quot;canvas-interactive-wrapper&quot;&gt;
@@ -380,14 +380,14 @@ function setClass(element) {
 }
 <br>
 .canvas-interactive-wrapper canvas {
-   position: absolute;
-   display: block;
-   width: 100%;
-   height: 100%;
-   top: 0;
-   right: 0;
-   bottom: 0;
-   left: 0;
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
 }
 <br>
 .canvas-interactive-wrapper .cta-wrapper {
