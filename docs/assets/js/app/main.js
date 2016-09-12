@@ -27,7 +27,11 @@ module.exports = {
 				}
 			});
 
-			$('.main-header .bloc-logo').fadeIn();
+			$('.main-header .bloc-logo').css({
+				display: 'none',
+				visibility: 'visible'
+			})
+				.fadeIn();
 		}, 500);
 	},
 

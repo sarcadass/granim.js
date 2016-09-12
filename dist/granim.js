@@ -1,4 +1,4 @@
-/*! Granim v1.0.31 */
+/*! Granim v1.0.31 - https://sarcadass.github.io/granim.js */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
@@ -52,13 +52,17 @@ function Granim(options) {
 		onEnd: typeof options.onEnd === 'function' ? options.onEnd : false
 	};
 
-	window.onresize = this.getDimensions.bind(this);
 	this.getDimensions();
-	if (this.isPausedWhenNotInView)
-		this.pauseWhenNotInView();
+	this.canvas.setAttribute('width', this.x1);
+	this.canvas.setAttribute('height', this.y1);
 	this.setColors();
 	this.refreshColors();
-	this.animation = requestAnimationFrame(this.animateColors.bind(this));
+	window.addEventListener('resize', this.onResize.bind(this));
+	if (this.isPausedWhenNotInView) {
+		this.pauseWhenNotInView();
+	} else {
+		this.animation = requestAnimationFrame(this.animateColors.bind(this));
+	}
 
 	// Callback and Event
 	if (this.callbacks.onStart) this.callbacks.onStart();
@@ -97,9 +101,11 @@ Granim.prototype.getCurrentColors = require('./getCurrentColors.js');
 
 Granim.prototype.pauseWhenNotInView = require('./pauseWhenNotInView.js');
 
+Granim.prototype.onResize = require('./onResize.js');
+
 module.exports = Granim;
 
-},{"./animateColors.js":2,"./changeState.js":3,"./clear.js":4,"./colorDiff.js":5,"./eventPolyfill.js":6,"./getCurrentColors.js":7,"./getDimensions.js":8,"./getLightness.js":9,"./hexToRgb.js":10,"./makeGradient.js":11,"./pause.js":12,"./pauseWhenNotInView.js":13,"./play.js":14,"./refreshColors.js":15,"./setColors.js":16,"./setDirection.js":17}],2:[function(require,module,exports){
+},{"./animateColors.js":2,"./changeState.js":3,"./clear.js":4,"./colorDiff.js":5,"./eventPolyfill.js":6,"./getCurrentColors.js":7,"./getDimensions.js":8,"./getLightness.js":9,"./hexToRgb.js":10,"./makeGradient.js":11,"./onResize.js":12,"./pause.js":13,"./pauseWhenNotInView.js":14,"./play.js":15,"./refreshColors.js":16,"./setColors.js":17,"./setDirection.js":18}],2:[function(require,module,exports){
 'use strict';
 
 module.exports = function(timestamp) {
@@ -285,8 +291,8 @@ module.exports = function() {
 'use strict';
 
 module.exports = function() {
-	this.x1 = this.canvas.width;
-	this.y1 = this.canvas.height;
+	this.x1 = this.canvas.offsetWidth;
+	this.y1 = this.canvas.offsetHeight;
 };
 
 },{}],9:[function(require,module,exports){
@@ -382,14 +388,24 @@ module.exports = function() {
 'use strict';
 
 module.exports = function() {
-	cancelAnimationFrame(this.animation);
+	this.getDimensions();
+	this.canvas.setAttribute('width', this.x1);
+	this.canvas.setAttribute('height', this.y1);
+	this.refreshColors();
 };
 
 },{}],13:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
-	var granim = this;
+	cancelAnimationFrame(this.animation);
+};
+
+},{}],14:[function(require,module,exports){
+'use strict';
+
+module.exports = function() {
+	var _this = this;
 	var timeout;
 
 	window.addEventListener('scroll', pauseWhenNotInView);
@@ -399,7 +415,7 @@ module.exports = function() {
 		if (timeout) clearTimeout(timeout);
 
 		timeout = setTimeout(function() {
-			var elPos = granim.canvas.getBoundingClientRect();
+			var elPos = _this.canvas.getBoundingClientRect();
 			var isNotInView =
 				elPos.bottom < 0 ||
 				elPos.right < 0 ||
@@ -407,29 +423,28 @@ module.exports = function() {
 				elPos.top > window.innerHeight;
 
 			if (isNotInView) {
-				if (!granim.isPaused && !granim.isPausedBecauseNotInView) {
-					granim.isPausedBecauseNotInView = true;
-					granim.pause();
+				if (!_this.isPaused && !_this.isPausedBecauseNotInView) {
+					_this.isPausedBecauseNotInView = true;
+					_this.pause();
 				}
 			} else {
-				if (granim.isPausedBecauseNotInView) {
-					granim.isPausedBecauseNotInView = false;
-					granim.play();
-
+				if (_this.isPausedBecauseNotInView) {
+					_this.isPausedBecauseNotInView = false;
+					_this.play();
 				}
 			}
 		}, 300);
 	}
 };
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
 	this.animation = requestAnimationFrame(this.animateColors.bind(this));
 };
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 'use strict';
 
 module.exports = function(progressPercent) {
@@ -451,7 +466,7 @@ module.exports = function(progressPercent) {
 	this.makeGradient();
 };
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -513,7 +528,7 @@ module.exports = function() {
 	this.iscurrentColorsSet = true;
 };
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -539,7 +554,7 @@ module.exports = function() {
 	}
 };
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 window.Granim = require('./lib/Granim.js');
 
-},{"./lib/Granim.js":1}]},{},[18]);
+},{"./lib/Granim.js":1}]},{},[19]);
