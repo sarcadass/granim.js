@@ -21,7 +21,7 @@ gulp.task('build', function() {
 	return browserify({ entries: 'standalone.js', debug: isSourcemaps }).bundle()
 		.pipe(source('./granim.js'))
 		.pipe(buffer())
-		.pipe(gulpif(!isSourcemaps, header('/*! Granim v' + appVersion + ' */\n')))
+		.pipe(gulpif(!isSourcemaps, header('/*! Granim v' + appVersion + ' - https://sarcadass.github.io/granim.js */\n')))
 		.pipe(gulp.dest('./dist/'));
 });
 
@@ -81,6 +81,6 @@ gulp.task('buildDoc', ['buildDoc:html', 'buildDoc:js', 'buildDoc:css']);
 
 gulp.task('watchDoc', ['buildDoc'], function() {
 	gulp.watch('./docs/assets/pug/**/*', ['buildDoc:html']);
-	gulp.watch('./docs/assets/js/**/*', ['buildDoc:js']);
-	gulp.watch('./docs/assets/css/**/*', ['buildDoc:css']);
+	gulp.watch('./docs/assets/js/app/**/*', ['buildDoc:js']);
+	gulp.watch('./docs/assets/css/scss/**/*', ['buildDoc:css']);
 });
