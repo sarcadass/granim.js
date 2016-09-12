@@ -11,11 +11,23 @@ and that it's easy for us to manage incoming PRs. In that interest -
 5. You can test your modifications with the `test/` folder
 6. Run `gulp` or `gulp watch` to build / watch the lib. Use `gulp buildDoc` or `gulp watchDoc` to build / watch the docs
 7. Run `npm start` and check `localhost:8080` to access the doc locally, everything should be working after your changes
-8. Commit and Push
+8. Commit the source and the builded files and Push
 9. Open a Pull Request
 
 I was thinking of setting browser-based tests with Selenium and [Sauce labs](https://saucelabs.com/).
 The details sent in the events and callback could be use to easily test the animations.
+
+### Before you commit
+
+* If you modified the lib:
+1. Run `gulp` and commit the modifications and the builded lib (`dist/granim.js`, `dist/granim.min.js`, `docs/assets/js/vendor/granim.min.js`).
+
+* If you modified the docs:
+1. Use the `docs/assets/pug/*.pug` to modify the HTML of the docs, and commit the .pug and .html builded file.
+2. For .js and .css modifications, commit the source and the builded files.
+
+**Pleas commit your modifications with clear message of what you change/add.
+The sources and the builded files should be in one commit** (not 2 separates commits). 
 
 ### Guidelines
 
