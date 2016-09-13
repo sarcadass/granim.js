@@ -1,4 +1,4 @@
-/*! Granim v1.0.4 - https://sarcadass.github.io/granim.js */
+/*! Granim v1.0.5 - https://sarcadass.github.io/granim.js */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
@@ -397,7 +397,9 @@ module.exports = function() {
 },{}],13:[function(require,module,exports){
 'use strict';
 
-module.exports = function() {
+module.exports = function(state) {
+	var isPausedBecauseNotInView = state === 'isPausedBecauseNotInView';
+	if (!isPausedBecauseNotInView) this.isPaused = true;
 	cancelAnimationFrame(this.animation);
 };
 
@@ -425,12 +427,12 @@ module.exports = function() {
 			if (isNotInView) {
 				if (!_this.isPaused && !_this.isPausedBecauseNotInView) {
 					_this.isPausedBecauseNotInView = true;
-					_this.pause();
+					_this.pause('isPausedBecauseNotInView');
 				}
 			} else {
-				if (_this.isPausedBecauseNotInView || init) {
+				if (!_this.isPaused || init === true) {
 					_this.isPausedBecauseNotInView = false;
-					_this.play();
+					_this.play('isPausedBecauseNotInView');
 				}
 			}
 		}, 300);
@@ -440,7 +442,9 @@ module.exports = function() {
 },{}],15:[function(require,module,exports){
 'use strict';
 
-module.exports = function() {
+module.exports = function(state) {
+	var isPausedBecauseNotInView = state === 'isPausedBecauseNotInView';
+	if (!isPausedBecauseNotInView) this.isPaused = false;
 	this.animation = requestAnimationFrame(this.animateColors.bind(this));
 };
 
