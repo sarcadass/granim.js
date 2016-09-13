@@ -409,9 +409,9 @@ module.exports = function() {
 	var timeout;
 
 	window.addEventListener('scroll', pauseWhenNotInView);
-	pauseWhenNotInView();
+	pauseWhenNotInView(true);
 
-	function pauseWhenNotInView() {
+	function pauseWhenNotInView(init) {
 		if (timeout) clearTimeout(timeout);
 
 		timeout = setTimeout(function() {
@@ -428,7 +428,7 @@ module.exports = function() {
 					_this.pause();
 				}
 			} else {
-				if (_this.isPausedBecauseNotInView) {
+				if (_this.isPausedBecauseNotInView || init) {
 					_this.isPausedBecauseNotInView = false;
 					_this.play();
 				}
