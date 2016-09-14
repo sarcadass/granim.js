@@ -1,5 +1,7 @@
+.DS_Store
 logs
 *.log
 npm-debug.log*
 .idea/
 node_modules/
+coverage/
