@@ -1,0 +1,6 @@
+language: nodej_s
+node_js:
+  - "stable"
+  - "6.1"
+  - "6"
+  - "5.11"
