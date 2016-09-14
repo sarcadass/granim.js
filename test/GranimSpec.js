@@ -6,3 +6,17 @@ describe('Prelim Checks: ', function(){
     expect(Granim).toEqual(jasmine.any(Function))
   })
 })
+
+describe('Granim Core: ', function(){
+  beforeEach(function(){
+    spyOn(console, 'error');
+  })
+
+  describe('Invalid options: ', function(){
+    this.func = function(){ return new Granim({element: '#granim-canvas'}) }
+
+    it('Granim throws error on invalid element', function(){
+      expect(this.func).toThrowError("#granim-canvas could not be found in the DOM")
+    }.bind(this))
+  })
+})
