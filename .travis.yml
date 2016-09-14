@@ -4,5 +4,7 @@ node_js:
   - "6.1"
   - "6"
   - "5.11"
+script:
+  - gulp && npm test
 after_success:
   - npm run codecov
