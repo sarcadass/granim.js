@@ -4,6 +4,10 @@
 
 function Granim(options) {
 	this.canvas = document.querySelector(options.element);
+	console.log(this.canvas);
+	if(!this.canvas){
+		throw new Error('`' + options.element + '` could not be found in the DOM');
+	}
 	this.x1 = 0;
 	this.y1 = 0;
 	this.name = options.name || false;

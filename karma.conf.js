@@ -40,7 +40,7 @@ module.exports = function(config) {
 
     coverageReporter: {
       reporters: [
-        {type: 'lcovonly', subdir: '.'},
+        {type: 'lcov', subdir: '.'},
         {type: 'text-summary'}
       ]
     },
