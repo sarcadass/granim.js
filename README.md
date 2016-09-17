@@ -1,4 +1,5 @@
-# Granim.js [![Build Status](https://travis-ci.org/sarcadass/granim.js.svg?branch=master)](https://travis-ci.org/sarcadass/granim.js)
+# Granim.js [![Build Status](https://travis-ci.org/sarcadass/granim.js.svg?branch=master)](https://travis-ci.org/sarcadass/granim.js) [![codecov](https://codecov.io/gh/sarcadass/granim.js/branch/master/graph/badge.svg)](https://codecov.io/gh/sarcadass/granim.js)
+
 Create fluid and interactive gradients animations with this small (< 10 kB) js library.
 
 **See the [demo site](http://sarcadass.github.io/granim.js)**.

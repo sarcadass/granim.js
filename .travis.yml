@@ -1,4 +1,4 @@
-language: nodej_s
+language: node_js
 node_js:
   - "stable"
   - "6.1"
