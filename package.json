@@ -21,6 +21,7 @@
     "animation"
   ],
   "author": "Benjamin Blonde",
+  "contributors": ["Pranay Prakash <pranay.gp@gmail.com> (http://pranay.gp)"],
   "license": "MIT",
   "devDependencies": {
     "browserify": "^13.0.1",
