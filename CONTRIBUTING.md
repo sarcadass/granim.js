@@ -19,7 +19,7 @@ and that it's easy for us to manage incoming PRs. In that interest -
 
 * If you modified the lib:
 1. Run `gulp` and commit the modifications and the built lib (`dist/granim.js`, `dist/granim.min.js`, `docs/assets/js/vendor/granim.min.js`)
-2.  Tun `npm test` to make sure you past test cases. Please add test cases for your new code
+2. Run `npm test` to make sure you past test cases. **Please add test cases** for your new code
 
 * If you modified the docs:
 1. Use the `docs/assets/pug/*.pug` to modify the HTML of the docs, and commit the .pug and .html built file

@@ -6,13 +6,17 @@ Create fluid and interactive gradients animations with this small (< 10 kB) js l
 
 ## Install
 
-### From npm
+### From NPM
 
 * Run `npm install granim --save`
 
+### From Bower
+
+* Run `bower install granim`
+
 ### Static
 
-* Download the script in the `dist/` folder
+* Download the latest version [in the release section](https://github.com/sarcadass/granim.js/releases)
 
 ## How to use
 ```html
