@@ -1,17 +1,9 @@
-/*! Granim v1.0.5 - https://sarcadass.github.io/granim.js */
+/*! Granim v1.0.6 - https://sarcadass.github.io/granim.js */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
 function Granim(options) {
-	if(options.element instanceof HTMLCanvasElement)
-		this.canvas = options.element
-	else if (typeof options.element === "string")
-		this.canvas = document.querySelector(options.element)
-	else
-		throw new Error('The element you used is neither a String, nor a HTMLCanvasElement');
-	if(!this.canvas){
-		throw new Error('`' + options.element + '` could not be found in the DOM');
-	}
+	this.getElement(options.element);
 	this.x1 = 0;
 	this.y1 = 0;
 	this.name = options.name || false;
@@ -24,6 +16,7 @@ function Granim(options) {
 	this.previousTimeStamp = null;
 	this.progress = 0;
 	this.isPaused = false;
+	this.isCleared = false;
 	this.isPausedBecauseNotInView = false;
 	this.iscurrentColorsSet = false;
 	this.context = this.canvas.getContext('2d');
@@ -91,6 +84,8 @@ Granim.prototype.makeGradient = require('./makeGradient.js');
 
 Granim.prototype.getDimensions = require('./getDimensions.js');
 
+Granim.prototype.getElement = require('./getElement.js');
+
 Granim.prototype.animateColors = require('./animateColors.js');
 
 Granim.prototype.getLightness = require('./getLightness.js');
@@ -113,7 +108,7 @@ Granim.prototype.onResize = require('./onResize.js');
 
 module.exports = Granim;
 
-},{"./animateColors.js":2,"./changeState.js":3,"./clear.js":4,"./colorDiff.js":5,"./eventPolyfill.js":6,"./getCurrentColors.js":7,"./getDimensions.js":8,"./getLightness.js":9,"./hexToRgb.js":10,"./makeGradient.js":11,"./onResize.js":12,"./pause.js":13,"./pauseWhenNotInView.js":14,"./play.js":15,"./refreshColors.js":16,"./setColors.js":17,"./setDirection.js":18}],2:[function(require,module,exports){
+},{"./animateColors.js":2,"./changeState.js":3,"./clear.js":4,"./colorDiff.js":5,"./eventPolyfill.js":6,"./getCurrentColors.js":7,"./getDimensions.js":8,"./getElement.js":9,"./getLightness.js":10,"./hexToRgb.js":11,"./makeGradient.js":12,"./onResize.js":13,"./pause.js":14,"./pauseWhenNotInView.js":15,"./play.js":16,"./refreshColors.js":17,"./setColors.js":18,"./setDirection.js":19}],2:[function(require,module,exports){
 'use strict';
 
 module.exports = function(timestamp) {
@@ -241,9 +236,16 @@ module.exports = function(state) {
 'use strict';
 
 module.exports = function() {
-	cancelAnimationFrame(this.animation);
+	if (!this.isPaused) {
+		cancelAnimationFrame(this.animation);
+
+	} else {
+		this.isPaused = false;
+	}
+	this.isCleared = true;
 	this.context.clearRect(0, 0, this.x1, this.y1);
 };
+
 },{}],5:[function(require,module,exports){
 'use strict';
 
@@ -306,6 +308,25 @@ module.exports = function() {
 },{}],9:[function(require,module,exports){
 'use strict';
 
+module.exports = function(element) {
+	if (element instanceof HTMLCanvasElement) {
+		this.canvas = element;
+
+	} else if (typeof element === "string") {
+		this.canvas = document.querySelector(element);
+
+	} else {
+		throw new Error('The element you used is neither a String, nor a HTMLCanvasElement');
+	}
+
+	if (!this.canvas) {
+		throw new Error('`' + element + '` could not be found in the DOM');
+	}
+};
+
+},{}],10:[function(require,module,exports){
+'use strict';
+
 module.exports = function() {
 	var currentColors = this.getCurrentColors();
 	var colorsAverage = [];
@@ -337,7 +358,7 @@ module.exports = function() {
 	return lightnessAverage >= 128 ? 'light' : 'dark';
 };
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 'use strict';
 
 module.exports = function(hex) {
@@ -355,7 +376,7 @@ module.exports = function(hex) {
 	] : null;
 };
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -392,7 +413,7 @@ module.exports = function() {
 	this.context.fillRect(0, 0, this.x1, this.y1);
 };
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -402,16 +423,17 @@ module.exports = function() {
 	this.refreshColors();
 };
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 module.exports = function(state) {
 	var isPausedBecauseNotInView = state === 'isPausedBecauseNotInView';
+	if (this.isCleared) {return;}
 	if (!isPausedBecauseNotInView) this.isPaused = true;
 	cancelAnimationFrame(this.animation);
 };
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -447,16 +469,19 @@ module.exports = function() {
 	}
 };
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 'use strict';
 
 module.exports = function(state) {
 	var isPausedBecauseNotInView = state === 'isPausedBecauseNotInView';
-	if (!isPausedBecauseNotInView) this.isPaused = false;
+	if (!isPausedBecauseNotInView) {
+		this.isPaused = false;
+	}
+	this.isCleared = false;
 	this.animation = requestAnimationFrame(this.animateColors.bind(this));
 };
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 'use strict';
 
 module.exports = function(progressPercent) {
@@ -478,7 +503,7 @@ module.exports = function(progressPercent) {
 	this.makeGradient();
 };
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -540,7 +565,7 @@ module.exports = function() {
 	this.iscurrentColorsSet = true;
 };
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -566,7 +591,7 @@ module.exports = function() {
 	}
 };
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 window.Granim = require('./lib/Granim.js');
 
-},{"./lib/Granim.js":1}]},{},[19]);
+},{"./lib/Granim.js":1}]},{},[20]);
