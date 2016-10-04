@@ -18,6 +18,10 @@ Create fluid and interactive gradients animations with this small (< 10 kB) js l
 
 * Download the latest version [in the release section](https://github.com/sarcadass/granim.js/releases)
 
+### CDN
+
+* [https://www.jsdelivr.com/projects/granim.js](https://www.jsdelivr.com/projects/granim.js)
+
 ## How to use
 ```html
 <!-- Create a <canvas> element -->
