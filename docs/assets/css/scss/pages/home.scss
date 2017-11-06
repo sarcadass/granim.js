@@ -141,12 +141,12 @@ body.home {
 		padding: 10px;
 		bottom: 0;
 		left: 0;
-		line-height: 20px;
-		font-size: 14px;
+		line-height: 18px;
+		font-size: 12px;
 		text-align: right;
 		transition: color 1.5s;
 
-		strong {font-size: 16px}
+		strong {font-size: 14px}
 
 		a {
 			display: inline-block;
@@ -156,9 +156,10 @@ body.home {
 
 	@include mob {
 		#home-footer {
-			font-size: 12px;
+			font-size: 10px;
+			line-height: 16px;
 
-			strong {font-size: 14px}
+			strong {font-size: 12px}
 		}
 	}
 }
