@@ -8,7 +8,6 @@
 			height: 250vh;
 			margin: 0;
 		}
-
 		#granim-canvas {
 			display: block;
 			width: calc(100% - 100px);
@@ -20,14 +19,13 @@
 	</style>
 </head>
 <body>
-<canvas id="granim-canvas"></canvas>
-	<h3>1166x300</h3>
+	<canvas id="granim-canvas"></canvas>
 	<script src="../dist/granim.js"></script>
 	<script>
 		var granimInstance = new Granim({
 			element: '#granim-canvas',
 			direction: 'top-bottom',
-			opacity: [1, 1, 1],
+			opacity: [1, 1],
 			isPausedWhenNotInView: true,
 			image: {
 				source: 'img/800x200.jpg',

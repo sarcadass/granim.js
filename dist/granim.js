@@ -3,6 +3,7 @@
 'use strict';
 
 function Granim(options) {
+	var doesGradientUseOpacity;
 	this.getElement(options.element);
 	this.x1 = 0;
 	this.y1 = 0;
@@ -37,6 +38,9 @@ function Granim(options) {
 			blendingMode: options.image.blendingMode || false
 		};
 	}
+	doesGradientUseOpacity = this.opacity.map(function(el) {return el !== 1})
+		.indexOf(true) !== -1;
+	this.shouldClearCanvasOnEachFrame = !!this.image || doesGradientUseOpacity;
 	this.events = {
 		start: new CustomEvent('granim:start'),
 		end: new CustomEvent('granim:end'),
@@ -83,9 +87,9 @@ function Granim(options) {
 	this.canvas.dispatchEvent(this.events.start);
 }
 
-Granim.prototype.validateInput = require('./validateInput.js');
+Granim.prototype.onResize = require('./onResize.js');
 
-Granim.prototype.setColors = require('./setColors.js');
+Granim.prototype.validateInput = require('./validateInput.js');
 
 Granim.prototype.prepareImage = require('./prepareImage.js');
 
@@ -95,23 +99,25 @@ Granim.prototype.colorDiff = require('./colorDiff.js');
 
 Granim.prototype.hexToRgb = require('./hexToRgb.js');
 
+Granim.prototype.pauseWhenNotInView = require('./pauseWhenNotInView.js');
+
 Granim.prototype.setDirection = require('./setDirection.js');
 
-Granim.prototype.makeGradient = require('./makeGradient.js');
-
-Granim.prototype.getDimensions = require('./getDimensions.js');
+Granim.prototype.setColors = require('./setColors.js');
 
 Granim.prototype.getElement = require('./getElement.js');
 
-Granim.prototype.animateColors = require('./animateColors.js');
+Granim.prototype.getDimensions = require('./getDimensions.js');
 
 Granim.prototype.getLightness = require('./getLightness.js');
 
+Granim.prototype.getCurrentColors = require('./getCurrentColors.js');
+
+Granim.prototype.animateColors = require('./animateColors.js');
+
 Granim.prototype.refreshColors = require('./refreshColors.js');
 
-Granim.prototype.changeState = require('./changeState.js');
-
-Granim.prototype.changeBlendingMode = require('./changeBlendingMode.js');
+Granim.prototype.makeGradient = require('./makeGradient.js');
 
 Granim.prototype.pause = require('./pause.js');
 
@@ -119,11 +125,9 @@ Granim.prototype.play = require('./play.js');
 
 Granim.prototype.clear = require('./clear.js');
 
-Granim.prototype.getCurrentColors = require('./getCurrentColors.js');
+Granim.prototype.changeBlendingMode = require('./changeBlendingMode.js');
 
-Granim.prototype.pauseWhenNotInView = require('./pauseWhenNotInView.js');
-
-Granim.prototype.onResize = require('./onResize.js');
+Granim.prototype.changeState = require('./changeState.js');
 
 module.exports = Granim;
 
@@ -216,7 +220,8 @@ module.exports = function(timestamp) {
 'use strict';
 
 module.exports = function(newBlendingMode) {
-	this.image.blendingMode = newBlendingMode;
+	this.context.globalCompositeOperation =
+		this.image.blendingMode = newBlendingMode;
 };
 
 },{}],4:[function(require,module,exports){
@@ -308,18 +313,15 @@ module.exports = function() {
 'use strict';
 
 module.exports = function() {
-	var j;
+	var i, j;
 	var currentColors = [];
 
-	this.currentColors.forEach(function(el, i, arr) {
+	for (i = 0; i < this.currentColors.length; i++) {
 		currentColors.push([]);
+		for (j = 0; j < 3; j++) {currentColors[i].push(this.currentColors[i][j])}
+	}
 
-		for (j = 0; j < 3; j++) {
-			currentColors[i].push(el[j])
-		}
-	});
-
-	// Return a deep copy
+	// Return a deep copy of the current colors
 	return currentColors;
 };
 
@@ -355,23 +357,18 @@ module.exports = function(element) {
 
 module.exports = function() {
 	var currentColors = this.getCurrentColors();
-	var colorsAverage = [];
 	var gradientAverage = null;
-	var lightnessAverage;
-
-	currentColors.forEach(function(el, i, arr) {
+	var lightnessAverage, i;
+	var colorsAverage = currentColors.map(function(el) {
 		// Compute the average lightness of each color
 		// in the current gradient
-		colorsAverage.push(
-			Math.max(el[0], el[1], el[2])
-		)
+		return Math.max(el[0], el[1], el[2]);
 	});
 
-	colorsAverage.forEach(function(el, i, arr) {
+	for (i = 0; i < colorsAverage.length; i++) {
 		// Add all the average lightness of each color
 		gradientAverage = gradientAverage === null ?
-			el :
-			gradientAverage + el;
+			colorsAverage[i] : gradientAverage + colorsAverage[i];
 
 		if (i === colorsAverage.length - 1) {
 			// if it's the last lightness average
@@ -379,7 +376,7 @@ module.exports = function() {
 			// have the global average lightness
 			lightnessAverage = Math.round(gradientAverage / (i + 1));
 		}
-	});
+	}
 
 	return lightnessAverage >= 128 ? 'light' : 'dark';
 };
@@ -409,12 +406,11 @@ module.exports = function() {
 	var i, colorPosition;
 	var gradient = this.setDirection();
 	var elToSetClassOnClass = document.querySelector(this.elToSetClassOn).classList;
-	this.context.clearRect(0, 0, this.x1, this.y1);
+
+	if (this.shouldClearCanvasOnEachFrame) this.context.clearRect(0, 0, this.x1, this.y1);
 
 	if (this.image) {
-		if (this.image.blendingMode) {
-			this.context.globalCompositeOperation = this.image.blendingMode;
-		}
+
 		this.context.drawImage(
 			this.imageNode,
 			this.imagePosition.x,
@@ -426,7 +422,7 @@ module.exports = function() {
 
 	for (i = 0; i < this.currentColors.length; i++) {
 		// Ensure first and last position to be 0 and 100
-		!i ? colorPosition = 0 : colorPosition = ((1 / (this.currentColors.length - 1)) * i).toFixed(2);
+		colorPosition = !i ? 0 : ((1 / (this.currentColors.length - 1)) * i).toFixed(2);
 
 		gradient.addColorStop(colorPosition, 'rgba(' +
 			this.currentColors[i][0] + ', ' +
@@ -530,6 +526,10 @@ module.exports = function() {
 		this.imagePosition = { x: 0, y: 0, width: 0, height: 0};
 	}
 
+	if (this.image.blendingMode) {
+		this.context.globalCompositeOperation = this.image.blendingMode;
+	}
+
 	if (this.imageNode) {
 		setImagePosition();
 		return;
@@ -620,20 +620,23 @@ module.exports = function() {
 'use strict';
 
 module.exports = function(progressPercent) {
-	var activeChannel, j;
 	var _this = this;
+	var activeChannel, i, j;
 
-	this.activeColors.forEach(function(el, i, arr) {
+	// Loop through each colors of the active gradient
+	for (i = 0; i < this.activeColors.length; i++) {
+
+		// Generate RGB colors
 		for (j = 0; j < 3; j++) {
 			activeChannel = _this.activeColors[i][j] +
-				Math.ceil(_this.activeColorDiff[i][j] /
-					100 * progressPercent);
+				Math.ceil(_this.activeColorDiff[i][j] / 100 * progressPercent);
 
+			// Prevent colors values from going < 0 & > 255
 			if (activeChannel <= 255 && activeChannel >= 0) {
 				_this.currentColors[i][j] = activeChannel;
 			}
 		}
-	});
+	}
 
 	this.makeGradient();
 };
@@ -645,9 +648,7 @@ module.exports = function() {
 	var _this = this;
 	var colorDiff, nextColors;
 
-	if (!this.channels[this.activeState]) {
-		this.channels[this.activeState] = [];
-	}
+	if (!this.channels[this.activeState]) this.channels[this.activeState] = [];
 
 	// If the actual channel exist, reassign properties and exit
 	// (each channel is saved to prevent recomputing it each time)
@@ -665,7 +666,7 @@ module.exports = function() {
 	this.activeColorDiff = [];
 
 	// Go on each gradient of the current state
-	this.states[this.activeState].gradients[this.channelsIndex].forEach(function(color, i, arr) {
+	this.states[this.activeState].gradients[this.channelsIndex].forEach(function(color, i) {
 		// Push the hex color converted to rgb on the channel and the active color properties
 		var rgbColor = _this.hexToRgb(color);
 		var activeChannel = _this.channels[_this.activeState];
