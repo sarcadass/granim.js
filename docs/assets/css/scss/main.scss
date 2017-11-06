@@ -8,9 +8,7 @@ body {
 	color: #252525;
 }
 
-h1, h2, h3 {
-	color: #16a085;
-}
+h1, h2, h3 {color: #16a085}
 
 h1 {
 	font-size: 2.875em;
@@ -30,16 +28,35 @@ h2 {
 	clear: both;
 	height: 0;
 }
-* html .clearfix             { zoom: 1; } /* IE6 */
+* html .clearfix { zoom: 1; } /* IE6 */
 *:first-child+html .clearfix { zoom: 1; } /* IE7 */
 
 .snippet {
 	display: inline-block;
 	background-color: #eee;
 	padding: 2px 5px;
+	margin-bottom: 1px;
 	border-radius: 2px;
 	color: #444;
 	font-size: 15px;
+}
+
+.version {
+  display: inline-block;
+  padding: 2px 5px;
+  margin-left: 7px;
+  border-radius: 2px;
+  font-weight: bold;
+  font-size: 12px;
+  vertical-align: super;
+  background-color: #eee;
+  color: #444;
+}
+
+.link {
+	color: #3498db;
+	font-weight: bold;
+	text-decoration: none;
 }
 
 .container {
@@ -55,21 +72,24 @@ h2 {
 	@include mob {margin-bottom: 50px}
 }
 
+.bloc p {color: #444}
+
 .tab-titles {
 	list-style: none;
 	padding: 0;
-	margin: 0;
+	margin: 0 0 -2px;
 
 	li {
 		display: inline-block;
 		&.active {
 			background-color: #f5f2f0;
+			border-radius: 4px 4px 0 0;
 			a {font-weight: bold}
 		}
 
 		a {
 			display: inline-block;
-			padding: 10px 20px;
+			padding: 10px 20px 12px;
 			text-decoration: none;
 			color: #333;
 		}
@@ -78,18 +98,19 @@ h2 {
 
 .tab-content {
 	background-color: #f5f2f0;
+	border-radius: 4px;
 
 	.tab {
 		padding: 15px;
 		display: none;
-		&.active {display: block}
+		&.active {
+			display: block
+		}
 	}
 }
 
 @include mob{
-	pre {
-		font-size: 75%;
-	}
+	pre {font-size: 75%}
 }
 
 .cta-social {
@@ -105,18 +126,14 @@ h2 {
 		background-color: #3b5998;
 		transition: background .3s;
 		@include tab-desk {
-			&:hover {
-				background-color: lighten(#3b5998, 5%);
-			}
+			&:hover {background-color: lighten(#3b5998, 5%)}
 		}
 
 		svg {
 			position: absolute;
 			left: 7px;
 
-			path {
-				fill: #fff;
-			}
+			path {fill: #fff}
 		}
 	}
 	&.cta-twitter {
@@ -132,9 +149,7 @@ h2 {
 			position: absolute;
 			left: 7px;
 
-			path {
-				fill: #fff;
-			}
+			path {fill: #fff}
 		}
 	}
 }
@@ -152,10 +167,8 @@ a.github {
 
 	svg {
 		height: 25px;
+		&:hover path {fill: #1abc9c}
 
-		&:hover path {
-			fill: #1abc9c;
-		}
 		path {
 			fill: #888;
 			transition: fill .3s;

@@ -31,7 +31,8 @@
           <canvas id="logo-canvas"></canvas><a class="logo-mask" href="index.html">Granim.js</a>
         </div>
         <div class="main-nav">
-          <div class="hamburger-icon"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="hamburger-icon"><span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
           <nav>
             <ul class="clearfix">
               <li><a class="text" href="https://github.com/sarcadass/granim.js/releases" target="_blank" rel="external">Download</a></li>
@@ -165,14 +166,19 @@
               <td>Object</td>
               <td>Object containing all the states, see more info below.</td>
             </tr>
+            <tr>
+              <td>image<span class="version">v1.1.0</span></td>
+              <td>/</td>
+              <td>Object</td>
+              <td>Object containing image options, see more info below.</td>
+            </tr>
           </tbody>
         </table>
       </div>
       <div class="container bloc">
         <h2>options.states</h2>
         <p>
-          All the options available to customize the states and
-          the different gradients.<br>
+          All the options available to customize the states and the different gradients.<br>
           Create a state with the name you want then add these parameters.<br>
           By default, the name of your first state is <span class="snippet">'default-state'</span>, you can change it with <span class="snippet">options.defaultStateName</span>.
         </p>
@@ -208,6 +214,77 @@
               <td>true</td>
               <td>Boolean</td>
               <td>When the animation has arrived to the last gradient, does it repeat?</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="container bloc" id="options-image">
+        <h2>options.image<span class="version">v1.1.0</span></h2>
+        <p>
+          All the options available to customize the image.<br>
+          The blending Mode works only if you set an image and gradients.
+        </p>
+        <table class="api-list">
+          <thead>
+            <tr>
+              <th>Property</th>
+              <th>Default</th>
+              <th>Type</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>source <span class="required">(required)</span></td>
+              <td>/</td>
+              <td>String</td>
+              <td>
+                The source of your image,
+                e.g. <span class="snippet">'img/800x200.jpg'</span>.
+              </td>
+            </tr>
+            <tr>
+              <td>position</td>
+              <td>['center', 'center']</td>
+              <td>Array</td>
+              <td>
+                The position of your image in the canvas, represented as an <span class="snippet">[x, y]</span> array.<br>
+                Possible values for <span class="snippet">x</span>:
+                <ul>
+                  <li><span class="snippet">'left'</span></li>
+                  <li><span class="snippet">'center'</span></li>
+                  <li><span class="snippet">'right'</span></li>
+                </ul>Possible values for <span class="snippet">y</span>:
+                <ul>
+                  <li><span class="snippet">'top'</span></li>
+                  <li><span class="snippet">'center'</span></li>
+                  <li><span class="snippet">'bottom'</span></li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td>stretchMode</td>
+              <td>/</td>
+              <td>Array</td>
+              <td>
+                Does the image have to stretch ? This option is useful for liquid/responsive design.
+                Represented as an <span class="snippet">[x, y]</span> array.<br>
+                Possible values for <span class="snippet">x</span> and <span class="snippet">y</span>:
+                <ul>
+                  <li><span class="snippet">'stretch'</span></li>
+                  <li><span class="snippet">'stretch-if-smaller'</span></li>
+                  <li><span class="snippet">'stretch-if-bigger'</span></li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td>blendingMode</td>
+              <td>/</td>
+              <td>String</td>
+              <td>
+                How the image should blend with the gradient ?
+                You can see all the possible values on&nbsp;<a class="link" href="https://developer.mozilla.org/fr/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation" target="_blank">MDN</a>.
+              </td>
             </tr>
           </tbody>
         </table>
@@ -279,11 +356,14 @@ granimInstance.play();
 granimInstance.pause();
 <br>
 // Stop the animation and clear the gradient
-granimInstance.clear();</code></pre>
+granimInstance.clear();
+<br>
+// [v1.1.0] Change the blending mode (useful only if you use an image)
+granimInstance.changeBlendingMode('blending-mode-name');</code></pre>
       </div>
       <div class="container bloc">
-        <h2>Basic configuration</h2>
-        <p>Basic configuration with two states and callbacks set.</p>
+        <h2>Complete configuration</h2>
+        <p>Complete configuration with two states, an image and callbacks set.</p>
         <pre><code class="language-js">var granimInstance = new Granim({
     element: '',
     name: 'granim',
@@ -292,6 +372,12 @@ granimInstance.clear();</code></pre>
     isPausedWhenNotInView: false,
     opacity: [1, 1],
     stateTransitionSpeed: 1000,
+    image : {
+        source: '../assets/img/bg-forest.jpg',
+        position: ['center', 'bottom'],
+        stretchMode: ['stretch', 'stretch-if-bigger'],
+        blendingMode: 'multiply',
+    },
     states : {
         "default-state": {
             gradients: [
@@ -356,8 +442,7 @@ granimInstance.clear();</code></pre>
 );</code></pre>
       </div>
       <div class="footer container bloc clearfix">
-        <p>
-          Created by <a href="https://twitter.com/Sarcadass" target="_blank">@Sarcadass</a>,
+        <p><strong>Granim v<span>1.0.6</span></strong>. Created by Benjamin Blonde (<a href="https://twitter.com/Sarcadass" target="_blank">@Sarcadass</a>),
           MIT license.<br>
           Thanks to <a href="https://twitter.com/designcouch" target="_blank">@designcouch</a>
           for the <a href="https://codepen.io/designcouch/pen/Atyop" target="_blank">hamburger icon</a>.
@@ -386,15 +471,15 @@ granimInstance.clear();</code></pre>
     <script src="assets/js/script.js"></script>
     <script type="text/javascript">
       (function(i, s, o, g, r, a, m) {
-          i['GoogleAnalyticsObject'] = r;
-          i[r] = i[r] || function() {
-                      (i[r].q = i[r].q || []).push(arguments)
-                  }, i[r].l = 1 * new Date();
-          a = s.createElement(o),
-                  m = s.getElementsByTagName(o)[0];
-          a.async = 1;
-          a.src = g;
-          m.parentNode.insertBefore(a, m)
+      	i['GoogleAnalyticsObject'] = r;
+      	i[r] = i[r] || function() {
+      		(i[r].q = i[r].q || []).push(arguments)
+      	}, i[r].l = 1 * new Date();
+      	a = s.createElement(o),
+      	m = s.getElementsByTagName(o)[0];
+      	a.async = 1;
+      	a.src = g;
+      	m.parentNode.insertBefore(a, m)
       })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
       ga('create', 'UA-83387901-1', 'auto');
       ga('send', 'pageview');

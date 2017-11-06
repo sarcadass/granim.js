@@ -10,6 +10,8 @@ body.examples {
 	position: relative;
 	height: 300px;
 	border: solid 2px #eee;
+	border-radius: 4px;
+	background-color: #eee;
 
 	canvas {
 		position: absolute;
@@ -20,8 +22,25 @@ body.examples {
 		right: 0;
 		bottom: 0;
 		left: 0;
+		border-radius: 4px;
 	}
 }
+
+.sandbox-footer {
+	position: relative;
+  padding: 10px 20px;
+  background-color: #f5f2f0;
+	margin-top: -4px;
+	border-radius: 0 0 4px 4px;
+	z-index: 1;
+
+  span {
+		font-size: 14px;
+		font-weight: bold;
+  }
+}
+
+.sandbox-footer p {margin: 0}
 
 .code-wrapper {margin-top: 30px}
 

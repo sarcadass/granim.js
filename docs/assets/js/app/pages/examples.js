@@ -10,6 +10,7 @@ module.exports = {
 			this.basic();
 			this.radial();
 			this.image();
+			this.imageBlending();
 			this.imageMask();
 			this.interactive();
 		},
@@ -56,18 +57,50 @@ module.exports = {
 			var animation = new Granim({
 				element: '#canvas-image',
 				direction: 'top-bottom',
-				opacity: [1, .5, 0],
+				opacity: [.9, .3],
 				isPausedWhenNotInView: true,
 				states : {
 					"default-state": {
 						gradients: [
-							['#485563', '#29323c', '#29323c'],
-							['#556270', '#FF6B6B', '#FF6B6B']
+							['#29323c', '#485563'],
+							['#FF6B6B', '#556270'],
+							['#80d3fe', '#7ea0c4'],
+							['#f0ab51', '#eceba3']
 						],
-						transitionSpeed: 10000
+						transitionSpeed: 7000
 					}
 				}
 			});
+		},
+
+		imageBlending: function() {
+			var animation = new Granim({
+				element: '#canvas-image-blending',
+				direction: 'top-bottom',
+				opacity: [1, 1],
+				isPausedWhenNotInView: true,
+				image: {
+					source: '../assets/img/bg-forest.jpg',
+					position: ['center', 'center'],
+					stretchMode: ['stretch-if-smaller', 'stretch-if-bigger'],
+					blendingMode: 'multiply'
+				},
+				states : {
+					"default-state": {
+						gradients: [
+							['#29323c', '#485563'],
+							['#FF6B6B', '#556270'],
+							['#80d3fe', '#7ea0c4'],
+							['#f0ab51', '#eceba3']
+						],
+						transitionSpeed: 7000
+					}
+				}
+			});
+
+			$('#select-blending-mode').on('change', function() {
+				animation.changeBlendingMode($(this).val());
+			})
 		},
 
 		imageMask: function() {
