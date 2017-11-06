@@ -29,6 +29,14 @@ function Granim(options) {
 	this.activetransitionSpeed = null;
 	this.currentColors = [];
 	this.eventPolyfill();
+	if (options.image && options.image.source) {
+		this.image = {
+			source: options.image.source,
+			position: options.image.position || ['center', 'center'],
+			stretchMode: options.image.stretchMode || false,
+			blendingMode: options.image.blendingMode || false
+		};
+	}
 	this.events = {
 		start: new CustomEvent('granim:start'),
 		end: new CustomEvent('granim:end'),
@@ -52,16 +60,21 @@ function Granim(options) {
 			false,
 		onEnd: typeof options.onEnd === 'function' ? options.onEnd : false
 	};
-
 	this.getDimensions();
 	this.canvas.setAttribute('width', this.x1);
 	this.canvas.setAttribute('height', this.y1);
 	this.setColors();
-	this.refreshColors();
 	window.addEventListener('resize', this.onResize.bind(this));
+
+	if (this.image) {
+		this.validateInput('image');
+		this.prepareImage();
+	}
+
 	if (this.isPausedWhenNotInView) {
 		this.pauseWhenNotInView();
 	} else {
+		this.refreshColors();
 		this.animation = requestAnimationFrame(this.animateColors.bind(this));
 	}
 
@@ -70,7 +83,11 @@ function Granim(options) {
 	this.canvas.dispatchEvent(this.events.start);
 }
 
+Granim.prototype.validateInput = require('./validateInput.js');
+
 Granim.prototype.setColors = require('./setColors.js');
+
+Granim.prototype.prepareImage = require('./prepareImage.js');
 
 Granim.prototype.eventPolyfill = require('./eventPolyfill.js');
 
@@ -94,6 +111,8 @@ Granim.prototype.refreshColors = require('./refreshColors.js');
 
 Granim.prototype.changeState = require('./changeState.js');
 
+Granim.prototype.changeBlendingMode = require('./changeBlendingMode.js');
+
 Granim.prototype.pause = require('./pause.js');
 
 Granim.prototype.play = require('./play.js');
@@ -108,7 +127,7 @@ Granim.prototype.onResize = require('./onResize.js');
 
 module.exports = Granim;
 
-},{"./animateColors.js":2,"./changeState.js":3,"./clear.js":4,"./colorDiff.js":5,"./eventPolyfill.js":6,"./getCurrentColors.js":7,"./getDimensions.js":8,"./getElement.js":9,"./getLightness.js":10,"./hexToRgb.js":11,"./makeGradient.js":12,"./onResize.js":13,"./pause.js":14,"./pauseWhenNotInView.js":15,"./play.js":16,"./refreshColors.js":17,"./setColors.js":18,"./setDirection.js":19}],2:[function(require,module,exports){
+},{"./animateColors.js":2,"./changeBlendingMode.js":3,"./changeState.js":4,"./clear.js":5,"./colorDiff.js":6,"./eventPolyfill.js":7,"./getCurrentColors.js":8,"./getDimensions.js":9,"./getElement.js":10,"./getLightness.js":11,"./hexToRgb.js":12,"./makeGradient.js":13,"./onResize.js":14,"./pause.js":15,"./pauseWhenNotInView.js":16,"./play.js":17,"./prepareImage.js":18,"./refreshColors.js":19,"./setColors.js":20,"./setDirection.js":21,"./validateInput.js":22}],2:[function(require,module,exports){
 'use strict';
 
 module.exports = function(timestamp) {
@@ -196,6 +215,13 @@ module.exports = function(timestamp) {
 },{}],3:[function(require,module,exports){
 'use strict';
 
+module.exports = function(newBlendingMode) {
+	this.image.blendingMode = newBlendingMode;
+};
+
+},{}],4:[function(require,module,exports){
+'use strict';
+
 module.exports = function(state) {
 	var _this = this;
 	var nextColors, colorDiff;
@@ -232,7 +258,7 @@ module.exports = function(state) {
 	this.play();
 };
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -246,7 +272,7 @@ module.exports = function() {
 	this.context.clearRect(0, 0, this.x1, this.y1);
 };
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 'use strict';
 
 module.exports = function(colorA, colorB) {
@@ -260,7 +286,7 @@ module.exports = function(colorA, colorB) {
 	return colorDiff;
 };
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -278,7 +304,7 @@ module.exports = function() {
 	window.CustomEvent = CustomEvent;
 };
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -297,7 +323,7 @@ module.exports = function() {
 	return currentColors;
 };
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -305,7 +331,7 @@ module.exports = function() {
 	this.y1 = this.canvas.offsetHeight;
 };
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 'use strict';
 
 module.exports = function(element) {
@@ -324,7 +350,7 @@ module.exports = function(element) {
 	}
 };
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -358,7 +384,7 @@ module.exports = function() {
 	return lightnessAverage >= 128 ? 'light' : 'dark';
 };
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 
 module.exports = function(hex) {
@@ -376,15 +402,27 @@ module.exports = function(hex) {
 	] : null;
 };
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
-	var i;
+	var i, colorPosition;
 	var gradient = this.setDirection();
-	var colorPosition;
 	var elToSetClassOnClass = document.querySelector(this.elToSetClassOn).classList;
 	this.context.clearRect(0, 0, this.x1, this.y1);
+
+	if (this.image) {
+		if (this.image.blendingMode) {
+			this.context.globalCompositeOperation = this.image.blendingMode;
+		}
+		this.context.drawImage(
+			this.imageNode,
+			this.imagePosition.x,
+			this.imagePosition.y,
+			this.imagePosition.width,
+			this.imagePosition.height
+		);
+	}
 
 	for (i = 0; i < this.currentColors.length; i++) {
 		// Ensure first and last position to be 0 and 100
@@ -413,17 +451,18 @@ module.exports = function() {
 	this.context.fillRect(0, 0, this.x1, this.y1);
 };
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
 	this.getDimensions();
 	this.canvas.setAttribute('width', this.x1);
 	this.canvas.setAttribute('height', this.y1);
+	if (this.image) this.prepareImage();
 	this.refreshColors();
 };
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 'use strict';
 
 module.exports = function(state) {
@@ -433,7 +472,7 @@ module.exports = function(state) {
 	cancelAnimationFrame(this.animation);
 };
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -469,7 +508,7 @@ module.exports = function() {
 	}
 };
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 'use strict';
 
 module.exports = function(state) {
@@ -481,7 +520,103 @@ module.exports = function(state) {
 	this.animation = requestAnimationFrame(this.animateColors.bind(this));
 };
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
+'use strict';
+
+module.exports = function() {
+	var _this = this;
+
+	if (!this.imagePosition) {
+		this.imagePosition = { x: 0, y: 0, width: 0, height: 0};
+	}
+
+	if (this.imageNode) {
+		setImagePosition();
+		return;
+	}
+
+	this.imageNode = new Image();
+	this.imageNode.onerror = function(){
+		throw new Error('Granim: The image source is invalid.');
+	};
+	this.imageNode.onload = function() {
+		_this.imgOriginalWidth = _this.imageNode.width;
+		_this.imgOriginalHeight = _this.imageNode.height;
+		setImagePosition();
+		_this.refreshColors();
+		_this.animation = requestAnimationFrame(_this.animateColors.bind(_this));
+	};
+	this.imageNode.src = this.image.source;
+
+	function setImagePosition() {
+		var i, currentAxis;
+
+		for (i = 0; i < 2; i++) {
+			currentAxis = !i ? 'x' : 'y';
+			setImageAxisPosition(currentAxis);
+		}
+
+		function setImageAxisPosition(axis) {
+			var canvasWidthOrHeight = _this[axis + '1'];
+			var imgOriginalWidthOrHeight = _this[axis === 'x' ? 'imgOriginalWidth' : 'imgOriginalHeight'];
+			var imageAlignIndex = axis === 'x' ? _this.image.position[0] : _this.image.position[1];
+			var imageAxisPosition;
+			switch (imageAlignIndex) {
+				case 'center':
+					imageAxisPosition = imgOriginalWidthOrHeight > canvasWidthOrHeight ?
+					-(imgOriginalWidthOrHeight - canvasWidthOrHeight) / 2 :
+					(canvasWidthOrHeight - imgOriginalWidthOrHeight) / 2;
+					_this.imagePosition[axis] = imageAxisPosition;
+					_this.imagePosition[axis === 'x' ? 'width' : 'height'] = imgOriginalWidthOrHeight;
+					break;
+
+				case 'top':
+					_this.imagePosition['y'] = 0;
+					_this.imagePosition['height'] = imgOriginalWidthOrHeight;
+					break;
+
+				case 'bottom':
+					_this.imagePosition['y'] = canvasWidthOrHeight - imgOriginalWidthOrHeight;
+					_this.imagePosition['height'] = imgOriginalWidthOrHeight;
+					break;
+
+				case 'right':
+					_this.imagePosition['x'] = canvasWidthOrHeight - imgOriginalWidthOrHeight;
+					_this.imagePosition['width'] = imgOriginalWidthOrHeight;
+					break;
+
+				case 'left':
+					_this.imagePosition['x'] = 0;
+					_this.imagePosition['width'] = imgOriginalWidthOrHeight;
+					break;
+			}
+
+			if (_this.image.stretchMode) {
+				imageAlignIndex = axis === 'x' ? _this.image.stretchMode[0] : _this.image.stretchMode[1];
+				switch (imageAlignIndex) {
+					case 'stretch':
+						_this.imagePosition[axis] = 0;
+						_this.imagePosition[axis === 'x' ? 'width' : 'height'] = canvasWidthOrHeight;
+						break;
+
+					case 'stretch-if-bigger':
+						if (imgOriginalWidthOrHeight < canvasWidthOrHeight) break;
+						_this.imagePosition[axis] = 0;
+						_this.imagePosition[axis === 'x' ? 'width' : 'height'] = canvasWidthOrHeight;
+						break;
+
+					case 'stretch-if-smaller':
+						if (imgOriginalWidthOrHeight > canvasWidthOrHeight) break;
+						_this.imagePosition[axis] = 0;
+						_this.imagePosition[axis === 'x' ? 'width' : 'height'] = canvasWidthOrHeight;
+						break;
+				}
+			}
+		}
+	}
+};
+
+},{}],19:[function(require,module,exports){
 'use strict';
 
 module.exports = function(progressPercent) {
@@ -503,7 +638,7 @@ module.exports = function(progressPercent) {
 	this.makeGradient();
 };
 
-},{}],18:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -565,7 +700,7 @@ module.exports = function() {
 	this.iscurrentColorsSet = true;
 };
 
-},{}],19:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -591,7 +726,39 @@ module.exports = function() {
 	}
 };
 
-},{}],20:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
+'use strict';
+
+module.exports = function(inputType) {
+	var xPositionValues = ['left', 'center', 'right'];
+	var yPositionValues = ['top', 'center', 'bottom'];
+	var stretchModeValues = ['stretch', 'stretch-if-smaller', 'stretch-if-bigger'];
+
+	switch(inputType) {
+		default:
+		case 'image':
+			// Validate image.position
+			if ((!Array.isArray(this.image.position) || this.image.position.length !== 2) ||
+				xPositionValues.indexOf(this.image.position[0]) === -1 ||
+				yPositionValues.indexOf(this.image.position[1]) === -1
+			) {triggerError('image.position')}
+			// Validate image.stretchMode
+			if (this.image.stretchMode) {
+				if ((!Array.isArray(this.image.stretchMode) || this.image.stretchMode.length !== 2) ||
+					stretchModeValues.indexOf(this.image.stretchMode[0]) === -1 ||
+					stretchModeValues.indexOf(this.image.stretchMode[1]) === -1
+				) {triggerError('image.stretchMode')}
+			}
+			break;
+	}
+};
+
+function triggerError(element) {
+	var siteURL = 'https://sarcadass.github.io/granim.js/api.html';
+	throw new Error('Granim: Input error on "' + element + '" option.\nCheck the API ' + siteURL + '.');
+}
+
+},{}],23:[function(require,module,exports){
 window.Granim = require('./lib/Granim.js');
 
-},{"./lib/Granim.js":1}]},{},[20]);
+},{"./lib/Granim.js":1}]},{},[23]);
