@@ -49,8 +49,15 @@ html(lang="en")
 							td /
 							td String or HTMLCanvasElement
 							td
-								| A CSS selector for the &lt;canvas&gt; element or the HTMLCanvasElement itself(e.g. <span class="snippet">'#granim-canvas'</span> or document.querySelector('#granim-canvas'))
-								| that will be used for the gradient animation.
+								| A CSS selector for the 
+								span.snippet canvas
+								|  element or the 
+								sapn.snippet HTMLCanvasElement
+								|  itself (e.g. 
+								span.snippet '#granim-canvas'
+								|  or 
+								span.snippet document.querySelector('#granim-canvas')
+								| ) that will be used for the gradient animation.
 						tr
 							td name
 							td false
@@ -58,15 +65,17 @@ html(lang="en")
 							td
 								| This is the prefix used for the dark / light class name added
 								| on the <span class="snippet">options.elToSetClassOn</span> element depending on the average gradient lightness,
-								| the class will be updated during the animation.
-								| If you don't set a name, the class won't be set.
+								| the class will be updated during the animation.<br>
+								strong If you don't set a name, the class won't be set.
 						tr
 							td elToSetClassOn
 							td 'body'
 							td String
 							td
-								| The element to set the dark / light class on (e.g. <span class="snippet">'#canvas-wrapper'</span>).
-								| Is useful only if you set a <span class="snippet">options.name</span>.
+								| The element to set the dark / light class on (e.g. 
+								span.snippet '#canvas-wrapper'
+								| )<br>
+								strong Only useful if you set a <span class="snippet">name</span>.
 						tr
 							td direction
 							td 'diagonal'
@@ -89,6 +98,20 @@ html(lang="en")
 								| Does the animation stop when it's not in window view?<br>
 								| (Despite this parameter, the animation always pause
 								| when changing tab).
+						tr
+							td scrollDebounceThreshold
+								span.version v1.1.0
+							td 300
+							td Int
+							td
+								| What is the scroll 
+								a.link(href='https://css-tricks.com/debouncing-throttling-explained-examples/' target='_blank') debounce
+								|  threshold (in ms)?<br>
+								strong Only useful if 
+								span.snippet isPausedWhenNotInView
+								|  is set to 
+								span.snippet true
+								| .
 						tr
 							td opacity <span class="required">(required)</span>
 							td /
@@ -306,6 +329,7 @@ html(lang="en")
 						|     elToSetClassOn: 'body',
 						|     direction: 'diagonal',
 						|     isPausedWhenNotInView: false,
+						|     scrollDebounceThreshold: 300,
 						|     opacity: [1, 1],
 						|     stateTransitionSpeed: 1000,
 						|     image : {
@@ -356,6 +380,7 @@ html(lang="en")
 						|     elToSetClassOn: 'body',
 						|     direction: 'diagonal',
 						|     isPausedWhenNotInView: false,
+						|     scrollDebounceThreshold: 300,
 						|     opacity: [1, 1, .5, 1],
 						|     stateTransitionSpeed: 1000,
 						|     states : {

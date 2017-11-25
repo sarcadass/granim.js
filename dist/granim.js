@@ -30,6 +30,7 @@ function Granim(options) {
 	this.activetransitionSpeed = null;
 	this.currentColors = [];
 	this.eventPolyfill();
+	this.scrollDebounceThreshold = options.scrollDebounceThreshold || 300;
 	this.scrollDebounceTimeout = null;
 	if (options.image && options.image.source) {
 		this.image = {
@@ -530,7 +531,7 @@ module.exports = function() {
 				firstInit = false;
 			}
 		}
-	}, 300);
+	}, this.scrollDebounceThreshold);
 };
 
 },{}],19:[function(require,module,exports){

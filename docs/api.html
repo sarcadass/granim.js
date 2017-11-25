@@ -25,14 +25,11 @@
 		C8.749,20.2,8.856,20.097,8.999,20.07C9.147,20.044,9.279,20.104,9.297,20.206L9.297,20.206z M9.297,20.206"/>
     </g>
 </svg>
-</a></li></ul></nav></div></div></header><div class="main-content"><div class="container bloc"><h1>API</h1><h2>options</h2><p>All the global options available.</p><table class="api-list"><thead><tr><th>Property</th><th>Default</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td>element <span class="required">(required)</span></td><td>/</td><td>String or HTMLCanvasElement</td><td>A CSS selector for the &lt;canvas&gt; element or the HTMLCanvasElement itself(e.g. <span class="snippet">'#granim-canvas'</span> or document.querySelector('#granim-canvas'))
-that will be used for the gradient animation.</td></tr><tr><td>name</td><td>false</td><td>String</td><td>This is the prefix used for the dark / light class name added
+</a></li></ul></nav></div></div></header><div class="main-content"><div class="container bloc"><h1>API</h1><h2>options</h2><p>All the global options available.</p><table class="api-list"><thead><tr><th>Property</th><th>Default</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td>element <span class="required">(required)</span></td><td>/</td><td>String or HTMLCanvasElement</td><td>A CSS selector for the <span class="snippet">canvas</span> element or the <sapn class="snippet">HTMLCanvasElement</sapn> itself (e.g. <span class="snippet">'#granim-canvas'</span> or <span class="snippet">document.querySelector('#granim-canvas')</span>) that will be used for the gradient animation.</td></tr><tr><td>name</td><td>false</td><td>String</td><td>This is the prefix used for the dark / light class name added
 on the <span class="snippet">options.elToSetClassOn</span> element depending on the average gradient lightness,
-the class will be updated during the animation.
-If you don't set a name, the class won't be set.</td></tr><tr><td>elToSetClassOn</td><td>'body'</td><td>String</td><td>The element to set the dark / light class on (e.g. <span class="snippet">'#canvas-wrapper'</span>).
-Is useful only if you set a <span class="snippet">options.name</span>.</td></tr><tr><td>direction</td><td>'diagonal'</td><td>String</td><td>The orientation of the gradient, you can choose between:<ul><li><span class="snippet">'diagonal'</span></li><li><span class="snippet">'left-right'</span></li><li><span class="snippet">'top-bottom'</span></li><li><span class="snippet">'radial'</span></li></ul></td></tr><tr><td>isPausedWhenNotInView</td><td>false</td><td>Boolean</td><td>Does the animation stop when it's not in window view?<br>
+the class will be updated during the animation.<br><strong>If you don't set a name, the class won't be set.</strong></td></tr><tr><td>elToSetClassOn</td><td>'body'</td><td>String</td><td>The element to set the dark / light class on (e.g. <span class="snippet">'#canvas-wrapper'</span>)<br><strong>Only useful if you set a <span class="snippet">name</span>.</strong></td></tr><tr><td>direction</td><td>'diagonal'</td><td>String</td><td>The orientation of the gradient, you can choose between:<ul><li><span class="snippet">'diagonal'</span></li><li><span class="snippet">'left-right'</span></li><li><span class="snippet">'top-bottom'</span></li><li><span class="snippet">'radial'</span></li></ul></td></tr><tr><td>isPausedWhenNotInView</td><td>false</td><td>Boolean</td><td>Does the animation stop when it's not in window view?<br>
 (Despite this parameter, the animation always pause
-when changing tab).</td></tr><tr><td>opacity <span class="required">(required)</span></td><td>/</td><td>Array of Int</td><td>You can adapt the opacity of each color of the gradient.<br>
+when changing tab).</td></tr><tr><td>scrollDebounceThreshold<span class="version">v1.1.0</span></td><td>300</td><td>Int</td><td>What is the scroll <a class="link" href="https://css-tricks.com/debouncing-throttling-explained-examples/" target="_blank">debounce</a> threshold (in ms)?<br><strong>Only useful if </strong><span class="snippet">isPausedWhenNotInView</span> is set to <span class="snippet">true</span>.</td></tr><tr><td>opacity <span class="required">(required)</span></td><td>/</td><td>Array of Int</td><td>You can adapt the opacity of each color of the gradient.<br>
 if you have two colors <span class="snippet">[1, .5]</span>,
 or three <span class="snippet">[1, .5, 1]</span>...</td></tr><tr><td>stateTransitionSpeed</td><td>1000</td><td>Int</td><td>Duration of the animation when changing state.</td></tr><tr><td>defaultStateName</td><td>'default-state'</td><td>String</td><td>The name of the default state.</td></tr><tr><td>states <span class="required">(required)</span></td><td>/</td><td>Object</td><td>Object containing all the states, see more info below.</td></tr><tr><td>image<span class="version">v1.1.0</span></td><td>/</td><td>Object</td><td>Object containing image options, see more info below.</td></tr></tbody></table></div><div class="container bloc"><h2>options.states</h2><p>All the options available to customize the states and the different gradients.<br>
 Create a state with the name you want then add these parameters.<br>
@@ -82,6 +79,7 @@ granimInstance.destroy();</code></pre></div><div class="container bloc"><h2>Comp
     elToSetClassOn: 'body',
     direction: 'diagonal',
     isPausedWhenNotInView: false,
+    scrollDebounceThreshold: 300,
     opacity: [1, 1],
     stateTransitionSpeed: 1000,
     image : {
@@ -127,6 +125,7 @@ different states. you will also have to
     elToSetClassOn: 'body',
     direction: 'diagonal',
     isPausedWhenNotInView: false,
+    scrollDebounceThreshold: 300,
     opacity: [1, 1, .5, 1],
     stateTransitionSpeed: 1000,
     states : {
