@@ -72,7 +72,10 @@ h2 {
 	@include mob {margin-bottom: 50px}
 }
 
-.bloc p {color: #444}
+.bloc p {
+	color: #444;
+	line-height: 1.3;
+}
 
 .tab-titles {
 	list-style: none;

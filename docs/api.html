@@ -73,7 +73,10 @@ granimInstance.pause();
 granimInstance.clear();
 <br>
 // [v1.1.0] Change the blending mode (useful only if you use an image)
-granimInstance.changeBlendingMode('blending-mode-name');</code></pre></div><div class="container bloc"><h2>Complete configuration</h2><p>Complete configuration with two states, an image and callbacks set.</p><pre><code class="language-js">var granimInstance = new Granim({
+granimInstance.changeBlendingMode('blending-mode-name');
+<br>
+// [v1.1.0] Destroy an instance and remove its events listeners
+granimInstance.destroy();</code></pre></div><div class="container bloc"><h2>Complete configuration</h2><p>Complete configuration with two states, an image and callbacks set.</p><pre><code class="language-js">var granimInstance = new Granim({
     element: '',
     name: 'granim',
     elToSetClassOn: 'body',

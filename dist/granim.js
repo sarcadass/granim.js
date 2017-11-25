@@ -30,6 +30,7 @@ function Granim(options) {
 	this.activetransitionSpeed = null;
 	this.currentColors = [];
 	this.eventPolyfill();
+	this.scrollDebounceTimeout = null;
 	if (options.image && options.image.source) {
 		this.image = {
 			source: options.image.source,
@@ -68,15 +69,18 @@ function Granim(options) {
 	this.canvas.setAttribute('width', this.x1);
 	this.canvas.setAttribute('height', this.y1);
 	this.setColors();
-	window.addEventListener('resize', this.onResize.bind(this));
 
 	if (this.image) {
 		this.validateInput('image');
 		this.prepareImage();
 	}
 
+	this.pauseWhenNotInViewNameSpace = this.pauseWhenNotInView.bind(this);
+	this.setSizeAttributesNameSpace = this.setSizeAttributes.bind(this);
+	this.onResize();
+
 	if (this.isPausedWhenNotInView) {
-		this.pauseWhenNotInView();
+		this.onScroll();
 	} else {
 		this.refreshColors();
 		this.animation = requestAnimationFrame(this.animateColors.bind(this));
@@ -89,6 +93,8 @@ function Granim(options) {
 
 Granim.prototype.onResize = require('./onResize.js');
 
+Granim.prototype.onScroll = require('./onScroll.js');
+
 Granim.prototype.validateInput = require('./validateInput.js');
 
 Granim.prototype.prepareImage = require('./prepareImage.js');
@@ -98,8 +104,6 @@ Granim.prototype.eventPolyfill = require('./eventPolyfill.js');
 Granim.prototype.colorDiff = require('./colorDiff.js');
 
 Granim.prototype.hexToRgb = require('./hexToRgb.js');
-
-Granim.prototype.pauseWhenNotInView = require('./pauseWhenNotInView.js');
 
 Granim.prototype.setDirection = require('./setDirection.js');
 
@@ -125,13 +129,19 @@ Granim.prototype.play = require('./play.js');
 
 Granim.prototype.clear = require('./clear.js');
 
+Granim.prototype.destroy = require('./destroy.js');
+
+Granim.prototype.pauseWhenNotInView = require('./pauseWhenNotInView.js');
+
+Granim.prototype.setSizeAttributes = require('./setSizeAttributes.js');
+
 Granim.prototype.changeBlendingMode = require('./changeBlendingMode.js');
 
 Granim.prototype.changeState = require('./changeState.js');
 
 module.exports = Granim;
 
-},{"./animateColors.js":2,"./changeBlendingMode.js":3,"./changeState.js":4,"./clear.js":5,"./colorDiff.js":6,"./eventPolyfill.js":7,"./getCurrentColors.js":8,"./getDimensions.js":9,"./getElement.js":10,"./getLightness.js":11,"./hexToRgb.js":12,"./makeGradient.js":13,"./onResize.js":14,"./pause.js":15,"./pauseWhenNotInView.js":16,"./play.js":17,"./prepareImage.js":18,"./refreshColors.js":19,"./setColors.js":20,"./setDirection.js":21,"./validateInput.js":22}],2:[function(require,module,exports){
+},{"./animateColors.js":2,"./changeBlendingMode.js":3,"./changeState.js":4,"./clear.js":5,"./colorDiff.js":6,"./destroy.js":7,"./eventPolyfill.js":8,"./getCurrentColors.js":9,"./getDimensions.js":10,"./getElement.js":11,"./getLightness.js":12,"./hexToRgb.js":13,"./makeGradient.js":14,"./onResize.js":15,"./onScroll.js":16,"./pause.js":17,"./pauseWhenNotInView.js":18,"./play.js":19,"./prepareImage.js":20,"./refreshColors.js":21,"./setColors.js":22,"./setDirection.js":23,"./setSizeAttributes.js":24,"./validateInput.js":25}],2:[function(require,module,exports){
 'use strict';
 
 module.exports = function(timestamp) {
@@ -295,6 +305,15 @@ module.exports = function(colorA, colorB) {
 'use strict';
 
 module.exports = function() {
+	this.onResize('removeListeners');
+	this.onScroll('removeListeners');
+	this.clear();
+};
+
+},{}],8:[function(require,module,exports){
+'use strict';
+
+module.exports = function() {
 	if ( typeof window.CustomEvent === "function" ) return;
 
 	function CustomEvent (event, params) {
@@ -309,7 +328,7 @@ module.exports = function() {
 	window.CustomEvent = CustomEvent;
 };
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -325,7 +344,7 @@ module.exports = function() {
 	return currentColors;
 };
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -333,7 +352,7 @@ module.exports = function() {
 	this.y1 = this.canvas.offsetHeight;
 };
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 'use strict';
 
 module.exports = function(element) {
@@ -352,7 +371,7 @@ module.exports = function(element) {
 	}
 };
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -381,7 +400,7 @@ module.exports = function() {
 	return lightnessAverage >= 128 ? 'light' : 'dark';
 };
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 'use strict';
 
 module.exports = function(hex) {
@@ -399,7 +418,7 @@ module.exports = function(hex) {
 	] : null;
 };
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -447,18 +466,32 @@ module.exports = function() {
 	this.context.fillRect(0, 0, this.x1, this.y1);
 };
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 'use strict';
 
-module.exports = function() {
-	this.getDimensions();
-	this.canvas.setAttribute('width', this.x1);
-	this.canvas.setAttribute('height', this.y1);
-	if (this.image) this.prepareImage();
-	this.refreshColors();
+module.exports = function(type) {
+	if (type === 'removeListeners') {
+		window.removeEventListener('resize', this.setSizeAttributesNameSpace);
+		return;
+	}
+
+	window.addEventListener('resize', this.setSizeAttributesNameSpace);
 };
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
+'use strict';
+
+module.exports = function(type) {
+	if (type === 'removeListeners') {
+		window.removeEventListener('scroll', this.pauseWhenNotInViewNameSpace);
+		return;
+	}
+
+	window.addEventListener('scroll', this.pauseWhenNotInViewNameSpace);
+	this.pauseWhenNotInViewNameSpace();
+};
+
+},{}],17:[function(require,module,exports){
 'use strict';
 
 module.exports = function(state) {
@@ -468,43 +501,39 @@ module.exports = function(state) {
 	cancelAnimationFrame(this.animation);
 };
 
-},{}],16:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 'use strict';
+
+var firstInit = true;
 
 module.exports = function() {
 	var _this = this;
-	var timeout;
+	if (this.scrollDebounceTimeout) clearTimeout(this.scrollDebounceTimeout);
 
-	window.addEventListener('scroll', pauseWhenNotInView);
-	pauseWhenNotInView(true);
+	this.scrollDebounceTimeout = setTimeout(function() {
+		var elPos = _this.canvas.getBoundingClientRect();
+		var isNotInView =
+			elPos.bottom < 0 ||
+			elPos.right < 0 ||
+			elPos.left > window.innerWidth ||
+			elPos.top > window.innerHeight;
 
-	function pauseWhenNotInView(init) {
-		if (timeout) clearTimeout(timeout);
-
-		timeout = setTimeout(function() {
-			var elPos = _this.canvas.getBoundingClientRect();
-			var isNotInView =
-				elPos.bottom < 0 ||
-				elPos.right < 0 ||
-				elPos.left > window.innerWidth ||
-				elPos.top > window.innerHeight;
-
-			if (isNotInView) {
-				if (!_this.isPaused && !_this.isPausedBecauseNotInView) {
-					_this.isPausedBecauseNotInView = true;
-					_this.pause('isPausedBecauseNotInView');
-				}
-			} else {
-				if (!_this.isPaused || init === true) {
-					_this.isPausedBecauseNotInView = false;
-					_this.play('isPausedBecauseNotInView');
-				}
+		if (isNotInView) {
+			if (!_this.isPaused && !_this.isPausedBecauseNotInView) {
+				_this.isPausedBecauseNotInView = true;
+				_this.pause('isPausedBecauseNotInView');
 			}
-		}, 300);
-	}
+		} else {
+			if (!_this.isPaused || firstInit === true) {
+				_this.isPausedBecauseNotInView = false;
+				_this.play('isPausedBecauseNotInView');
+				firstInit = false;
+			}
+		}
+	}, 300);
 };
 
-},{}],17:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 'use strict';
 
 module.exports = function(state) {
@@ -516,7 +545,7 @@ module.exports = function(state) {
 	this.animation = requestAnimationFrame(this.animateColors.bind(this));
 };
 
-},{}],18:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -536,7 +565,7 @@ module.exports = function() {
 	}
 
 	this.imageNode = new Image();
-	this.imageNode.onerror = function(){
+	this.imageNode.onerror = function() {
 		throw new Error('Granim: The image source is invalid.');
 	};
 	this.imageNode.onload = function() {
@@ -616,7 +645,7 @@ module.exports = function() {
 	}
 };
 
-},{}],19:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 'use strict';
 
 module.exports = function(progressPercent) {
@@ -641,7 +670,7 @@ module.exports = function(progressPercent) {
 	this.makeGradient();
 };
 
-},{}],20:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -701,7 +730,7 @@ module.exports = function() {
 	this.iscurrentColorsSet = true;
 };
 
-},{}],21:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -727,7 +756,18 @@ module.exports = function() {
 	}
 };
 
-},{}],22:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
+'use strict';
+
+module.exports = function() {
+	this.getDimensions();
+	this.canvas.setAttribute('width', this.x1);
+	this.canvas.setAttribute('height', this.y1);
+	if (this.image) this.prepareImage();
+	this.refreshColors();
+};
+
+},{}],25:[function(require,module,exports){
 'use strict';
 
 module.exports = function(inputType) {
@@ -759,7 +799,7 @@ function triggerError(element) {
 	throw new Error('Granim: Input error on "' + element + '" option.\nCheck the API ' + siteURL + '.');
 }
 
-},{}],23:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 window.Granim = require('./lib/Granim.js');
 
-},{"./lib/Granim.js":1}]},{},[23]);
+},{"./lib/Granim.js":1}]},{},[26]);
