@@ -125,7 +125,7 @@ describe('Image: ', function() {
 					granimInstance.context.getImageData(canvasWidthMiddle, canvasHeightMiddle, 5, 5));
 				expect(isSameGradientImage).toBe(false);
 				done();
-			}, 250);
+			}, 500);
 		});
 
 		it('ChangeBlendingMode method is working', function(done) {

@@ -32,6 +32,10 @@ function Granim(options) {
 	this.eventPolyfill();
 	this.scrollDebounceThreshold = options.scrollDebounceThreshold || 300;
 	this.scrollDebounceTimeout = null;
+	this.isImgLoaded = false;
+	this.isCanvasInWindowView = false;
+	this.firstScrollInit = true;
+	this.animating = false;
 	if (options.image && options.image.source) {
 		this.image = {
 			source: options.image.source,
@@ -83,8 +87,11 @@ function Granim(options) {
 	if (this.isPausedWhenNotInView) {
 		this.onScroll();
 	} else {
-		this.refreshColors();
-		this.animation = requestAnimationFrame(this.animateColors.bind(this));
+		if (!this.image) {
+			this.refreshColors();
+			this.animation = requestAnimationFrame(this.animateColors.bind(this));
+			this.animating = true;
+		}
 	}
 
 	// Callback and Event
@@ -497,15 +504,14 @@ module.exports = function(type) {
 
 module.exports = function(state) {
 	var isPausedBecauseNotInView = state === 'isPausedBecauseNotInView';
-	if (this.isCleared) {return;}
+	if (this.isCleared) return;
 	if (!isPausedBecauseNotInView) this.isPaused = true;
 	cancelAnimationFrame(this.animation);
+	this.animating = false;
 };
 
 },{}],18:[function(require,module,exports){
 'use strict';
-
-var firstInit = true;
 
 module.exports = function() {
 	var _this = this;
@@ -513,22 +519,26 @@ module.exports = function() {
 
 	this.scrollDebounceTimeout = setTimeout(function() {
 		var elPos = _this.canvas.getBoundingClientRect();
-		var isNotInView =
-			elPos.bottom < 0 ||
-			elPos.right < 0 ||
-			elPos.left > window.innerWidth ||
-			elPos.top > window.innerHeight;
+		_this.isCanvasInWindowView = !(elPos.bottom < 0 || elPos.right < 0 ||
+			elPos.left > window.innerWidth || elPos.top > window.innerHeight);
 
-		if (isNotInView) {
+		if (_this.isCanvasInWindowView) {
+			if (!_this.isPaused || _this.firstScrollInit) {
+				if (_this.image && !_this.isImgLoaded) {return}
+				_this.isPausedBecauseNotInView = false;
+				_this.play('isPlayedBecauseInView');
+				_this.firstScrollInit = false;
+			}
+
+		} else {
+			if (!_this.image && _this.firstScrollInit) {
+				_this.refreshColors();
+				_this.firstScrollInit = false;
+			}
+
 			if (!_this.isPaused && !_this.isPausedBecauseNotInView) {
 				_this.isPausedBecauseNotInView = true;
 				_this.pause('isPausedBecauseNotInView');
-			}
-		} else {
-			if (!_this.isPaused || firstInit === true) {
-				_this.isPausedBecauseNotInView = false;
-				_this.play('isPausedBecauseNotInView');
-				firstInit = false;
 			}
 		}
 	}, this.scrollDebounceThreshold);
@@ -538,12 +548,13 @@ module.exports = function() {
 'use strict';
 
 module.exports = function(state) {
-	var isPausedBecauseNotInView = state === 'isPausedBecauseNotInView';
-	if (!isPausedBecauseNotInView) {
-		this.isPaused = false;
-	}
+	var isPlayedBecauseInView = state === 'isPlayedBecauseInView';
+	if (!isPlayedBecauseInView) this.isPaused = false;
 	this.isCleared = false;
-	this.animation = requestAnimationFrame(this.animateColors.bind(this));
+	if (!this.animating) {
+		this.animation = requestAnimationFrame(this.animateColors.bind(this));
+		this.animating = true;
+	}
 };
 
 },{}],20:[function(require,module,exports){
@@ -553,7 +564,7 @@ module.exports = function() {
 	var _this = this;
 
 	if (!this.imagePosition) {
-		this.imagePosition = { x: 0, y: 0, width: 0, height: 0};
+		this.imagePosition = { x: 0, y: 0, width: 0, height: 0 };
 	}
 
 	if (this.image.blendingMode) {
@@ -574,7 +585,10 @@ module.exports = function() {
 		_this.imgOriginalHeight = _this.imageNode.height;
 		setImagePosition();
 		_this.refreshColors();
-		_this.animation = requestAnimationFrame(_this.animateColors.bind(_this));
+		if (!_this.isPausedWhenNotInView || _this.isCanvasInWindowView) {
+			_this.animation = requestAnimationFrame(_this.animateColors.bind(_this));
+		}
+		_this.isImgLoaded = true;
 	};
 	this.imageNode.src = this.image.source;
 
