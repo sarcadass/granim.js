@@ -18,7 +18,11 @@ h1 {
 h2 {
 	font-size: 1.75em;
 	margin-bottom: 10px;
+	
+	.version {font-size: 12px}
 }
+
+pre {border-radius: 4px}
 
 .clearfix:after {
 	visibility: hidden;
@@ -43,15 +47,14 @@ h2 {
 }
 
 .version {
-  display: inline-block;
-  padding: 2px 5px;
-  margin-left: 7px;
-  border-radius: 2px;
-  font-weight: bold;
-  font-size: 12px;
-  vertical-align: super;
-  background-color: #eee;
-  color: #444;
+	display: inline-block;
+	padding: 2px 5px;
+	border-radius: 2px;
+	font-weight: bold;
+	font-size: 10px;
+	vertical-align: super;
+	background-color: #eee;
+	color: #444;
 }
 
 .link {

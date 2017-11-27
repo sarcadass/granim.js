@@ -28,16 +28,16 @@ body.examples {
 
 .sandbox-footer {
 	position: relative;
-  padding: 10px 20px;
-  background-color: #f5f2f0;
+	padding: 10px 20px;
+	background-color: #f5f2f0;
 	margin-top: -4px;
 	border-radius: 0 0 4px 4px;
 	z-index: 1;
 
-  span {
+	span {
 		font-size: 14px;
 		font-weight: bold;
-  }
+	}
 
 	select {margin-left: 5px}
 }
@@ -52,12 +52,13 @@ body.examples {
 }
 
 .canvas-image-wrapper {
+	height: 100px;
 	background-color: #eee;
 	text-align: center;
 
 	.bloc-logo {
 		display: inline-block;
-		margin-top: 120px;
+		margin-top: 25px;
 		float: none;
 	}
 }
