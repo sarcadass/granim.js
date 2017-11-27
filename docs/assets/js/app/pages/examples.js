@@ -8,7 +8,6 @@ module.exports = {
 	examples: {
 		init: function() {
 			this.basic();
-			this.radial();
 			this.image();
 			this.imageBlending();
 			this.imageMask();
@@ -25,32 +24,16 @@ module.exports = {
 				states : {
 					"default-state": {
 						gradients: [
-							['#AA076B', '#61045F'],
-							['#02AAB0', '#00CDAC'],
-							['#DA22FF', '#9733EE']
+							['#ff9966', '#ff5e62'],
+							['#00F260', '#0575E6'],
+							['#e1eec3', '#f05053']
 						]
 					}
 				}
 			});
-		},
-
-		radial: function() {
-			var animation = new Granim({
-				element: '#canvas-radial',
-				name: 'radial-gradient',
-				direction: 'radial',
-				opacity: [1, 1],
-				isPausedWhenNotInView: true,
-				states : {
-					"default-state": {
-						gradients: [
-							['#ffb347', '#ffcc33'],
-							['#83a4d4', '#b6fbff'],
-							['#9D50BB', '#6E48AA']
-						]
-					}
-				}
-			});
+			$('#select-direction').on('change', function() {
+				animation.direction = $(this).val();
+			})
 		},
 
 		image: function() {
@@ -123,6 +106,10 @@ module.exports = {
 					}
 				}
 			});
+			
+			$('.canvas-image-wrapper .logo-mask').on('click', function(event) {
+				event.preventDefault();
+			})
 		},
 
 		interactive: function() {

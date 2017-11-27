@@ -38,6 +38,11 @@ html(lang="en")
 				p Basic gradients animation with 3 gradients in queue composed of 2 colors.
 				.sandbox
 					canvas#canvas-basic
+				.sandbox-footer
+					span Change gradient direction:
+						select#select-direction
+							each val in ['left-right', 'diagonal', 'top-bottom', 'radial']
+								option(value=val)=val
 				.code-wrapper
 					ul.tab-titles
 						li.active
@@ -54,7 +59,7 @@ html(lang="en")
 									| var granimInstance = new Granim({
 									|     element: '#canvas-basic',
 									|     name: 'basic-gradient',
-									|     direction: 'left-right',
+									|     direction: 'left-right', // 'diagonal', 'top-bottom', 'radial'
 									|     opacity: [1, 1],
 									|     isPausedWhenNotInView: true,
 									|     states : {
@@ -87,48 +92,64 @@ html(lang="en")
 									| }
 
 			.container.bloc
-				h2 Radial gradients animation
-				p Radial gradients animation with 3 gradients in queue composed of 2 colors.
+				h2 Gradients with an image and blending mode
+					span.version v1.1.0
+				p
+					| Gradients with 2 colors, a background image and a blending mode set.<br>
+					| This is a new, more powerful way (since v1.1.0) to blend an image with a gradient.<br>
+					| More parameters for <span class="snippet">options.image</span> are available in the&nbsp;
+					a.link(href='api.html#options-image') API
+					|  page.
 				.sandbox
-					canvas#canvas-radial
+					canvas#canvas-image-blending
+				.sandbox-footer
+					span Change blending mode:
+						select#select-blending-mode
+							each val in ['multiply', 'screen', 'normal', 'overlay', 'darken', 'lighten', 'lighter', 'color-dodge', 'color-burn', 'hard-light', 'soft-light', 'difference', 'exclusion', 'hue', 'saturation', 'color', 'luminosity']
+								option(value=val)=val
 				.code-wrapper
 					ul.tab-titles
 						li.active
-							a(href='#radial-js', data-toggle='tab') JS
+							a(href='#image-blending-js', data-toggle='tab') JS
 						li
-							a(href='#radial-html', data-toggle='tab') HTML
+							a(href='#image-blending-html', data-toggle='tab') HTML
 						li
-							a(href='#radial-css', data-toggle='tab') CSS
+							a(href='#image-blending-css', data-toggle='tab') CSS
 
 					.tab-content
-						.tab.active#radial-js(data-toggle='pill')
+						.tab.active#image-blending-js(data-toggle='pill')
 							pre
 								code.language-js
 									| var granimInstance = new Granim({
-									|     element: '#canvas-radial',
-									|     name: 'radial-gradient',
-									|     direction: 'radial',
+									|     element: '#canvas-image-blending',
+									|     direction: 'top-bottom',
 									|     opacity: [1, 1],
 									|     isPausedWhenNotInView: true,
+									|     image : {
+									|         source: '../assets/img/bg-forest.jpg',
+									|         blendingMode: 'multiply'
+									|     },
 									|     states : {
 									|         "default-state": {
 									|             gradients: [
-									|                 ['#ffb347', '#ffcc33'],
-									|                 ['#83a4d4', '#b6fbff'],
-									|                 ['#9D50BB', '#6E48AA']
-									|             ]
+									|                 ['#29323c', '#485563'],
+									|                 ['#FF6B6B', '#556270'],
+									|                 ['#80d3fe', '#7ea0c4'],
+									|                 ['#f0ab51', '#eceba3']
+									|             ],
+									|             transitionSpeed: 7000
 									|         }
 									|     }
 									| });
 
-						.tab#radial-html(data-toggle='pill')
+						.tab#image-blending-html(data-toggle='pill')
 							pre
-								code.language-html='<canvas id="canvas-radial"></canvas>'
+								code.language-html='<canvas id="canvas-image-blending"></canvas>'
 
-						.tab#radial-css(data-toggle='pill')
+						.tab#image-blending-css(data-toggle='pill')
 							pre
 								code.language-css
-									| #canvas-radial {
+									| #canvas-image {
 									|     position: absolute;
 									|     display: block;
 									|     width: 100%;
@@ -196,77 +217,7 @@ html(lang="en")
 									|     background-image: url("../img/bg-forest.jpg");
 									|     background-position-x: 50%;
 									| }
-
-			.container.bloc
-				h2 Gradients with an image and blending mode
-					span.version v1.1.0
-				p
-					| Gradients with 2 colors, a background image and a blending mode set.<br>
-					| This is a new, more powerful way (since v1.1.0) to blend an image with a gradient.<br>
-					| More parameters for <span class="snippet">options.image</span> are available in the&nbsp;
-					a.link(href='api.html#options-image') API
-					|  page.
-				.sandbox
-					canvas#canvas-image-blending
-				.sandbox-footer
-					span Change blending mode:
-						select#select-blending-mode
-							each val in ['multiply', 'screen', 'normal', 'overlay', 'darken', 'lighten', 'lighter', 'color-dodge', 'color-burn', 'hard-light', 'soft-light', 'difference', 'exclusion', 'hue', 'saturation', 'color', 'luminosity']
-								option(value=val)=val
-
-				.code-wrapper
-					ul.tab-titles
-						li.active
-							a(href='#image-blending-js', data-toggle='tab') JS
-						li
-							a(href='#image-blending-html', data-toggle='tab') HTML
-						li
-							a(href='#image-blending-css', data-toggle='tab') CSS
-
-					.tab-content
-						.tab.active#image-blending-js(data-toggle='pill')
-							pre
-								code.language-js
-									| var granimInstance = new Granim({
-									|     element: '#canvas-image-blending',
-									|     direction: 'top-bottom',
-									|     opacity: [1, 1],
-									|     isPausedWhenNotInView: true,
-									|     image : {
-									|         source: '../assets/img/bg-forest.jpg',
-									|         blendingMode: 'multiply'
-									|     },
-									|     states : {
-									|         "default-state": {
-									|             gradients: [
-									|                 ['#29323c', '#485563'],
-									|                 ['#FF6B6B', '#556270'],
-									|                 ['#80d3fe', '#7ea0c4'],
-									|                 ['#f0ab51', '#eceba3']
-									|             ],
-									|             transitionSpeed: 7000
-									|         }
-									|     }
-									| });
-
-						.tab#image-blending-html(data-toggle='pill')
-							pre
-								code.language-html='<canvas id="canvas-image-blending"></canvas>'
-
-						.tab#image-blending-css(data-toggle='pill')
-							pre
-								code.language-css
-									| #canvas-image {
-									|     position: absolute;
-									|     display: block;
-									|     width: 100%;
-									|     height: 100%;
-									|     top: 0;
-									|     right: 0;
-									|     bottom: 0;
-									|     left: 0;
-									| }
-
+								
 			.container.bloc
 				h2 Gradients with an image mask
 				p

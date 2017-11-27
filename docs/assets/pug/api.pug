@@ -300,9 +300,6 @@ html(lang="en")
 				p Methods to control the gradients.
 				pre
 					code.language-js
-						| // Change state by putting its name in the argument
-						| granimInstance.changeState('state-name');
-						| <br>
 						| // Play the animation
 						| granimInstance.play();
 						| <br>
@@ -311,6 +308,12 @@ html(lang="en")
 						| <br>
 						| // Stop the animation and clear the gradient
 						| granimInstance.clear();
+						| <br>
+						| // Change state by putting its name in the argument
+						| granimInstance.changeState('state-name');
+						| <br>
+						| // [v1.1.0] Change the direction
+						| granimInstance.changeDirection('direction-name');
 						| <br>
 						| // [v1.1.0] Change the blending mode (useful only if you use an image)
 						| granimInstance.changeBlendingMode('blending-mode-name');

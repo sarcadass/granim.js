@@ -143,13 +143,15 @@ Granim.prototype.pauseWhenNotInView = require('./pauseWhenNotInView.js');
 
 Granim.prototype.setSizeAttributes = require('./setSizeAttributes.js');
 
+Granim.prototype.changeDirection = require('./changeDirection.js');
+
 Granim.prototype.changeBlendingMode = require('./changeBlendingMode.js');
 
 Granim.prototype.changeState = require('./changeState.js');
 
 module.exports = Granim;
 
-},{"./animateColors.js":2,"./changeBlendingMode.js":3,"./changeState.js":4,"./clear.js":5,"./colorDiff.js":6,"./destroy.js":7,"./eventPolyfill.js":8,"./getCurrentColors.js":9,"./getDimensions.js":10,"./getElement.js":11,"./getLightness.js":12,"./hexToRgb.js":13,"./makeGradient.js":14,"./onResize.js":15,"./onScroll.js":16,"./pause.js":17,"./pauseWhenNotInView.js":18,"./play.js":19,"./prepareImage.js":20,"./refreshColors.js":21,"./setColors.js":22,"./setDirection.js":23,"./setSizeAttributes.js":24,"./validateInput.js":25}],2:[function(require,module,exports){
+},{"./animateColors.js":2,"./changeBlendingMode.js":3,"./changeDirection.js":4,"./changeState.js":5,"./clear.js":6,"./colorDiff.js":7,"./destroy.js":8,"./eventPolyfill.js":9,"./getCurrentColors.js":10,"./getDimensions.js":11,"./getElement.js":12,"./getLightness.js":13,"./hexToRgb.js":14,"./makeGradient.js":15,"./onResize.js":16,"./onScroll.js":17,"./pause.js":18,"./pauseWhenNotInView.js":19,"./play.js":20,"./prepareImage.js":21,"./refreshColors.js":22,"./setColors.js":23,"./setDirection.js":24,"./setSizeAttributes.js":25,"./validateInput.js":26}],2:[function(require,module,exports){
 'use strict';
 
 module.exports = function(timestamp) {
@@ -238,11 +240,22 @@ module.exports = function(timestamp) {
 'use strict';
 
 module.exports = function(newBlendingMode) {
+	this.context.clearRect(0, 0, this.x1, this.y1);
 	this.context.globalCompositeOperation =
 		this.image.blendingMode = newBlendingMode;
+	this.refreshColors();
 };
 
 },{}],4:[function(require,module,exports){
+'use strict';
+
+module.exports = function(newDirection) {
+	this.context.clearRect(0, 0, this.x1, this.y1);
+	this.direction = newDirection;
+	this.refreshColors();
+};
+
+},{}],5:[function(require,module,exports){
 'use strict';
 
 module.exports = function(state) {
@@ -281,7 +294,7 @@ module.exports = function(state) {
 	this.play();
 };
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -295,7 +308,7 @@ module.exports = function() {
 	this.context.clearRect(0, 0, this.x1, this.y1);
 };
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 'use strict';
 
 module.exports = function(colorA, colorB) {
@@ -309,7 +322,7 @@ module.exports = function(colorA, colorB) {
 	return colorDiff;
 };
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -318,7 +331,7 @@ module.exports = function() {
 	this.clear();
 };
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -336,7 +349,7 @@ module.exports = function() {
 	window.CustomEvent = CustomEvent;
 };
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -352,7 +365,7 @@ module.exports = function() {
 	return currentColors;
 };
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -360,7 +373,7 @@ module.exports = function() {
 	this.y1 = this.canvas.offsetHeight;
 };
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 
 module.exports = function(element) {
@@ -379,7 +392,7 @@ module.exports = function(element) {
 	}
 };
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -408,7 +421,7 @@ module.exports = function() {
 	return lightnessAverage >= 128 ? 'light' : 'dark';
 };
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 module.exports = function(hex) {
@@ -426,7 +439,7 @@ module.exports = function(hex) {
 	] : null;
 };
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -437,7 +450,6 @@ module.exports = function() {
 	if (this.shouldClearCanvasOnEachFrame) this.context.clearRect(0, 0, this.x1, this.y1);
 
 	if (this.image) {
-
 		this.context.drawImage(
 			this.imageNode,
 			this.imagePosition.x,
@@ -474,7 +486,7 @@ module.exports = function() {
 	this.context.fillRect(0, 0, this.x1, this.y1);
 };
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 'use strict';
 
 module.exports = function(type) {
@@ -486,7 +498,7 @@ module.exports = function(type) {
 	window.addEventListener('resize', this.setSizeAttributesNameSpace);
 };
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 'use strict';
 
 module.exports = function(type) {
@@ -499,7 +511,7 @@ module.exports = function(type) {
 	this.pauseWhenNotInViewNameSpace();
 };
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 'use strict';
 
 module.exports = function(state) {
@@ -510,7 +522,7 @@ module.exports = function(state) {
 	this.animating = false;
 };
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -544,7 +556,7 @@ module.exports = function() {
 	}, this.scrollDebounceThreshold);
 };
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 'use strict';
 
 module.exports = function(state) {
@@ -557,7 +569,7 @@ module.exports = function(state) {
 	}
 };
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -660,7 +672,7 @@ module.exports = function() {
 	}
 };
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 'use strict';
 
 module.exports = function(progressPercent) {
@@ -685,7 +697,7 @@ module.exports = function(progressPercent) {
 	this.makeGradient();
 };
 
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -745,7 +757,7 @@ module.exports = function() {
 	this.iscurrentColorsSet = true;
 };
 
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -753,6 +765,9 @@ module.exports = function() {
 
 	switch(this.direction) {
 		default:
+			throw new Error('Granim: Direction is not valid.');
+			break;
+		
 		case 'diagonal':
 			return ctx.createLinearGradient(0, 0, this.x1, this.y1);
 			break;
@@ -771,7 +786,7 @@ module.exports = function() {
 	}
 };
 
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -782,7 +797,7 @@ module.exports = function() {
 	this.refreshColors();
 };
 
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 'use strict';
 
 module.exports = function(inputType) {
@@ -814,7 +829,7 @@ function triggerError(element) {
 	throw new Error('Granim: Input error on "' + element + '" option.\nCheck the API ' + siteURL + '.');
 }
 
-},{}],26:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 window.Granim = require('./lib/Granim.js');
 
-},{"./lib/Granim.js":1}]},{},[26]);
+},{"./lib/Granim.js":1}]},{},[27]);
