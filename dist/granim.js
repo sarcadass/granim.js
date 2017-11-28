@@ -1,8 +1,9 @@
-/*! Granim v1.0.6 - https://sarcadass.github.io/granim.js */
+/*! Granim v1.1.0 - https://sarcadass.github.io/granim.js */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
 function Granim(options) {
+	var doesGradientUseOpacity;
 	this.getElement(options.element);
 	this.x1 = 0;
 	this.y1 = 0;
@@ -29,6 +30,23 @@ function Granim(options) {
 	this.activetransitionSpeed = null;
 	this.currentColors = [];
 	this.eventPolyfill();
+	this.scrollDebounceThreshold = options.scrollDebounceThreshold || 300;
+	this.scrollDebounceTimeout = null;
+	this.isImgLoaded = false;
+	this.isCanvasInWindowView = false;
+	this.firstScrollInit = true;
+	this.animating = false;
+	if (options.image && options.image.source) {
+		this.image = {
+			source: options.image.source,
+			position: options.image.position || ['center', 'center'],
+			stretchMode: options.image.stretchMode || false,
+			blendingMode: options.image.blendingMode || false
+		};
+	}
+	doesGradientUseOpacity = this.opacity.map(function(el) {return el !== 1})
+		.indexOf(true) !== -1;
+	this.shouldClearCanvasOnEachFrame = !!this.image || doesGradientUseOpacity;
 	this.events = {
 		start: new CustomEvent('granim:start'),
 		end: new CustomEvent('granim:end'),
@@ -52,17 +70,28 @@ function Granim(options) {
 			false,
 		onEnd: typeof options.onEnd === 'function' ? options.onEnd : false
 	};
-
 	this.getDimensions();
 	this.canvas.setAttribute('width', this.x1);
 	this.canvas.setAttribute('height', this.y1);
 	this.setColors();
-	this.refreshColors();
-	window.addEventListener('resize', this.onResize.bind(this));
+
+	if (this.image) {
+		this.validateInput('image');
+		this.prepareImage();
+	}
+
+	this.pauseWhenNotInViewNameSpace = this.pauseWhenNotInView.bind(this);
+	this.setSizeAttributesNameSpace = this.setSizeAttributes.bind(this);
+	this.onResize();
+
 	if (this.isPausedWhenNotInView) {
-		this.pauseWhenNotInView();
+		this.onScroll();
 	} else {
-		this.animation = requestAnimationFrame(this.animateColors.bind(this));
+		if (!this.image) {
+			this.refreshColors();
+			this.animation = requestAnimationFrame(this.animateColors.bind(this));
+			this.animating = true;
+		}
 	}
 
 	// Callback and Event
@@ -70,7 +99,15 @@ function Granim(options) {
 	this.canvas.dispatchEvent(this.events.start);
 }
 
-Granim.prototype.setColors = require('./setColors.js');
+Granim.prototype.onResize = require('./onResize.js');
+
+Granim.prototype.onScroll = require('./onScroll.js');
+
+Granim.prototype.validateInput = require('./validateInput.js');
+
+Granim.prototype.triggerError = require('./triggerError.js');
+
+Granim.prototype.prepareImage = require('./prepareImage.js');
 
 Granim.prototype.eventPolyfill = require('./eventPolyfill.js');
 
@@ -80,19 +117,21 @@ Granim.prototype.hexToRgb = require('./hexToRgb.js');
 
 Granim.prototype.setDirection = require('./setDirection.js');
 
-Granim.prototype.makeGradient = require('./makeGradient.js');
-
-Granim.prototype.getDimensions = require('./getDimensions.js');
+Granim.prototype.setColors = require('./setColors.js');
 
 Granim.prototype.getElement = require('./getElement.js');
 
-Granim.prototype.animateColors = require('./animateColors.js');
+Granim.prototype.getDimensions = require('./getDimensions.js');
 
 Granim.prototype.getLightness = require('./getLightness.js');
 
+Granim.prototype.getCurrentColors = require('./getCurrentColors.js');
+
+Granim.prototype.animateColors = require('./animateColors.js');
+
 Granim.prototype.refreshColors = require('./refreshColors.js');
 
-Granim.prototype.changeState = require('./changeState.js');
+Granim.prototype.makeGradient = require('./makeGradient.js');
 
 Granim.prototype.pause = require('./pause.js');
 
@@ -100,15 +139,21 @@ Granim.prototype.play = require('./play.js');
 
 Granim.prototype.clear = require('./clear.js');
 
-Granim.prototype.getCurrentColors = require('./getCurrentColors.js');
+Granim.prototype.destroy = require('./destroy.js');
 
 Granim.prototype.pauseWhenNotInView = require('./pauseWhenNotInView.js');
 
-Granim.prototype.onResize = require('./onResize.js');
+Granim.prototype.setSizeAttributes = require('./setSizeAttributes.js');
+
+Granim.prototype.changeDirection = require('./changeDirection.js');
+
+Granim.prototype.changeBlendingMode = require('./changeBlendingMode.js');
+
+Granim.prototype.changeState = require('./changeState.js');
 
 module.exports = Granim;
 
-},{"./animateColors.js":2,"./changeState.js":3,"./clear.js":4,"./colorDiff.js":5,"./eventPolyfill.js":6,"./getCurrentColors.js":7,"./getDimensions.js":8,"./getElement.js":9,"./getLightness.js":10,"./hexToRgb.js":11,"./makeGradient.js":12,"./onResize.js":13,"./pause.js":14,"./pauseWhenNotInView.js":15,"./play.js":16,"./refreshColors.js":17,"./setColors.js":18,"./setDirection.js":19}],2:[function(require,module,exports){
+},{"./animateColors.js":2,"./changeBlendingMode.js":3,"./changeDirection.js":4,"./changeState.js":5,"./clear.js":6,"./colorDiff.js":7,"./destroy.js":8,"./eventPolyfill.js":9,"./getCurrentColors.js":10,"./getDimensions.js":11,"./getElement.js":12,"./getLightness.js":13,"./hexToRgb.js":14,"./makeGradient.js":15,"./onResize.js":16,"./onScroll.js":17,"./pause.js":18,"./pauseWhenNotInView.js":19,"./play.js":20,"./prepareImage.js":21,"./refreshColors.js":22,"./setColors.js":23,"./setDirection.js":24,"./setSizeAttributes.js":25,"./triggerError.js":26,"./validateInput.js":27}],2:[function(require,module,exports){
 'use strict';
 
 module.exports = function(timestamp) {
@@ -196,6 +241,27 @@ module.exports = function(timestamp) {
 },{}],3:[function(require,module,exports){
 'use strict';
 
+module.exports = function(newBlendingMode) {
+	this.context.clearRect(0, 0, this.x1, this.y1);
+	this.context.globalCompositeOperation =
+		this.image.blendingMode = newBlendingMode;
+	this.validateInput('blendingMode');
+	if (this.isPaused) this.refreshColors();
+};
+
+},{}],4:[function(require,module,exports){
+'use strict';
+
+module.exports = function(newDirection) {
+	this.context.clearRect(0, 0, this.x1, this.y1);
+	this.direction = newDirection;
+	this.validateInput('direction');
+	if (this.isPaused) this.refreshColors();
+};
+
+},{}],5:[function(require,module,exports){
+'use strict';
+
 module.exports = function(state) {
 	var _this = this;
 	var nextColors, colorDiff;
@@ -232,7 +298,7 @@ module.exports = function(state) {
 	this.play();
 };
 
-},{}],4:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -246,7 +312,7 @@ module.exports = function() {
 	this.context.clearRect(0, 0, this.x1, this.y1);
 };
 
-},{}],5:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 'use strict';
 
 module.exports = function(colorA, colorB) {
@@ -260,7 +326,16 @@ module.exports = function(colorA, colorB) {
 	return colorDiff;
 };
 
-},{}],6:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
+'use strict';
+
+module.exports = function() {
+	this.onResize('removeListeners');
+	this.onScroll('removeListeners');
+	this.clear();
+};
+
+},{}],9:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -278,26 +353,23 @@ module.exports = function() {
 	window.CustomEvent = CustomEvent;
 };
 
-},{}],7:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
-	var j;
+	var i, j;
 	var currentColors = [];
 
-	this.currentColors.forEach(function(el, i, arr) {
+	for (i = 0; i < this.currentColors.length; i++) {
 		currentColors.push([]);
+		for (j = 0; j < 3; j++) {currentColors[i].push(this.currentColors[i][j])}
+	}
 
-		for (j = 0; j < 3; j++) {
-			currentColors[i].push(el[j])
-		}
-	});
-
-	// Return a deep copy
+	// Return a deep copy of the current colors
 	return currentColors;
 };
 
-},{}],8:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -305,7 +377,7 @@ module.exports = function() {
 	this.y1 = this.canvas.offsetHeight;
 };
 
-},{}],9:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 
 module.exports = function(element) {
@@ -324,28 +396,23 @@ module.exports = function(element) {
 	}
 };
 
-},{}],10:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
 	var currentColors = this.getCurrentColors();
-	var colorsAverage = [];
 	var gradientAverage = null;
-	var lightnessAverage;
-
-	currentColors.forEach(function(el, i, arr) {
+	var lightnessAverage, i;
+	var colorsAverage = currentColors.map(function(el) {
 		// Compute the average lightness of each color
 		// in the current gradient
-		colorsAverage.push(
-			Math.max(el[0], el[1], el[2])
-		)
+		return Math.max(el[0], el[1], el[2]);
 	});
 
-	colorsAverage.forEach(function(el, i, arr) {
+	for (i = 0; i < colorsAverage.length; i++) {
 		// Add all the average lightness of each color
 		gradientAverage = gradientAverage === null ?
-			el :
-			gradientAverage + el;
+			colorsAverage[i] : gradientAverage + colorsAverage[i];
 
 		if (i === colorsAverage.length - 1) {
 			// if it's the last lightness average
@@ -353,12 +420,12 @@ module.exports = function() {
 			// have the global average lightness
 			lightnessAverage = Math.round(gradientAverage / (i + 1));
 		}
-	});
+	}
 
 	return lightnessAverage >= 128 ? 'light' : 'dark';
 };
 
-},{}],11:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 module.exports = function(hex) {
@@ -376,19 +443,29 @@ module.exports = function(hex) {
 	] : null;
 };
 
-},{}],12:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
-	var i;
+	var i, colorPosition;
 	var gradient = this.setDirection();
-	var colorPosition;
 	var elToSetClassOnClass = document.querySelector(this.elToSetClassOn).classList;
-	this.context.clearRect(0, 0, this.x1, this.y1);
+
+	if (this.shouldClearCanvasOnEachFrame) this.context.clearRect(0, 0, this.x1, this.y1);
+
+	if (this.image) {
+		this.context.drawImage(
+			this.imageNode,
+			this.imagePosition.x,
+			this.imagePosition.y,
+			this.imagePosition.width,
+			this.imagePosition.height
+		);
+	}
 
 	for (i = 0; i < this.currentColors.length; i++) {
 		// Ensure first and last position to be 0 and 100
-		!i ? colorPosition = 0 : colorPosition = ((1 / (this.currentColors.length - 1)) * i).toFixed(2);
+		colorPosition = !i ? 0 : ((1 / (this.currentColors.length - 1)) * i).toFixed(2);
 
 		gradient.addColorStop(colorPosition, 'rgba(' +
 			this.currentColors[i][0] + ', ' +
@@ -413,106 +490,225 @@ module.exports = function() {
 	this.context.fillRect(0, 0, this.x1, this.y1);
 };
 
-},{}],13:[function(require,module,exports){
-'use strict';
-
-module.exports = function() {
-	this.getDimensions();
-	this.canvas.setAttribute('width', this.x1);
-	this.canvas.setAttribute('height', this.y1);
-	this.refreshColors();
-};
-
-},{}],14:[function(require,module,exports){
-'use strict';
-
-module.exports = function(state) {
-	var isPausedBecauseNotInView = state === 'isPausedBecauseNotInView';
-	if (this.isCleared) {return;}
-	if (!isPausedBecauseNotInView) this.isPaused = true;
-	cancelAnimationFrame(this.animation);
-};
-
-},{}],15:[function(require,module,exports){
-'use strict';
-
-module.exports = function() {
-	var _this = this;
-	var timeout;
-
-	window.addEventListener('scroll', pauseWhenNotInView);
-	pauseWhenNotInView(true);
-
-	function pauseWhenNotInView(init) {
-		if (timeout) clearTimeout(timeout);
-
-		timeout = setTimeout(function() {
-			var elPos = _this.canvas.getBoundingClientRect();
-			var isNotInView =
-				elPos.bottom < 0 ||
-				elPos.right < 0 ||
-				elPos.left > window.innerWidth ||
-				elPos.top > window.innerHeight;
-
-			if (isNotInView) {
-				if (!_this.isPaused && !_this.isPausedBecauseNotInView) {
-					_this.isPausedBecauseNotInView = true;
-					_this.pause('isPausedBecauseNotInView');
-				}
-			} else {
-				if (!_this.isPaused || init === true) {
-					_this.isPausedBecauseNotInView = false;
-					_this.play('isPausedBecauseNotInView');
-				}
-			}
-		}, 300);
-	}
-};
-
 },{}],16:[function(require,module,exports){
 'use strict';
 
-module.exports = function(state) {
-	var isPausedBecauseNotInView = state === 'isPausedBecauseNotInView';
-	if (!isPausedBecauseNotInView) {
-		this.isPaused = false;
+module.exports = function(type) {
+	if (type === 'removeListeners') {
+		window.removeEventListener('resize', this.setSizeAttributesNameSpace);
+		return;
 	}
-	this.isCleared = false;
-	this.animation = requestAnimationFrame(this.animateColors.bind(this));
+
+	window.addEventListener('resize', this.setSizeAttributesNameSpace);
 };
 
 },{}],17:[function(require,module,exports){
 'use strict';
 
-module.exports = function(progressPercent) {
-	var activeChannel, j;
+module.exports = function(type) {
+	if (type === 'removeListeners') {
+		window.removeEventListener('scroll', this.pauseWhenNotInViewNameSpace);
+		return;
+	}
+
+	window.addEventListener('scroll', this.pauseWhenNotInViewNameSpace);
+	this.pauseWhenNotInViewNameSpace();
+};
+
+},{}],18:[function(require,module,exports){
+'use strict';
+
+module.exports = function(state) {
+	var isPausedBecauseNotInView = state === 'isPausedBecauseNotInView';
+	if (this.isCleared) return;
+	if (!isPausedBecauseNotInView) this.isPaused = true;
+	cancelAnimationFrame(this.animation);
+	this.animating = false;
+};
+
+},{}],19:[function(require,module,exports){
+'use strict';
+
+module.exports = function() {
+	var _this = this;
+	if (this.scrollDebounceTimeout) clearTimeout(this.scrollDebounceTimeout);
+
+	this.scrollDebounceTimeout = setTimeout(function() {
+		var elPos = _this.canvas.getBoundingClientRect();
+		_this.isCanvasInWindowView = !(elPos.bottom < 0 || elPos.right < 0 ||
+			elPos.left > window.innerWidth || elPos.top > window.innerHeight);
+
+		if (_this.isCanvasInWindowView) {
+			if (!_this.isPaused || _this.firstScrollInit) {
+				if (_this.image && !_this.isImgLoaded) {return}
+				_this.isPausedBecauseNotInView = false;
+				_this.play('isPlayedBecauseInView');
+				_this.firstScrollInit = false;
+			}
+
+		} else {
+			if (!_this.image && _this.firstScrollInit) {
+				_this.refreshColors();
+				_this.firstScrollInit = false;
+			}
+
+			if (!_this.isPaused && !_this.isPausedBecauseNotInView) {
+				_this.isPausedBecauseNotInView = true;
+				_this.pause('isPausedBecauseNotInView');
+			}
+		}
+	}, this.scrollDebounceThreshold);
+};
+
+},{}],20:[function(require,module,exports){
+'use strict';
+
+module.exports = function(state) {
+	var isPlayedBecauseInView = state === 'isPlayedBecauseInView';
+	if (!isPlayedBecauseInView) this.isPaused = false;
+	this.isCleared = false;
+	if (!this.animating) {
+		this.animation = requestAnimationFrame(this.animateColors.bind(this));
+		this.animating = true;
+	}
+};
+
+},{}],21:[function(require,module,exports){
+'use strict';
+
+module.exports = function() {
 	var _this = this;
 
-	this.activeColors.forEach(function(el, i, arr) {
+	if (!this.imagePosition) {
+		this.imagePosition = { x: 0, y: 0, width: 0, height: 0 };
+	}
+
+	if (this.image.blendingMode) {
+		this.context.globalCompositeOperation = this.image.blendingMode;
+	}
+
+	if (this.imageNode) {
+		setImagePosition();
+		return;
+	}
+
+	this.imageNode = new Image();
+	this.imageNode.onerror = function() {
+		throw new Error('Granim: The image source is invalid.');
+	};
+	this.imageNode.onload = function() {
+		_this.imgOriginalWidth = _this.imageNode.width;
+		_this.imgOriginalHeight = _this.imageNode.height;
+		setImagePosition();
+		_this.refreshColors();
+		if (!_this.isPausedWhenNotInView || _this.isCanvasInWindowView) {
+			_this.animation = requestAnimationFrame(_this.animateColors.bind(_this));
+		}
+		_this.isImgLoaded = true;
+	};
+	this.imageNode.src = this.image.source;
+
+	function setImagePosition() {
+		var i, currentAxis;
+
+		for (i = 0; i < 2; i++) {
+			currentAxis = !i ? 'x' : 'y';
+			setImageAxisPosition(currentAxis);
+		}
+
+		function setImageAxisPosition(axis) {
+			var canvasWidthOrHeight = _this[axis + '1'];
+			var imgOriginalWidthOrHeight = _this[axis === 'x' ? 'imgOriginalWidth' : 'imgOriginalHeight'];
+			var imageAlignIndex = axis === 'x' ? _this.image.position[0] : _this.image.position[1];
+			var imageAxisPosition;
+			switch (imageAlignIndex) {
+				case 'center':
+					imageAxisPosition = imgOriginalWidthOrHeight > canvasWidthOrHeight ?
+					-(imgOriginalWidthOrHeight - canvasWidthOrHeight) / 2 :
+					(canvasWidthOrHeight - imgOriginalWidthOrHeight) / 2;
+					_this.imagePosition[axis] = imageAxisPosition;
+					_this.imagePosition[axis === 'x' ? 'width' : 'height'] = imgOriginalWidthOrHeight;
+					break;
+
+				case 'top':
+					_this.imagePosition['y'] = 0;
+					_this.imagePosition['height'] = imgOriginalWidthOrHeight;
+					break;
+
+				case 'bottom':
+					_this.imagePosition['y'] = canvasWidthOrHeight - imgOriginalWidthOrHeight;
+					_this.imagePosition['height'] = imgOriginalWidthOrHeight;
+					break;
+
+				case 'right':
+					_this.imagePosition['x'] = canvasWidthOrHeight - imgOriginalWidthOrHeight;
+					_this.imagePosition['width'] = imgOriginalWidthOrHeight;
+					break;
+
+				case 'left':
+					_this.imagePosition['x'] = 0;
+					_this.imagePosition['width'] = imgOriginalWidthOrHeight;
+					break;
+			}
+
+			if (_this.image.stretchMode) {
+				imageAlignIndex = axis === 'x' ? _this.image.stretchMode[0] : _this.image.stretchMode[1];
+				switch (imageAlignIndex) {
+					case 'stretch':
+						_this.imagePosition[axis] = 0;
+						_this.imagePosition[axis === 'x' ? 'width' : 'height'] = canvasWidthOrHeight;
+						break;
+
+					case 'stretch-if-bigger':
+						if (imgOriginalWidthOrHeight < canvasWidthOrHeight) break;
+						_this.imagePosition[axis] = 0;
+						_this.imagePosition[axis === 'x' ? 'width' : 'height'] = canvasWidthOrHeight;
+						break;
+
+					case 'stretch-if-smaller':
+						if (imgOriginalWidthOrHeight > canvasWidthOrHeight) break;
+						_this.imagePosition[axis] = 0;
+						_this.imagePosition[axis === 'x' ? 'width' : 'height'] = canvasWidthOrHeight;
+						break;
+				}
+			}
+		}
+	}
+};
+
+},{}],22:[function(require,module,exports){
+'use strict';
+
+module.exports = function(progressPercent) {
+	var _this = this;
+	var activeChannel, i, j;
+
+	// Loop through each colors of the active gradient
+	for (i = 0; i < this.activeColors.length; i++) {
+
+		// Generate RGB colors
 		for (j = 0; j < 3; j++) {
 			activeChannel = _this.activeColors[i][j] +
-				Math.ceil(_this.activeColorDiff[i][j] /
-					100 * progressPercent);
+				Math.ceil(_this.activeColorDiff[i][j] / 100 * progressPercent);
 
+			// Prevent colors values from going < 0 & > 255
 			if (activeChannel <= 255 && activeChannel >= 0) {
 				_this.currentColors[i][j] = activeChannel;
 			}
 		}
-	});
+	}
 
 	this.makeGradient();
 };
 
-},{}],18:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
 	var _this = this;
 	var colorDiff, nextColors;
 
-	if (!this.channels[this.activeState]) {
-		this.channels[this.activeState] = [];
-	}
+	if (!this.channels[this.activeState]) this.channels[this.activeState] = [];
 
 	// If the actual channel exist, reassign properties and exit
 	// (each channel is saved to prevent recomputing it each time)
@@ -530,7 +726,7 @@ module.exports = function() {
 	this.activeColorDiff = [];
 
 	// Go on each gradient of the current state
-	this.states[this.activeState].gradients[this.channelsIndex].forEach(function(color, i, arr) {
+	this.states[this.activeState].gradients[this.channelsIndex].forEach(function(color, i) {
 		// Push the hex color converted to rgb on the channel and the active color properties
 		var rgbColor = _this.hexToRgb(color);
 		var activeChannel = _this.channels[_this.activeState];
@@ -565,7 +761,7 @@ module.exports = function() {
 	this.iscurrentColorsSet = true;
 };
 
-},{}],19:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -573,6 +769,9 @@ module.exports = function() {
 
 	switch(this.direction) {
 		default:
+			this.triggerError('direction');
+			break;
+		
 		case 'diagonal':
 			return ctx.createLinearGradient(0, 0, this.x1, this.y1);
 			break;
@@ -591,7 +790,60 @@ module.exports = function() {
 	}
 };
 
-},{}],20:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
+'use strict';
+
+module.exports = function() {
+	this.getDimensions();
+	this.canvas.setAttribute('width', this.x1);
+	this.canvas.setAttribute('height', this.y1);
+	if (this.image) this.prepareImage();
+	this.refreshColors();
+};
+
+},{}],26:[function(require,module,exports){
+'use strict';
+
+module.exports = function(element) {
+	var siteURL = 'https://sarcadass.github.io/granim.js/api.html';
+	throw new Error('Granim: Input error on "' + element + '" option.\nCheck the API ' + siteURL + '.');
+};
+
+},{}],27:[function(require,module,exports){
+'use strict';
+
+module.exports = function(inputType) {
+	var xPositionValues = ['left', 'center', 'right'];
+	var yPositionValues = ['top', 'center', 'bottom'];
+	var stretchModeValues = ['stretch', 'stretch-if-smaller', 'stretch-if-bigger'];
+	var blendingModeValues = ['multiply', 'screen', 'normal', 'overlay', 'darken',
+		'lighten', 'lighter', 'color-dodge', 'color-burn', 'hard-light', 'soft-light',
+		'difference', 'exclusion', 'hue', 'saturation', 'color', 'luminosity'];
+
+	switch(inputType) {
+		case 'image':
+			// Validate image.position
+			if ((!Array.isArray(this.image.position) || this.image.position.length !== 2) ||
+				xPositionValues.indexOf(this.image.position[0]) === -1 ||
+				yPositionValues.indexOf(this.image.position[1]) === -1
+			) {this.triggerError('image.position')}
+			// Validate image.stretchMode
+			if (this.image.stretchMode) {
+				if ((!Array.isArray(this.image.stretchMode) || this.image.stretchMode.length !== 2) ||
+					stretchModeValues.indexOf(this.image.stretchMode[0]) === -1 ||
+					stretchModeValues.indexOf(this.image.stretchMode[1]) === -1
+				) {this.triggerError('image.stretchMode')}
+			}
+			break;
+		case 'blendingMode':
+			if (blendingModeValues.indexOf(this.image.blendingMode) === -1) {
+				this.clear();
+				this.triggerError('blendingMode');
+			}
+	}
+};
+
+},{}],28:[function(require,module,exports){
 window.Granim = require('./lib/Granim.js');
 
-},{"./lib/Granim.js":1}]},{},[20]);
+},{"./lib/Granim.js":1}]},{},[28]);

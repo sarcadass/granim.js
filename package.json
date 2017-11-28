@@ -1,11 +1,12 @@
 {
   "name": "granim",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "description": "Create fluid and interactive gradients animations with this small js library.",
   "main": "index.js",
   "scripts": {
     "start": "cd docs/ && node server.js",
     "test": "karma start --single-run --browsers PhantomJS",
+    "watchTest": "karma start --browsers Chrome",
     "codecov": "cat coverage/lcov.info | codecov"
   },
   "bugs": {
@@ -21,7 +22,9 @@
     "animation"
   ],
   "author": "Benjamin Blonde",
-  "contributors": ["Pranay Prakash <pranay.gp@gmail.com> (http://pranay.gp)"],
+  "contributors": [
+    "Pranay Prakash <pranay.gp@gmail.com> (http://pranay.gp)"
+  ],
   "license": "MIT",
   "devDependencies": {
     "browserify": "^13.0.1",
@@ -39,6 +42,7 @@
     "inert": "^4.0.2",
     "jasmine-core": "^2.5.1",
     "karma": "^1.3.0",
+    "karma-chrome-launcher": "^2.2.0",
     "karma-coverage": "^1.1.1",
     "karma-es6-preprocessor": "^1.0.1",
     "karma-jasmine": "^1.0.2",

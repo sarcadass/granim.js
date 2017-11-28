@@ -8,8 +8,8 @@ module.exports = {
 	examples: {
 		init: function() {
 			this.basic();
-			this.radial();
 			this.image();
+			this.imageBlending();
 			this.imageMask();
 			this.interactive();
 		},
@@ -24,50 +24,66 @@ module.exports = {
 				states : {
 					"default-state": {
 						gradients: [
-							['#AA076B', '#61045F'],
-							['#02AAB0', '#00CDAC'],
-							['#DA22FF', '#9733EE']
+							['#ff9966', '#ff5e62'],
+							['#00F260', '#0575E6'],
+							['#e1eec3', '#f05053']
 						]
 					}
 				}
 			});
-		},
-
-		radial: function() {
-			var animation = new Granim({
-				element: '#canvas-radial',
-				name: 'radial-gradient',
-				direction: 'radial',
-				opacity: [1, 1],
-				isPausedWhenNotInView: true,
-				states : {
-					"default-state": {
-						gradients: [
-							['#ffb347', '#ffcc33'],
-							['#83a4d4', '#b6fbff'],
-							['#9D50BB', '#6E48AA']
-						]
-					}
-				}
-			});
+			$('#select-direction').on('change', function() {
+				animation.direction = $(this).val();
+			})
 		},
 
 		image: function() {
 			var animation = new Granim({
 				element: '#canvas-image',
 				direction: 'top-bottom',
-				opacity: [1, .5, 0],
+				opacity: [.9, .3],
 				isPausedWhenNotInView: true,
 				states : {
 					"default-state": {
 						gradients: [
-							['#485563', '#29323c', '#29323c'],
-							['#556270', '#FF6B6B', '#FF6B6B']
+							['#29323c', '#485563'],
+							['#FF6B6B', '#556270'],
+							['#80d3fe', '#7ea0c4'],
+							['#f0ab51', '#eceba3']
 						],
-						transitionSpeed: 10000
+						transitionSpeed: 7000
 					}
 				}
 			});
+		},
+
+		imageBlending: function() {
+			var animation = new Granim({
+				element: '#canvas-image-blending',
+				direction: 'top-bottom',
+				opacity: [1, 1],
+				isPausedWhenNotInView: true,
+				image: {
+					source: '../assets/img/bg-forest.jpg',
+					position: ['center', 'center'],
+					stretchMode: ['stretch-if-smaller', 'stretch-if-bigger'],
+					blendingMode: 'multiply'
+				},
+				states : {
+					"default-state": {
+						gradients: [
+							['#29323c', '#485563'],
+							['#FF6B6B', '#556270'],
+							['#80d3fe', '#7ea0c4'],
+							['#f0ab51', '#eceba3']
+						],
+						transitionSpeed: 7000
+					}
+				}
+			});
+
+			$('#select-blending-mode').on('change', function() {
+				animation.changeBlendingMode($(this).val());
+			})
 		},
 
 		imageMask: function() {
@@ -90,6 +106,10 @@ module.exports = {
 					}
 				}
 			});
+			
+			$('.canvas-image-wrapper .logo-mask').on('click', function(event) {
+				event.preventDefault();
+			})
 		},
 
 		interactive: function() {

@@ -42,7 +42,8 @@ gulp.task('docDist', ['buildMin'], function() {
 gulp.task('buildDoc:html', function() {
 	return gulp.src('./docs/assets/pug/*.pug')
 		.pipe(pug({
-			pretty: true
+			pretty: false,
+			locals: require('./package.json')
 		}))
 		.pipe(gulp.dest('./docs/'));
 });

@@ -17,20 +17,20 @@ module.exports = function(config) {
     files: [
       'dist/granim.js',
       'test/testUtils.js',
-      'test/**/*Spec.js'
+      'test/**/*Spec.js',
+      { pattern: 'test/img/*.jpg', watched: false, included: false, served: true }
     ],
 
+    proxies: {
+      '/img/': 'http://localhost:9876/base/test/img'
+    },
 
     // list of files to exclude
-    exclude: [
-    ],
+    exclude: [],
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {
-      '**/*.js': ['es6'],
-      'dist/**/*.js': ['coverage']
-    },
+    preprocessors: { 'dist/**/*.js': ['coverage'] },
 
 
     // test results reporter to use
@@ -40,8 +40,8 @@ module.exports = function(config) {
 
     coverageReporter: {
       reporters: [
-        {type: 'lcov', subdir: '.'},
-        {type: 'text-summary'}
+        { type: 'lcov', subdir: '.' },
+        { type: 'text-summary' }
       ]
     },
 
@@ -76,4 +76,4 @@ module.exports = function(config) {
     // how many browser should be started simultaneous
     concurrency: Infinity
   })
-}
+};

@@ -1,427 +1,450 @@
 doctype html
 html(lang="en")
-    head
-        title Examples | Granim.js
-        meta(name='description', content='Examples for granim.js. Gradients animations in javascript.')
-        include includes/head
-        link(type='text/css', rel='stylesheet', href='assets/css/prism.css')
+	head
+		title Examples | Granim.js
+		meta(name='description', content='Examples for granim.js. Gradients animations in javascript.')
+		include includes/head
+		link(type='text/css', rel='stylesheet', href='assets/css/prism.css')
 
-    body.examples
-        header.main-header
-            .container.clearfix
-                .bloc-logo
-                    canvas#logo-canvas
-                    a.logo-mask(href='index.html') Granim.js
-                .main-nav
-                    .hamburger-icon
-                        span
-                        span
-                        span
-                        span
-                        span
-                        span
+	body.examples
+		header.main-header
+			.container.clearfix
+				.bloc-logo
+					canvas#logo-canvas
+					a.logo-mask(href='index.html') Granim.js
+				.main-nav
+					.hamburger-icon
+						- var n = 0;
+						while n < 6
+							span
+							-n++
 
-                    nav
-                        ul.clearfix
-                            li
-                                a.text(href='https://github.com/sarcadass/granim.js/releases', about='_blank', rel='external') Download
-                            li
-                                a.text(href='api.html') API
-                            li
-                                a.text.active(href='examples.html') Examples
-                            li
-                                a.github(href='https://github.com/sarcadass/granim.js', about='_blank', title='Github', rel='external')
-                                    include includes/github-logo.html
+					nav
+						ul.clearfix
+							li
+								a.text(href='https://github.com/sarcadass/granim.js/releases', about='_blank', rel='external') Download
+							li
+								a.text(href='api.html') API
+							li
+								a.text.active(href='examples.html') Examples
+							li
+								a.github(href='https://github.com/sarcadass/granim.js', about='_blank', title='Github', rel='external')
+									include includes/github-logo.html
 
-        .main-content
-            .container.bloc
-                h1 Examples
-                h2 Basic gradients animation
-                p Basic gradients animation with 3 gradients in queue composed of 2 colors.
-                .sandbox
-                    canvas#canvas-basic
-                .code-wrapper
-                    ul.tab-titles
-                        li.active
-                            a(href='#basic-js', data-toggle='tab') JS
-                        li
-                            a(href='#basic-html', data-toggle='tab') HTML
-                        li
-                            a(href='#basic-css', data-toggle='tab') CSS
+		.main-content
+			.container.bloc
+				h1 Examples
+				h2 Basic gradients animation
+				p Basic gradients animation with 3 gradients in queue composed of 2 colors.
+				.sandbox
+					canvas#canvas-basic
+				.sandbox-footer
+					span Change gradient direction:
+						select#select-direction
+							each val in ['left-right', 'diagonal', 'top-bottom', 'radial']
+								option(value=val)=val
+				.code-wrapper
+					ul.tab-titles
+						li.active
+							a(href='#basic-js', data-toggle='tab') JS
+						li
+							a(href='#basic-html', data-toggle='tab') HTML
+						li
+							a(href='#basic-css', data-toggle='tab') CSS
 
-                    .tab-content
-                        .tab.active#basic-js(data-toggle='pill')
-                            pre
-                                code.language-js
-                                    | var granimInstance = new Granim({
-                                    |     element: '#canvas-basic',
-                                    |     name: 'basic-gradient',
-                                    |     direction: 'left-right',
-                                    |     opacity: [1, 1],
-                                    |     isPausedWhenNotInView: true,
-                                    |     states : {
-                                    |         "default-state": {
-                                    |             gradients: [
-                                    |                 ['#AA076B', '#61045F'],
-                                    |                 ['#02AAB0', '#00CDAC'],
-                                    |                 ['#DA22FF', '#9733EE']
-                                    |             ]
-                                    |         }
-                                    |     }
-                                    | });
+					.tab-content
+						.tab.active#basic-js(data-toggle='pill')
+							pre
+								code.language-js
+									| var granimInstance = new Granim({
+									|     element: '#canvas-basic',
+									|     name: 'basic-gradient',
+									|     direction: 'left-right', // 'diagonal', 'top-bottom', 'radial'
+									|     opacity: [1, 1],
+									|     isPausedWhenNotInView: true,
+									|     states : {
+									|         "default-state": {
+									|             gradients: [
+									|                 ['#AA076B', '#61045F'],
+									|                 ['#02AAB0', '#00CDAC'],
+									|                 ['#DA22FF', '#9733EE']
+									|             ]
+									|         }
+									|     }
+									| });
 
-                        .tab#basic-html(data-toggle='pill')
-                            pre
-                                code.language-html='<canvas id="canvas-basic"></canvas>'
+						.tab#basic-html(data-toggle='pill')
+							pre
+								code.language-html='<canvas id="canvas-basic"></canvas>'
 
-                        .tab#basic-css(data-toggle='pill')
-                            pre
-                                code.language-css
-                                    | #canvas-basic {
-                                    |     position: absolute;
-                                    |     display: block;
-                                    |     width: 100%;
-                                    |     height: 100%;
-                                    |     top: 0;
-                                    |     right: 0;
-                                    |     bottom: 0;
-                                    |     left: 0;
-                                    | }
+						.tab#basic-css(data-toggle='pill')
+							pre
+								code.language-css
+									| #canvas-basic {
+									|     position: absolute;
+									|     display: block;
+									|     width: 100%;
+									|     height: 100%;
+									|     top: 0;
+									|     right: 0;
+									|     bottom: 0;
+									|     left: 0;
+									| }
 
-            .container.bloc
-                h2 Radial gradients animation
-                p Radial gradients animation with 3 gradients in queue composed of 2 colors.
-                .sandbox
-                    canvas#canvas-radial
-                .code-wrapper
-                    ul.tab-titles
-                        li.active
-                            a(href='#radial-js', data-toggle='tab') JS
-                        li
-                            a(href='#radial-html', data-toggle='tab') HTML
-                        li
-                            a(href='#radial-css', data-toggle='tab') CSS
+			.container.bloc
+				h2 Gradients with an image and blending mode 
+					span.version v1.1.0
+				p
+					| Gradients with 2 colors, a background image and a blending mode set.<br>
+					| This is a new, more powerful way (since v1.1.0) to blend an image with a gradient.<br>
+					| More parameters for <span class="snippet">options.image</span> are available in the&nbsp;
+					a.link(href='api.html#options-image') API
+					|  page.
+				.sandbox
+					canvas#canvas-image-blending
+				.sandbox-footer
+					span Change blending mode:
+						select#select-blending-mode
+							each val in ['multiply', 'screen', 'normal', 'overlay', 'darken', 'lighten', 'lighter', 'color-dodge', 'color-burn', 'hard-light', 'soft-light', 'difference', 'exclusion', 'hue', 'saturation', 'color', 'luminosity']
+								option(value=val)=val
+				.code-wrapper
+					ul.tab-titles
+						li.active
+							a(href='#image-blending-js', data-toggle='tab') JS
+						li
+							a(href='#image-blending-html', data-toggle='tab') HTML
+						li
+							a(href='#image-blending-css', data-toggle='tab') CSS
 
-                    .tab-content
-                        .tab.active#radial-js(data-toggle='pill')
-                            pre
-                                code.language-js
-                                    | var granimInstance = new Granim({
-                                    |     element: '#canvas-radial',
-                                    |     name: 'radial-gradient',
-                                    |     direction: 'radial',
-                                    |     opacity: [1, 1],
-                                    |     isPausedWhenNotInView: true,
-                                    |     states : {
-                                    |         "default-state": {
-                                    |             gradients: [
-                                    |                 ['#ffb347', '#ffcc33'],
-                                    |                 ['#83a4d4', '#b6fbff'],
-                                    |                 ['#9D50BB', '#6E48AA']
-                                    |             ]
-                                    |         }
-                                    |     }
-                                    | });
+					.tab-content
+						.tab.active#image-blending-js(data-toggle='pill')
+							pre
+								code.language-js
+									| var granimInstance = new Granim({
+									|     element: '#canvas-image-blending',
+									|     direction: 'top-bottom',
+									|     opacity: [1, 1],
+									|     isPausedWhenNotInView: true,
+									|     image : {
+									|         source: '../assets/img/bg-forest.jpg',
+									|         blendingMode: 'multiply'
+									|     },
+									|     states : {
+									|         "default-state": {
+									|             gradients: [
+									|                 ['#29323c', '#485563'],
+									|                 ['#FF6B6B', '#556270'],
+									|                 ['#80d3fe', '#7ea0c4'],
+									|                 ['#f0ab51', '#eceba3']
+									|             ],
+									|             transitionSpeed: 7000
+									|         }
+									|     }
+									| });
 
-                        .tab#radial-html(data-toggle='pill')
-                            pre
-                                code.language-html='<canvas id="canvas-radial"></canvas>'
+						.tab#image-blending-html(data-toggle='pill')
+							pre
+								code.language-html='<canvas id="canvas-image-blending"></canvas>'
 
-                        .tab#radial-css(data-toggle='pill')
-                            pre
-                                code.language-css
-                                    | #canvas-radial {
-                                    |     position: absolute;
-                                    |     display: block;
-                                    |     width: 100%;
-                                    |     height: 100%;
-                                    |     top: 0;
-                                    |     right: 0;
-                                    |     bottom: 0;
-                                    |     left: 0;
-                                    | }
+						.tab#image-blending-css(data-toggle='pill')
+							pre
+								code.language-css
+									| #canvas-image {
+									|     position: absolute;
+									|     display: block;
+									|     width: 100%;
+									|     height: 100%;
+									|     top: 0;
+									|     right: 0;
+									|     bottom: 0;
+									|     left: 0;
+									| }
 
-            .container.bloc
-                h2 Gradients with an image
-                p Gradients with 3 colors, different opacity and a background image.
-                .sandbox
-                    canvas#canvas-image
-                .code-wrapper
-                    ul.tab-titles
-                        li.active
-                            a(href='#image-js', data-toggle='tab') JS
-                        li
-                            a(href='#image-html', data-toggle='tab') HTML
-                        li
-                            a(href='#image-css', data-toggle='tab') CSS
+			.container.bloc
+				h2 Gradients with an image (the old CSS way)
+				p
+					| Gradients with 2 colors, different opacity and a background image.<br>
+					| This is the old way of using an image with gradients by playing with the different opacity, you can see a more powerful way below.
+				.sandbox
+					canvas#canvas-image
+				.code-wrapper
+					ul.tab-titles
+						li.active
+							a(href='#image-js', data-toggle='tab') JS
+						li
+							a(href='#image-html', data-toggle='tab') HTML
+						li
+							a(href='#image-css', data-toggle='tab') CSS
 
-                    .tab-content
-                        .tab.active#image-js(data-toggle='pill')
-                            pre
-                                code.language-js
-                                    | var granimInstance = new Granim({
-                                    |     element: '#canvas-image',
-                                    |     direction: 'top-bottom',
-                                    |     opacity: [1, .5, 0],
-                                    |     isPausedWhenNotInView: true,
-                                    |     states : {
-                                    |         "default-state": {
-                                    |             gradients: [
-                                    |                 ['#485563', '#29323c', '#29323c'],
-                                    |                 ['#00c6ff', '#0072ff', '#0072ff']
-                                    |             ],
-                                    |             transitionSpeed: 10000
-                                    |         }
-                                    |     }
-                                    | });
+					.tab-content
+						.tab.active#image-js(data-toggle='pill')
+							pre
+								code.language-js
+									| var granimInstance = new Granim({
+									|     element: '#canvas-image',
+									|     direction: 'top-bottom',
+									|     opacity: [.9, .3],
+									|     isPausedWhenNotInView: true,
+									|     states : {
+									|         "default-state": {
+									|             gradients: [
+									|                 ['#29323c', '#485563'],
+									|                 ['#FF6B6B', '#556270'],
+									|                 ['#80d3fe', '#7ea0c4'],
+									|                 ['#f0ab51', '#eceba3']
+									|             ],
+									|             transitionSpeed: 7000
+									|         }
+									|     }
+									| });
 
-                        .tab#image-html(data-toggle='pill')
-                            pre
-                                code.language-html='<canvas id="canvas-image"></canvas>'
+						.tab#image-html(data-toggle='pill')
+							pre
+								code.language-html='<canvas id="canvas-image"></canvas>'
 
-                        .tab#image-css(data-toggle='pill')
-                            pre
-                                code.language-css
-                                    | #canvas-image {
-                                    |     position: absolute;
-                                    |     display: block;
-                                    |     width: 100%;
-                                    |     height: 100%;
-                                    |     top: 0;
-                                    |     right: 0;
-                                    |     bottom: 0;
-                                    |     left: 0;
-                                    |     background-image: url("../img/bg-forest.jpg");
-                                    |     background-position-x: 50%;
-                                    | }
+						.tab#image-css(data-toggle='pill')
+							pre
+								code.language-css
+									| #canvas-image {
+									|     position: absolute;
+									|     display: block;
+									|     width: 100%;
+									|     height: 100%;
+									|     top: 0;
+									|     right: 0;
+									|     bottom: 0;
+									|     left: 0;
+									|     background-image: url("../img/bg-forest.jpg");
+									|     background-position-x: 50%;
+									| }
+								
+			.container.bloc
+				h2 Gradients with an image mask
+				p
+					| Gradients with an image mask to create a gradient animation under a shape.<br>
+					| Look at the logo on the left of the header.
+				.sandbox.canvas-image-wrapper
+					.bloc-logo
+						canvas#canvas-image-mask
+						a.logo-mask(href='index.html') Granim.js
+				.code-wrapper
+					ul.tab-titles
+						li.active
+							a(href='#image-mask-js', data-toggle='tab') JS
+						li
+							a(href='#image-mask-html', data-toggle='tab') HTML
+						li
+							a(href='#image-mask-css', data-toggle='tab') CSS
 
-            .container.bloc
-                h2 Gradients with an image mask
-                p
-                    | Gradients with an image mask to create a gradient animation under a shape.<br>
-                    | Look at the logo on the left of the header.
-                .sandbox.canvas-image-wrapper
-                    .bloc-logo
-                        canvas#canvas-image-mask
-                        a.logo-mask(href='index.html') Granim.js
-                .code-wrapper
-                    ul.tab-titles
-                        li.active
-                            a(href='#image-mask-js', data-toggle='tab') JS
-                        li
-                            a(href='#image-mask-html', data-toggle='tab') HTML
-                        li
-                            a(href='#image-mask-css', data-toggle='tab') CSS
+					.tab-content
+						.tab.active#image-mask-js(data-toggle='pill')
+							pre
+								code.language-js
+									| var granimInstance = new Granim({
+									|     element: '#logo-canvas',
+									|     direction: 'left-right',
+									|     opacity: [1, 1],
+									|     states : {
+									|         "default-state": {
+									|             gradients: [
+									|                 ['#EB3349', '#F45C43'],
+									|                 ['#FF8008', '#FFC837'],
+									|                 ['#4CB8C4', '#3CD3AD'],
+									|                 ['#24C6DC', '#514A9D'],
+									|                 ['#FF512F', '#DD2476'],
+									|                 ['#DA22FF', '#9733EE']
+									|             ],
+									|             transitionSpeed: 2000
+									|         }
+									|     }
+									| });
 
-                    .tab-content
-                        .tab.active#image-mask-js(data-toggle='pill')
-                            pre
-                                code.language-js
-                                    | var granimInstance = new Granim({
-                                    |     element: '#logo-canvas',
-                                    |     direction: 'left-right',
-                                    |     opacity: [1, 1],
-                                    |     states : {
-                                    |         "default-state": {
-                                    |             gradients: [
-                                    |                 ['#EB3349', '#F45C43'],
-                                    |                 ['#FF8008', '#FFC837'],
-                                    |                 ['#4CB8C4', '#3CD3AD'],
-                                    |                 ['#24C6DC', '#514A9D'],
-                                    |                 ['#FF512F', '#DD2476'],
-                                    |                 ['#DA22FF', '#9733EE']
-                                    |             ],
-                                    |             transitionSpeed: 2000
-                                    |         }
-                                    |     }
-                                    | });
+						.tab#image-mask-html(data-toggle='pill')
+							pre
+								code.language-html
+									= '<div class="bloc-logo">\n'
+									= '    <canvas id="logo-canvas"></canvas>\n'
+									= '    <a href="index.html" class="logo-mask">Granim.js</a>\n'
+									= '</div>'
 
-                        .tab#image-mask-html(data-toggle='pill')
-                            pre
-                                code.language-html
-                                    = '<div class="bloc-logo">\n'
-                                    = '    <canvas id="logo-canvas"></canvas>\n'
-                                    = '    <a href="index.html" class="logo-mask">Granim.js</a>\n'
-                                    = '</div>'
+						.tab#image-mask-css(data-toggle='pill')
+							pre
+								code.language-css
+									| .bloc-logo {
+									|     position: relative;
+									|     width: 130px;
+									|     height: 49px;
+									|     float: left;
+									| }
+									| <br>
+									| .bloc-logo canvas,
+									| .bloc-logo .logo-mask {
+									|     display: block;
+									|     width: 130px;
+									|     height: 49px;
+									| }
+									| <br>
+									| .bloc-logo .logo-mask {
+									|     position: absolute;
+									|     top: 0;
+									|     left: 0;
+									|     background-size: 130px;
+									|     background-image: url("../img/logo-mask.png");
+									|     text-indent: -9999px;
+									| }
 
-                        .tab#image-mask-css(data-toggle='pill')
-                            pre
-                                code.language-css
-                                    | .bloc-logo {
-                                    |     position: relative;
-                                    |     width: 130px;
-                                    |     height: 49px;
-                                    |     float: left;
-                                    | }
-                                    | <br>
-                                    | .bloc-logo canvas,
-                                    | .bloc-logo .logo-mask {
-                                    |     display: block;
-                                    |     width: 130px;
-                                    |     height: 49px;
-                                    | }
-                                    | <br>
-                                    | .bloc-logo .logo-mask {
-                                    |     position: absolute;
-                                    |     top: 0;
-                                    |     left: 0;
-                                    |     background-size: 130px;
-                                    |     background-image: url("../img/logo-mask.png");
-                                    |     text-indent: -9999px;
-                                    | }
+			.container.bloc
+				h2 Interactive Gradients
+				p
+					| Create a gradients animation that responds to events.<br>
+					| Click on the different states in the gradient animation to see the gradients change.
+				.sandbox.canvas-interactive-wrapper
+					canvas#canvas-interactive
+					.cta-wrapper
+						span
+							a#default-state-cta.active(href='#default-state') Default state
+						span
+							a#violet-state-cta(href='#violet-state') Violet animated state
+						span
+							a#orange-state-cta(href='#orange-state') Orange static state
+				.code-wrapper
+					ul.tab-titles
+						li.active
+							a(href='#interactive-js', data-toggle='tab') JS
+						li
+							a(href='#interactive-html', data-toggle='tab') HTML
+						li
+							a(href='#interactive-css', data-toggle='tab') CSS
 
-            .container.bloc
-                h2 Interactive Gradients
-                p
-                    | Create a gradients animation that responds to events.<br>
-                    | Click on the different states in the gradient animation to see the gradients change.
-                .sandbox.canvas-interactive-wrapper
-                    canvas#canvas-interactive
-                    .cta-wrapper
-                        span
-                            a#default-state-cta.active(href='#default-state') Default state
-                        span
-                            a#violet-state-cta(href='#violet-state') Violet animated state
-                        span
-                            a#orange-state-cta(href='#orange-state') Orange static state
-                .code-wrapper
-                    ul.tab-titles
-                        li.active
-                            a(href='#interactive-js', data-toggle='tab') JS
-                        li
-                            a(href='#interactive-html', data-toggle='tab') HTML
-                        li
-                            a(href='#interactive-css', data-toggle='tab') CSS
+					.tab-content
+						.tab.active#interactive-js(data-toggle='pill')
+							pre
+								code.language-js
+									| var granimInstance = new Granim({
+									|     element: '#canvas-interactive',
+									|     name: 'interactive-gradient',
+									|     elToSetClassOn: '.canvas-interactive-wrapper',
+									|     direction: 'diagonal',
+									|     opacity: [1, 1],
+									|     isPausedWhenNotInView: true,
+									|     stateTransitionSpeed: 500,
+									|     states : {
+									|         "default-state": {
+									|             gradients: [
+									|                 ['#B3FFAB', '#12FFF7'],
+									|                 ['#ADD100', '#7B920A'],
+									|                 ['#1A2980', '#26D0CE']
+									|             ],
+									|             transitionSpeed: 10000
+									|         },
+									|         "violet-state": {
+									|             gradients: [
+									|                 ['#9D50BB', '#6E48AA'],
+									|                 ['#4776E6', '#8E54E9']
+									|             ],
+									|             transitionSpeed: 2000
+									|         },
+									|         "orange-state": {
+									|             gradients: [ ['#FF4E50', '#F9D423'] ],
+									|             loop: false
+									|         }
+									|     }
+									| });
+									| <br>
+									| // With jQuery
+									| $('#default-state-cta').on('click', function(event) {
+									|     event.preventDefault();
+									|     granimInstance.changeState('default-state');
+									|     setClass('#default-state-cta')
+									| });
+									| $('#violet-state-cta').on('click', function(event) {
+									|     event.preventDefault();
+									|     granimInstance.changeState('violet-state');
+									|     setClass('#violet-state-cta')
+									| });
+									| $('#orange-state-cta').on('click', function(event) {
+									|     event.preventDefault();
+									|     granimInstance.changeState('orange-state');
+									|     setClass('#orange-state-cta')
+									| });
+									| <br>
+									| function setClass(element) {
+									|     $('.canvas-interactive-wrapper a').removeClass('active');
+									|     $(element).addClass('active');
+									| };
 
-                    .tab-content
-                        .tab.active#interactive-js(data-toggle='pill')
-                            pre
-                                code.language-js
-                                    | var granimInstance = new Granim({
-                                    |     element: '#canvas-interactive',
-                                    |     name: 'interactive-gradient',
-                                    |     elToSetClassOn: '.canvas-interactive-wrapper',
-                                    |     direction: 'diagonal',
-                                    |     opacity: [1, 1],
-                                    |     isPausedWhenNotInView: true,
-                                    |     stateTransitionSpeed: 500,
-                                    |     states : {
-                                    |         "default-state": {
-                                    |             gradients: [
-                                    |                 ['#B3FFAB', '#12FFF7'],
-                                    |                 ['#ADD100', '#7B920A'],
-                                    |                 ['#1A2980', '#26D0CE']
-                                    |             ],
-                                    |             transitionSpeed: 10000
-                                    |         },
-                                    |         "violet-state": {
-                                    |             gradients: [
-                                    |                 ['#9D50BB', '#6E48AA'],
-                                    |                 ['#4776E6', '#8E54E9']
-                                    |             ],
-                                    |             transitionSpeed: 2000
-                                    |         },
-                                    |         "orange-state": {
-                                    |             gradients: [ ['#FF4E50', '#F9D423'] ],
-                                    |             loop: false
-                                    |         }
-                                    |     }
-                                    | });
-                                    | <br>
-                                    | // With jQuery
-                                    | $('#default-state-cta').on('click', function(event) {
-                                    |     event.preventDefault();
-                                    |     granimInstance.changeState('default-state');
-                                    |     setClass('#default-state-cta')
-                                    | });
-                                    | $('#violet-state-cta').on('click', function(event) {
-                                    |     event.preventDefault();
-                                    |     granimInstance.changeState('violet-state');
-                                    |     setClass('#violet-state-cta')
-                                    | });
-                                    | $('#orange-state-cta').on('click', function(event) {
-                                    |     event.preventDefault();
-                                    |     granimInstance.changeState('orange-state');
-                                    |     setClass('#orange-state-cta')
-                                    | });
-                                    | <br>
-                                    | function setClass(element) {
-                                    |     $('.canvas-interactive-wrapper a').removeClass('active');
-                                    |     $(element).addClass('active');
-                                    | };
+						.tab#interactive-html(data-toggle='pill')
+							pre
+								code.language-html
+									= '<div class="canvas-interactive-wrapper">\n'
+									= '    <canvas id="canvas-interactive"></canvas>\n'
+									= '    <div class="cta-wrapper">\n'
+									= '        <a href="#default-state" id="default-state-cta" class="active">Default state</a>\n'
+									= '        <a href="#violet-state" id="violet-state-cta">Violet state</a>\n'
+									= '        <a href="#orange-state" id="orange-state-cta">Orange state</a>\n'
+									= '    </div>\n'
+									= '</div>'
 
-                        .tab#interactive-html(data-toggle='pill')
-                            pre
-                                code.language-html
-                                    = '<div class="canvas-interactive-wrapper">\n'
-                                    = '    <canvas id="canvas-interactive"></canvas>\n'
-                                    = '    <div class="cta-wrapper">\n'
-                                    = '        <a href="#default-state" id="default-state-cta" class="active">Default state</a>\n'
-                                    = '        <a href="#violet-state" id="violet-state-cta">Violet state</a>\n'
-                                    = '        <a href="#orange-state" id="orange-state-cta">Orange state</a>\n'
-                                    = '    </div>\n'
-                                    = '</div>'
+						.tab#interactive-css(data-toggle='pill')
+							pre
+								code.language-css
+									| .canvas-interactive-wrapper {
+									|     position: relative;
+									|     height: 300px;
+									|     text-align: center;
+									| }
+									| <br>
+									| .canvas-interactive-wrapper canvas {
+									|     position: absolute;
+									|     display: block;
+									|     width: 100%;
+									|     height: 100%;
+									|     top: 0;
+									|     right: 0;
+									|     bottom: 0;
+									|     left: 0;
+									| }
+									| <br>
+									| .canvas-interactive-wrapper .cta-wrapper {
+									|     margin-top: 130px;
+									| }
+									| <br>
+									| .canvas-interactive-wrapper .cta-wrapper a {
+									|     position: relative;
+									|     display: inline-block;
+									|     padding: 3px 7px;
+									|     border: solid 1px transparent;
+									|     margin-right: 50px;
+									|     z-index: 1;
+									|     text-decoration: none;
+									|     color: #222;
+									|     transition: border .3s;
+									| }
+									| <br>
+									| .canvas-interactive-wrapper .cta-wrapper a.active {
+									|     border-color: #222;
+									| }
 
-                        .tab#interactive-css(data-toggle='pill')
-                            pre
-                                code.language-css
-                                    | .canvas-interactive-wrapper {
-                                    |     position: relative;
-                                    |     height: 300px;
-                                    |     text-align: center;
-                                    | }
-                                    | <br>
-                                    | .canvas-interactive-wrapper canvas {
-                                    |     position: absolute;
-                                    |     display: block;
-                                    |     width: 100%;
-                                    |     height: 100%;
-                                    |     top: 0;
-                                    |     right: 0;
-                                    |     bottom: 0;
-                                    |     left: 0;
-                                    | }
-                                    | <br>
-                                    | .canvas-interactive-wrapper .cta-wrapper {
-                                    |     margin-top: 130px;
-                                    | }
-                                    | <br>
-                                    | .canvas-interactive-wrapper .cta-wrapper a {
-                                    |     position: relative;
-                                    |     display: inline-block;
-                                    |     padding: 3px 7px;
-                                    |     border: solid 1px transparent;
-                                    |     margin-right: 50px;
-                                    |     z-index: 1;
-                                    |     text-decoration: none;
-                                    |     color: #222;
-                                    |     transition: border .3s;
-                                    | }
-                                    | <br>
-                                    | .canvas-interactive-wrapper .cta-wrapper a.active {
-                                    |     border-color: #222;
-                                    | }
+			include includes/footer
 
-            include includes/footer
-
-        script(src='assets/js/vendor/jquery-3.1.0.min.js')
-        script(src='assets/js/vendor/granim.min.js')
-        script(src='assets/js/vendor/prism.js')
-        script(src='assets/js/vendor/bootstrap.min.js')
-        script(type='text/javascript').
-            var pageId = 'examples';
-        script(src='assets/js/script.js')
-        script(type='text/javascript').
-            (function(i, s, o, g, r, a, m) {
-                i['GoogleAnalyticsObject'] = r;
-                i[r] = i[r] || function() {
-                            (i[r].q = i[r].q || []).push(arguments)
-                        }, i[r].l = 1 * new Date();
-                a = s.createElement(o),
-                        m = s.getElementsByTagName(o)[0];
-                a.async = 1;
-                a.src = g;
-                m.parentNode.insertBefore(a, m)
-            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-            ga('create', 'UA-83387901-1', 'auto');
-            ga('send', 'pageview');
+		script(src='assets/js/vendor/jquery-3.1.0.min.js')
+		script(src='assets/js/vendor/granim.min.js')
+		script(src='assets/js/vendor/prism.js')
+		script(src='assets/js/vendor/bootstrap.min.js')
+		script(type='text/javascript').
+			var pageId = 'examples';
+		script(src='assets/js/script.js')
+		script(type='text/javascript').
+			(function(i, s, o, g, r, a, m) {
+				i['GoogleAnalyticsObject'] = r;
+				i[r] = i[r] || function() {
+					(i[r].q = i[r].q || []).push(arguments)
+				}, i[r].l = 1 * new Date();
+				a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0];
+				a.async = 1;
+				a.src = g;
+				m.parentNode.insertBefore(a, m)
+			})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+			ga('create', 'UA-83387901-1', 'auto');
+			ga('send', 'pageview');

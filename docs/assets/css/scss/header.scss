@@ -160,13 +160,16 @@
 					left:0;
 					border-radius: 9px 0 0 9px;
 				}
-				&:nth-child(1), &:nth-child(2) {
+				&:nth-child(1),
+				&:nth-child(2) {
 					top: 0;
 				}
-				&:nth-child(3), &:nth-child(4) {
+				&:nth-child(3),
+				&:nth-child(4) {
 					top: 11px;
 				}
-				&:nth-child(5), &:nth-child(6) {
+				&:nth-child(5),
+				&:nth-child(6) {
 					top: 22px;
 				}
 			}

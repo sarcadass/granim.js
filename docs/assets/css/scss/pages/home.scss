@@ -59,7 +59,7 @@ body.home {
 					}
 				}
 
-				span {
+				span.name {
 					text-indent: 9999px;
 					display: block;
 					height: 0;
@@ -113,9 +113,7 @@ body.home {
 			margin: 0 15px 0 0;
 			vertical-align: middle;
 
-			path {
-				fill: #111;
-			}
+			path {fill: #111}
 		}
 
 		@include mob {
@@ -126,8 +124,42 @@ body.home {
 			.cta-social {display: none}
 		}
 
-		path {
-			transition: fill 1.5s;
+		path {transition: fill 1.5s}
+	}
+
+	&.background-gradient-light #home-footer {
+		color: #111;
+	}
+	&.background-gradient-dark #home-footer {
+		color: #fff;
+	}
+
+	#home-footer {
+		position: absolute;
+		box-sizing: border-box;
+		width: 100%;
+		padding: 10px;
+		bottom: 0;
+		left: 0;
+		line-height: 18px;
+		font-size: 12px;
+		text-align: right;
+		transition: color 1.5s;
+
+		strong {font-size: 14px}
+
+		a {
+			display: inline-block;
+			color: inherit;
+		}
+	}
+
+	@include mob {
+		#home-footer {
+			font-size: 10px;
+			line-height: 16px;
+
+			strong {font-size: 12px}
 		}
 	}
 }

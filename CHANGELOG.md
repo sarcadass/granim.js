@@ -1,3 +1,20 @@
+## 1.1.0
+
+### Features
+
+- Add **blending mode** with image and image position handling
+- Add **scrollDebounceThreshold** option
+- Add **changeDirection** method
+- Add **changeBlendingMode** method
+- Add **destroy** method (fix #34)
+
+### Improvements
+
+- Refactor and optimisations
+- Add tests
+- Doc addition and improvements
+
+
 ## 1.0.6 (from 1.0.0)
 
 ### Bug Fixes
