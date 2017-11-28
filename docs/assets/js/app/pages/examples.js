@@ -42,7 +42,7 @@ module.exports = {
 				opacity: [1, 1],
 				isPausedWhenNotInView: true,
 				image: {
-					source: '../../assets/img/bg-forest.jpg',
+					source: '../granim.js/assets/img/bg-forest.jpg',
 					position: ['center', 'center'],
 					stretchMode: ['stretch-if-smaller', 'stretch-if-bigger'],
 					blendingMode: 'multiply'
