@@ -80,34 +80,6 @@ More parameters for <span class="snippet">options.image</span> are available in 
     right: 0;
     bottom: 0;
     left: 0;
-}</code></pre></div></div></div></div><div class="container bloc"><h2>Gradients with an image (the old CSS way)</h2><p>Gradients with 2 colors, different opacity and a background image.<br>
-This is the old way of using an image with gradients by playing with the different opacity, you can see a more powerful way below.</p><div class="sandbox"><canvas id="canvas-image"></canvas></div><div class="code-wrapper"><ul class="tab-titles"><li class="active"><a href="#image-js" data-toggle="tab">JS</a></li><li><a href="#image-html" data-toggle="tab">HTML</a></li><li><a href="#image-css" data-toggle="tab">CSS</a></li></ul><div class="tab-content"><div class="tab active" id="image-js" data-toggle="pill"><pre><code class="language-js">var granimInstance = new Granim({
-    element: '#canvas-image',
-    direction: 'top-bottom',
-    opacity: [.9, .3],
-    isPausedWhenNotInView: true,
-    states : {
-        "default-state": {
-            gradients: [
-                ['#29323c', '#485563'],
-                ['#FF6B6B', '#556270'],
-                ['#80d3fe', '#7ea0c4'],
-                ['#f0ab51', '#eceba3']
-            ],
-            transitionSpeed: 7000
-        }
-    }
-});</code></pre></div><div class="tab" id="image-html" data-toggle="pill"><pre><code class="language-html">&lt;canvas id=&quot;canvas-image&quot;&gt;&lt;/canvas&gt;</code></pre></div><div class="tab" id="image-css" data-toggle="pill"><pre><code class="language-css">#canvas-image {
-    position: absolute;
-    display: block;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-image: url("../img/bg-forest.jpg");
-    background-position-x: 50%;
 }</code></pre></div></div></div></div><div class="container bloc"><h2>Gradients with an image mask</h2><p>Gradients with an image mask to create a gradient animation under a shape.<br>
 Look at the logo on the left of the header.</p><div class="sandbox canvas-image-wrapper"><div class="bloc-logo"><canvas id="canvas-image-mask"></canvas><a class="logo-mask" href="index.html">Granim.js</a></div></div><div class="code-wrapper"><ul class="tab-titles"><li class="active"><a href="#image-mask-js" data-toggle="tab">JS</a></li><li><a href="#image-mask-html" data-toggle="tab">HTML</a></li><li><a href="#image-mask-css" data-toggle="tab">CSS</a></li></ul><div class="tab-content"><div class="tab active" id="image-mask-js" data-toggle="pill"><pre><code class="language-js">var granimInstance = new Granim({
     element: '#logo-canvas',

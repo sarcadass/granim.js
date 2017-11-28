@@ -8,7 +8,6 @@ module.exports = {
 	examples: {
 		init: function() {
 			this.basic();
-			this.image();
 			this.imageBlending();
 			this.imageMask();
 			this.interactive();
@@ -36,26 +35,6 @@ module.exports = {
 			})
 		},
 
-		image: function() {
-			var animation = new Granim({
-				element: '#canvas-image',
-				direction: 'top-bottom',
-				opacity: [.9, .3],
-				isPausedWhenNotInView: true,
-				states : {
-					"default-state": {
-						gradients: [
-							['#29323c', '#485563'],
-							['#FF6B6B', '#556270'],
-							['#80d3fe', '#7ea0c4'],
-							['#f0ab51', '#eceba3']
-						],
-						transitionSpeed: 7000
-					}
-				}
-			});
-		},
-
 		imageBlending: function() {
 			var animation = new Granim({
 				element: '#canvas-image-blending',
@@ -63,7 +42,7 @@ module.exports = {
 				opacity: [1, 1],
 				isPausedWhenNotInView: true,
 				image: {
-					source: '../assets/img/bg-forest.jpg',
+					source: '../../assets/img/bg-forest.jpg',
 					position: ['center', 'center'],
 					stretchMode: ['stretch-if-smaller', 'stretch-if-bigger'],
 					blendingMode: 'multiply'
