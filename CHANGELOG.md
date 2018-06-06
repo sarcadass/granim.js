@@ -1,3 +1,10 @@
+## 1.1.1
+
+### Miscellaneous
+
+- Update dependencies
+
+
 ## 1.1.0
 
 ### Features

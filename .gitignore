@@ -6,3 +6,4 @@ npm-debug.log*
 node_modules/
 coverage/
 bower_components/
+*.code-workspace
