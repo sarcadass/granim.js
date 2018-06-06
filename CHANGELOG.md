@@ -4,6 +4,7 @@
 
 - Update dependencies
 - Update gulpfile with last gulp version
+- Update node versions on for Travis CI tests
 
 
 ## 1.1.0

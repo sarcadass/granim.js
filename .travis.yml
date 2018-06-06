@@ -1,9 +1,7 @@
 language: node_js
 node_js:
-  - "stable"
-  - "6.1"
+  - "8.11.2"
   - "6"
-  - "5.11"
 script:
   - gulp && npm test
 after_success:
