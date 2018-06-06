@@ -50,6 +50,6 @@
     "karma-spec-reporter": "0.0.26",
     "minimist": "^1.2.0",
     "vinyl-buffer": "^1.0.1",
-    "vinyl-source-stream": "^1.1.2"
+    "vinyl-source-stream": "^2.0.0"
   }
 }

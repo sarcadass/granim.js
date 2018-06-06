@@ -3,6 +3,7 @@
 ### Miscellaneous
 
 - Update dependencies
+- Update gulpfile with last gulp version
 
 
 ## 1.1.0
