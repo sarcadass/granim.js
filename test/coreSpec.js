@@ -1,8 +1,8 @@
-describe('Prelim Checks: ', function(){
-    it('Granim is defined', function(){
+describe('Prelim Checks: ', function () {
+    it('Granim is defined', function () {
         expect(Granim).toBeDefined();
     });
-    it('Granim is a function', function(){
+    it('Granim is a function', function () {
         expect(Granim).toEqual(jasmine.any(Function));
     });
 });
@@ -11,7 +11,7 @@ var validOptions = {
     element: document.createElement('canvas'),
     name: 'granim',
     opacity: [1, 1],
-    states : {
+    states: {
         "default-state": {
             gradients: [
                 ['#834D9B', '#D04ED6'],
@@ -21,32 +21,43 @@ var validOptions = {
     }
 };
 
-describe('Granim Core: ', function(){
-    beforeEach(function(){
+describe('Granim Core: ', function () {
+    beforeEach(function () {
         unsetCanvas();
         spyOn(console, 'error');
     });
 
-    describe('Invalid options: ', function(){
-        var func = function(){ return new Granim({element: '#granim-canvas'})};
+    describe('Invalid options: ', function () {
+        var func = function () { return new Granim({ element: '#granim-canvas' }) };
 
-        it('throws error on invalid element id ', function(){
+        it('throws error on invalid element id ', function () {
             expect(func).toThrowError("`#granim-canvas` could not be found in the DOM");
         });
 
-        it('throws an error when passed in anything other than a HTMLCanvasElement as an element', function(){
+        it('throws an error when passed in anything other than a HTMLCanvasElement as an element', function () {
             var invalidOptions = {
                 element: document.createElement('div'),
                 name: validOptions.name,
                 opactiy: validOptions.opactiy,
                 states: validOptions.states
             };
-            var func = function(){ return new Granim(invalidOptions)};
+            var func = function () { return new Granim(invalidOptions) };
             expect(func).toThrowError("The element you used is neither a String, nor a HTMLCanvasElement");
+        });
+        it('throws an error when the option direction  has the value "custom" but not the customDirection object when a new Granim instance is created', function () {
+            var invalidOptions = {
+                element: validOptions.element,
+                name: validOptions.name,
+                opactiy: validOptions.opactiy,
+                states: validOptions.states,
+                direction: 'custom'
+            };
+            var func = function () { return new Granim(invalidOptions) };
+            expect(func).toThrowError('When using a custom direction, the custom object is required with it\'s attributes: x0, x1, y0, y1 of type number');
         });
     });
 
-    it('Can use a HTMLCanvasElement as an element', function(){
+    it('Can use a HTMLCanvasElement as an element', function () {
         new Granim(validOptions);
     });
 });
