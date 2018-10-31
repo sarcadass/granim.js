@@ -11,7 +11,7 @@ function Granim(options) {
 	this.elToSetClassOn = options.elToSetClassOn || 'body';
 	this.direction = options.direction || 'diagonal';
 	this.customDirection = options.customDirection || {};
-	this.validateCustomDirection();
+	this.validateInput('direction');
 	this.isPausedWhenNotInView = options.isPausedWhenNotInView || false;
 	this.opacity = options.opacity;
 	this.states = options.states;
@@ -46,13 +46,13 @@ function Granim(options) {
 			blendingMode: options.image.blendingMode || false
 		};
 	}
-	doesGradientUseOpacity = this.opacity.map(function (el) { return el !== 1 })
+	doesGradientUseOpacity = this.opacity.map(function(el) { return el !== 1 })
 		.indexOf(true) !== -1;
 	this.shouldClearCanvasOnEachFrame = !!this.image || doesGradientUseOpacity;
 	this.events = {
 		start: new CustomEvent('granim:start'),
 		end: new CustomEvent('granim:end'),
-		gradientChange: function (details) {
+		gradientChange: function(details) {
 			return new CustomEvent('granim:gradientChange', {
 				detail: {
 					isLooping: details.isLooping,
@@ -107,8 +107,6 @@ Granim.prototype.onScroll = require('./onScroll.js');
 
 Granim.prototype.validateInput = require('./validateInput.js');
 
-Granim.prototype.validateCustomDirection = require('./validateCustomDirection.js');
-
 Granim.prototype.triggerError = require('./triggerError.js');
 
 Granim.prototype.prepareImage = require('./prepareImage.js');
@@ -157,7 +155,7 @@ Granim.prototype.changeState = require('./changeState.js');
 
 module.exports = Granim;
 
-},{"./animateColors.js":2,"./changeBlendingMode.js":3,"./changeDirection.js":4,"./changeState.js":5,"./clear.js":6,"./colorDiff.js":7,"./destroy.js":8,"./eventPolyfill.js":9,"./getCurrentColors.js":10,"./getDimensions.js":11,"./getElement.js":12,"./getLightness.js":13,"./hexToRgb.js":14,"./makeGradient.js":15,"./onResize.js":16,"./onScroll.js":17,"./pause.js":18,"./pauseWhenNotInView.js":19,"./play.js":20,"./prepareImage.js":21,"./refreshColors.js":22,"./setColors.js":23,"./setDirection.js":24,"./setSizeAttributes.js":25,"./triggerError.js":26,"./validateCustomDirection.js":27,"./validateInput.js":28}],2:[function(require,module,exports){
+},{"./animateColors.js":2,"./changeBlendingMode.js":3,"./changeDirection.js":4,"./changeState.js":5,"./clear.js":6,"./colorDiff.js":7,"./destroy.js":8,"./eventPolyfill.js":9,"./getCurrentColors.js":10,"./getDimensions.js":11,"./getElement.js":12,"./getLightness.js":13,"./hexToRgb.js":14,"./makeGradient.js":15,"./onResize.js":16,"./onScroll.js":17,"./pause.js":18,"./pauseWhenNotInView.js":19,"./play.js":20,"./prepareImage.js":21,"./refreshColors.js":22,"./setColors.js":23,"./setDirection.js":24,"./setSizeAttributes.js":25,"./triggerError.js":26,"./validateInput.js":27}],2:[function(require,module,exports){
 'use strict';
 
 module.exports = function(timestamp) {
@@ -260,7 +258,6 @@ module.exports = function (newDirection) {
 	this.context.clearRect(0, 0, this.x1, this.y1);
 	this.direction = newDirection;
 	this.validateInput('direction');
-	this.validateCustomDirection();
 	if (this.isPaused) this.refreshColors();
 };
 
@@ -819,30 +816,6 @@ module.exports = function(element) {
 };
 
 },{}],27:[function(require,module,exports){
-module.exports = function () {
-    if (this.direction === 'custom') {
-        if (!areDefinedAndNumbers([
-            this.customDirection.x0,
-            this.customDirection.x1,
-            this.customDirection.y0,
-            this.customDirection.y1
-        ])) {
-            throw new Error('When using a custom direction, the custom object is required with it\'s attributes: x0, x1, y0, y1 of type number');
-        }
-    }
-}
-
-function areDefinedAndNumbers(array) {
-    var definedAndNumber = true, i = 0;
-    while (definedAndNumber && i < array.length) {
-        if (typeof array[i] !== 'number') {
-            definedAndNumber = false;
-        }
-        i++;
-    }
-    return definedAndNumber;
-}
-},{}],28:[function(require,module,exports){
 'use strict';
 
 module.exports = function(inputType) {
@@ -873,10 +846,33 @@ module.exports = function(inputType) {
 				this.clear();
 				this.triggerError('blendingMode');
 			}
+			break;
+		case 'direction':
+			if (this.direction === 'custom') {
+				if (!areDefinedAndNumbers([
+					this.customDirection.x0,
+					this.customDirection.x1,
+					this.customDirection.y0,
+					this.customDirection.y1
+				])) {
+					this.triggerError('customDirection');
+				}
+			}
+			break;
 	}
 };
 
-},{}],29:[function(require,module,exports){
+function areDefinedAndNumbers(array) {
+    var definedAndNumber = true, i = 0;
+    while (definedAndNumber && i < array.length) {
+        if (typeof array[i] !== 'number') {
+            definedAndNumber = false;
+        }
+        i++;
+    }
+    return definedAndNumber;
+}
+},{}],28:[function(require,module,exports){
 window.Granim = require('./lib/Granim.js');
 
-},{"./lib/Granim.js":1}]},{},[29]);
+},{"./lib/Granim.js":1}]},{},[28]);
