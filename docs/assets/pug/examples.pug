@@ -59,7 +59,7 @@ html(lang="en")
 									| var granimInstance = new Granim({
 									|     element: '#canvas-basic',
 									|     name: 'basic-gradient',
-									|     direction: 'left-right', // 'diagonal', 'top-bottom', 'radial'
+									|     direction: 'left-right', // 'diagonal', 'top-bottom', 'radial', 'custom'
 									|     opacity: [1, 1],
 									|     isPausedWhenNotInView: true,
 									|     states : {
@@ -81,6 +81,69 @@ html(lang="en")
 							pre
 								code.language-css
 									| #canvas-basic {
+									|     position: absolute;
+									|     display: block;
+									|     width: 100%;
+									|     height: 100%;
+									|     top: 0;
+									|     right: 0;
+									|     bottom: 0;
+									|     left: 0;
+									| }
+			.container.bloc
+				h2 Basic gradients animation with custom direction
+				p Basic gradients animation with 3 gradients in queue composed of 2 colors and a custom direction.
+				.sandbox
+					canvas#canvas-basic-custom
+				.sandbox-footer
+					span Change gradient direction:
+						select#select-direction
+							each val in ['custom']
+								option(value=val)=val
+				.code-wrapper
+					ul.tab-titles
+						li.active
+							a(href='#basic-js-custom', data-toggle='tab') JS
+						li
+							a(href='#basic-html-custom', data-toggle='tab') HTML
+						li
+							a(href='#basic-css-custom', data-toggle='tab') CSS
+
+					.tab-content
+						.tab.active#basic-js-custom(data-toggle='pill')
+							pre
+								code.language-js
+									| var granimInstance = new Granim({
+									|     element: '#canvas-basic-custom',
+									|     name: 'basic-gradient-custom',
+									|     customDirection: {
+									|       x0: '20%',
+									|       x1: '30%',
+									|       y0: '200px',
+									|       y1: '400px'
+									|     },
+									|     direction: 'custom',
+									|     opacity: [1, 1],
+									|     isPausedWhenNotInView: true,
+									|     states : {
+									|         "default-state": {
+									|             gradients: [
+									|                 ['#AA076B', '#61045F'],
+									|                 ['#02AAB0', '#00CDAC'],
+									|                 ['#DA22FF', '#9733EE']
+									|             ]
+									|         }
+									|     }
+									| });
+
+						.tab#basic-html-custom(data-toggle='pill')
+							pre
+								code.language-html='<canvas id="canvas-basic-custom"></canvas>'
+
+						.tab#basic-css-custom(data-toggle='pill')
+							pre
+								code.language-css
+									| #canvas-basic-custom {
 									|     position: absolute;
 									|     display: block;
 									|     width: 100%;

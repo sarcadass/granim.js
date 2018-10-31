@@ -28,7 +28,7 @@
 </a></li></ul></nav></div></div></header><div class="main-content"><div class="container bloc"><h1>Examples</h1><h2>Basic gradients animation</h2><p>Basic gradients animation with 3 gradients in queue composed of 2 colors.</p><div class="sandbox"><canvas id="canvas-basic"></canvas></div><div class="sandbox-footer"><span>Change gradient direction:<select id="select-direction"><option value="left-right">left-right</option><option value="diagonal">diagonal</option><option value="top-bottom">top-bottom</option><option value="radial">radial</option></select></span></div><div class="code-wrapper"><ul class="tab-titles"><li class="active"><a href="#basic-js" data-toggle="tab">JS</a></li><li><a href="#basic-html" data-toggle="tab">HTML</a></li><li><a href="#basic-css" data-toggle="tab">CSS</a></li></ul><div class="tab-content"><div class="tab active" id="basic-js" data-toggle="pill"><pre><code class="language-js">var granimInstance = new Granim({
     element: '#canvas-basic',
     name: 'basic-gradient',
-    direction: 'left-right', // 'diagonal', 'top-bottom', 'radial'
+    direction: 'left-right', // 'diagonal', 'top-bottom', 'radial', 'custom'
     opacity: [1, 1],
     isPausedWhenNotInView: true,
     states : {
@@ -41,6 +41,36 @@
         }
     }
 });</code></pre></div><div class="tab" id="basic-html" data-toggle="pill"><pre><code class="language-html">&lt;canvas id=&quot;canvas-basic&quot;&gt;&lt;/canvas&gt;</code></pre></div><div class="tab" id="basic-css" data-toggle="pill"><pre><code class="language-css">#canvas-basic {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}</code></pre></div></div></div></div><div class="container bloc"><h2>Basic gradients animation with custom direction</h2><p>Basic gradients animation with 3 gradients in queue composed of 2 colors and a custom direction.</p><div class="sandbox"><canvas id="canvas-basic-custom"></canvas></div><div class="sandbox-footer"><span>Change gradient direction:<select id="select-direction"><option value="custom">custom</option></select></span></div><div class="code-wrapper"><ul class="tab-titles"><li class="active"><a href="#basic-js-custom" data-toggle="tab">JS</a></li><li><a href="#basic-html-custom" data-toggle="tab">HTML</a></li><li><a href="#basic-css-custom" data-toggle="tab">CSS</a></li></ul><div class="tab-content"><div class="tab active" id="basic-js-custom" data-toggle="pill"><pre><code class="language-js">var granimInstance = new Granim({
+    element: '#canvas-basic-custom',
+    name: 'basic-gradient-custom',
+    customDirection: {
+      x0: '20%',
+      x1: '30%',
+      y0: '200px',
+      y1: '400px'
+    },
+    direction: 'custom',
+    opacity: [1, 1],
+    isPausedWhenNotInView: true,
+    states : {
+        "default-state": {
+            gradients: [
+                ['#AA076B', '#61045F'],
+                ['#02AAB0', '#00CDAC'],
+                ['#DA22FF', '#9733EE']
+            ]
+        }
+    }
+});</code></pre></div><div class="tab" id="basic-html-custom" data-toggle="pill"><pre><code class="language-html">&lt;canvas id=&quot;canvas-basic-custom&quot;&gt;&lt;/canvas&gt;</code></pre></div><div class="tab" id="basic-css-custom" data-toggle="pill"><pre><code class="language-css">#canvas-basic-custom {
     position: absolute;
     display: block;
     width: 100%;

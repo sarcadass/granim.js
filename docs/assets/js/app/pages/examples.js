@@ -8,6 +8,7 @@ module.exports = {
 	examples: {
 		init: function() {
 			this.basic();
+			this.basicCustom();
 			this.imageBlending();
 			this.imageMask();
 			this.interactive();
@@ -20,7 +21,34 @@ module.exports = {
 				direction: 'left-right',
 				opacity: [1, 1],
 				isPausedWhenNotInView: true,
-				states : {
+				states: {
+					"default-state": {
+						gradients: [
+							['#ff9966', '#ff5e62'],
+							['#00F260', '#0575E6'],
+							['#e1eec3', '#f05053']
+						]
+					}
+				}
+			});
+			$('#select-direction').on('change', function() {
+				animation.direction = $(this).val();
+			})
+		},
+		basicCustom: function() {
+			var animation = new Granim({
+				element: '#canvas-basic-custom',
+				name: 'basic-gradient-custom',
+				customDirection: {
+					x0: '20%',
+					x1: '30%',
+					y0: '200px',
+					y1: '400px'
+				},
+				direction: 'custom',
+				opacity: [1, 1],
+				isPausedWhenNotInView: true,
+				states: {
 					"default-state": {
 						gradients: [
 							['#ff9966', '#ff5e62'],
@@ -47,7 +75,7 @@ module.exports = {
 					stretchMode: ['stretch-if-smaller', 'stretch-if-bigger'],
 					blendingMode: 'multiply'
 				},
-				states : {
+				states: {
 					"default-state": {
 						gradients: [
 							['#29323c', '#485563'],
@@ -71,7 +99,7 @@ module.exports = {
 				direction: 'left-right',
 				opacity: [1, 1],
 				isPausedWhenNotInView: true,
-				states : {
+				states: {
 					"default-state": {
 						gradients: [
 							['#EB3349', '#F45C43'],
@@ -85,7 +113,7 @@ module.exports = {
 					}
 				}
 			});
-			
+
 			$('.canvas-image-wrapper .logo-mask').on('click', function(event) {
 				event.preventDefault();
 			})
@@ -100,7 +128,7 @@ module.exports = {
 				opacity: [1, 1],
 				isPausedWhenNotInView: true,
 				stateTransitionSpeed: 500,
-				states : {
+				states: {
 					"default-state": {
 						gradients: [
 							['#B3FFAB', '#12FFF7'],
@@ -117,7 +145,7 @@ module.exports = {
 						transitionSpeed: 2000
 					},
 					"orange-state": {
-						gradients: [ ['#FF4E50', '#F9D423'] ],
+						gradients: [['#FF4E50', '#F9D423']],
 						loop: false
 					}
 				}

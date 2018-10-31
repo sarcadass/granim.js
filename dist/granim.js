@@ -882,9 +882,12 @@ function areDefinedAndPixelsOrPercentage(array) {
 		} else {
 			var unit = value.indexOf('px') > -1 ? 'px' : '%',
 				unitIndex = value.indexOf(unit),
-				splittedValue = value.split[unit];
-			if (!(unitIndex > -1) || !splittedValue || splittedValue.length > 1 || !Number.isInteger(parseInt(splittedValue[0], 10))) {
+				splittedValue = value.split(unit);
+			if (!(unitIndex > -1) || !splittedValue || !splittedValue[0]) {
 				definedAndPixelsOrPercentage = false;
+			} else {
+				var pixels = parseInt(splittedValue[0], 10);
+				definedAndPixelsOrPercentage = pixels === NaN || typeof pixels !== 'number';
 			}
 		}
 		i++;
