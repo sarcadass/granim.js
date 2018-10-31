@@ -826,19 +826,19 @@ module.exports = function(inputType) {
 		'lighten', 'lighter', 'color-dodge', 'color-burn', 'hard-light', 'soft-light',
 		'difference', 'exclusion', 'hue', 'saturation', 'color', 'luminosity'];
 
-	switch(inputType) {
+	switch (inputType) {
 		case 'image':
 			// Validate image.position
 			if ((!Array.isArray(this.image.position) || this.image.position.length !== 2) ||
 				xPositionValues.indexOf(this.image.position[0]) === -1 ||
 				yPositionValues.indexOf(this.image.position[1]) === -1
-			) {this.triggerError('image.position')}
+			) { this.triggerError('image.position') }
 			// Validate image.stretchMode
 			if (this.image.stretchMode) {
 				if ((!Array.isArray(this.image.stretchMode) || this.image.stretchMode.length !== 2) ||
 					stretchModeValues.indexOf(this.image.stretchMode[0]) === -1 ||
 					stretchModeValues.indexOf(this.image.stretchMode[1]) === -1
-				) {this.triggerError('image.stretchMode')}
+				) { this.triggerError('image.stretchMode') }
 			}
 			break;
 		case 'blendingMode':
@@ -849,7 +849,7 @@ module.exports = function(inputType) {
 			break;
 		case 'direction':
 			if (this.direction === 'custom') {
-				if (!areDefinedAndNumbers([
+				if (!areDefinedAndPixelsOrPercentage([
 					this.customDirection.x0,
 					this.customDirection.x1,
 					this.customDirection.y0,
@@ -862,15 +862,23 @@ module.exports = function(inputType) {
 	}
 };
 
-function areDefinedAndNumbers(array) {
-    var definedAndNumber = true, i = 0;
-    while (definedAndNumber && i < array.length) {
-        if (typeof array[i] !== 'number') {
-            definedAndNumber = false;
-        }
-        i++;
-    }
-    return definedAndNumber;
+function areDefinedAndPixelsOrPercentage(array) {
+	var definedAndPixelsOrPercentage = true, i = 0;
+	while (definedAndPixelsOrPercentage && i < array.length) {
+		var value = array[i];
+		if (typeof value !== 'string') {
+			definedAndPixelsOrPercentage = false;
+		} else {
+			var unit = value.indexOf('px') > -1 ? 'px' : '%',
+				unitIndex = value.indexOf(unit),
+				splittedValue = value.split[unit];
+			if (!(unitIndex > -1) || !splittedValue || splittedValue.length > 1 || !Number.isInteger(parseInt(splittedValue[0], 10))) {
+				definedAndPixelsOrPercentage = false;
+			}
+		}
+		i++;
+	}
+	return definedAndPixelsOrPercentage;
 }
 },{}],28:[function(require,module,exports){
 window.Granim = require('./lib/Granim.js');

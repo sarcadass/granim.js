@@ -93,6 +93,48 @@ describe('Methods: ', function() {
 			}, 200);
 		});
 
+		it("ChangeDirection should throw an error when passed 'custom' value with a poorly formatted customDirection object", function(done) {
+			setTimeout(function() {
+				granimInstance.customDirection = {
+					x0: '1px1',
+					x1: '1%na',
+					y0: '1px1',
+					y1: '1%na'
+				};
+				var func = function() { return granimInstance.changeDirection('custom'); };
+				expect(func).toThrowError('Granim: Input error on "customDirection" option.\nCheck the API https://sarcadass.github.io/granim.js/api.html.');
+				done();
+			}, 200);
+		});
+
+		it("ChangeDirection should throw an error when passed 'custom' value with a customDirection object which has number values", function(done) {
+			setTimeout(function() {
+				granimInstance.customDirection = {
+					x0: 0,
+					x1: 1,
+					y0: 2,
+					y1: 3
+				};
+				var func = function() { return granimInstance.changeDirection('custom'); };
+				expect(func).toThrowError('Granim: Input error on "customDirection" option.\nCheck the API https://sarcadass.github.io/granim.js/api.html.');
+				done();
+			}, 200);
+		});
+
+		it("ChangeDirection should throw an error when passed 'custom' value with a customDirection object which has no number values in front of unit", function(done) {
+			setTimeout(function() {
+				granimInstance.customDirection = {
+					x0: 'px',
+					x1: 'px',
+					y0: '%',
+					y1: 'px'
+				};
+				var func = function() { return granimInstance.changeDirection('custom'); };
+				expect(func).toThrowError('Granim: Input error on "customDirection" option.\nCheck the API https://sarcadass.github.io/granim.js/api.html.');
+				done();
+			}, 200);
+		});
+
 		afterEach(function() {
 			jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
 		});
