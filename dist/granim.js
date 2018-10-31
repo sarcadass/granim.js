@@ -254,7 +254,7 @@ module.exports = function(newBlendingMode) {
 },{}],4:[function(require,module,exports){
 'use strict';
 
-module.exports = function (newDirection) {
+module.exports = function(newDirection) {
 	this.context.clearRect(0, 0, this.x1, this.y1);
 	this.direction = newDirection;
 	this.validateInput('direction');
@@ -769,7 +769,7 @@ module.exports = function() {
 module.exports = function() {
 	var ctx = this.context;
 
-	switch (this.direction) {
+	switch(this.direction) {
 		default:
 			this.triggerError('direction');
 			break;
@@ -836,8 +836,9 @@ module.exports = function(inputType) {
 	var blendingModeValues = ['multiply', 'screen', 'normal', 'overlay', 'darken',
 		'lighten', 'lighter', 'color-dodge', 'color-burn', 'hard-light', 'soft-light',
 		'difference', 'exclusion', 'hue', 'saturation', 'color', 'luminosity'];
+	var directionValues = ['diagonal', 'left-right', 'top-bottom', 'radial', 'custom'];
 
-	switch (inputType) {
+	switch(inputType) {
 		case 'image':
 			// Validate image.position
 			if ((!Array.isArray(this.image.position) || this.image.position.length !== 2) ||
@@ -859,14 +860,18 @@ module.exports = function(inputType) {
 			}
 			break;
 		case 'direction':
-			if (this.direction === 'custom') {
-				if (!areDefinedAndPixelsOrPercentage([
-					this.customDirection.x0,
-					this.customDirection.x1,
-					this.customDirection.y0,
-					this.customDirection.y1
-				])) {
-					this.triggerError('customDirection');
+			if (directionValues.indexOf(this.direction) === -1) {
+				this.triggerError('direction');
+			} else {
+				if (this.direction === 'custom') {
+					if (!areDefinedAndPixelsOrPercentage([
+						this.customDirection.x0,
+						this.customDirection.x1,
+						this.customDirection.y0,
+						this.customDirection.y1
+					])) {
+						this.triggerError('customDirection');
+					}
 				}
 			}
 			break;
@@ -883,17 +888,24 @@ function areDefinedAndPixelsOrPercentage(array) {
 			var unit = value.indexOf('px') > -1 ? 'px' : '%',
 				unitIndex = value.indexOf(unit),
 				splittedValue = value.split(unit);
-			if (!(unitIndex > -1) || !splittedValue || !splittedValue[0]) {
+			if (
+				!(unitIndex > -1)
+				|| !splittedValue
+				|| !splittedValue[0]
+				|| splittedValue.join('').length === 0
+				|| (splittedValue.join('').length > 0 && splittedValue.length > 0)
+			) {
 				definedAndPixelsOrPercentage = false;
 			} else {
 				var pixels = parseInt(splittedValue[0], 10);
-				definedAndPixelsOrPercentage = pixels === NaN || typeof pixels !== 'number';
+				definedAndPixelsOrPercentage = pixels !== NaN || typeof pixels !== 'number';
 			}
+			console.log(value, splittedValue, splittedValue.join('').length, definedAndPixelsOrPercentage);
 		}
 		i++;
 	}
 	return definedAndPixelsOrPercentage;
-}
+};
 },{}],28:[function(require,module,exports){
 window.Granim = require('./lib/Granim.js');
 

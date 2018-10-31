@@ -97,8 +97,8 @@ describe('Methods: ', function() {
 			setTimeout(function() {
 				granimInstance.customDirection = {
 					x0: '1px1',
-					x1: '1%na',
 					y0: '1px1',
+					x1: '1%na',
 					y1: '1%na'
 				};
 				var func = function() { return granimInstance.changeDirection('custom'); };
@@ -111,8 +111,8 @@ describe('Methods: ', function() {
 			setTimeout(function() {
 				granimInstance.customDirection = {
 					x0: 0,
-					x1: 1,
 					y0: 2,
+					x1: 1,
 					y1: 3
 				};
 				var func = function() { return granimInstance.changeDirection('custom'); };
@@ -125,8 +125,8 @@ describe('Methods: ', function() {
 			setTimeout(function() {
 				granimInstance.customDirection = {
 					x0: 'px',
-					x1: 'px',
 					y0: '%',
+					x1: 'px',
 					y1: 'px'
 				};
 				var func = function() { return granimInstance.changeDirection('custom'); };

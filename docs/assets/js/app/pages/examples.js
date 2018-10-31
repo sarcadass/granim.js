@@ -41,8 +41,8 @@ module.exports = {
 				name: 'basic-gradient-custom',
 				customDirection: {
 					x0: '20%',
-					x1: '30%',
 					y0: '200px',
+					x1: '30%',
 					y1: '400px'
 				},
 				direction: 'custom',
