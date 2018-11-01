@@ -49,13 +49,13 @@
     right: 0;
     bottom: 0;
     left: 0;
-}</code></pre></div></div></div></div><div class="container bloc"><h2>Basic gradients animation with custom direction</h2><p>Basic gradients animation with 3 gradients in queue composed of 2 colors and a custom direction.</p><div class="sandbox"><canvas id="canvas-basic-custom"></canvas></div><div class="sandbox-footer"><span>Change gradient direction:<select id="select-direction"><option value="custom">custom</option></select></span></div><div class="code-wrapper"><ul class="tab-titles"><li class="active"><a href="#basic-js-custom" data-toggle="tab">JS</a></li><li><a href="#basic-html-custom" data-toggle="tab">HTML</a></li><li><a href="#basic-css-custom" data-toggle="tab">CSS</a></li></ul><div class="tab-content"><div class="tab active" id="basic-js-custom" data-toggle="pill"><pre><code class="language-js">var granimInstance = new Granim({
+}</code></pre></div></div></div></div><div class="container bloc"><h2>Basic gradients animation with custom direction</h2><p>Basic gradients animation with 3 gradients in queue composed of 2 colors and a custom direction.</p><div class="sandbox"><canvas id="canvas-basic-custom"></canvas></div><div class="code-wrapper"><ul class="tab-titles"><li class="active"><a href="#basic-js-custom" data-toggle="tab">JS</a></li><li><a href="#basic-html-custom" data-toggle="tab">HTML</a></li><li><a href="#basic-css-custom" data-toggle="tab">CSS</a></li></ul><div class="tab-content"><div class="tab active" id="basic-js-custom" data-toggle="pill"><pre><code class="language-js">var granimInstance = new Granim({
     element: '#canvas-basic-custom',
     name: 'basic-gradient-custom',
     customDirection: {
       x0: '20%',
-      x1: '30%',
       y0: '200px',
+      x1: '30%',
       y1: '400px'
     },
     direction: 'custom',

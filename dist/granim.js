@@ -343,7 +343,7 @@ module.exports = function() {
 module.exports = function() {
 	if ( typeof window.CustomEvent === "function" ) return;
 
-	function CustomEvent (event, params) {
+	function CustomEvent(event, params) {
 		params = params || { bubbles: false, cancelable: false, detail: undefined };
 		var evt = document.createEvent('CustomEvent');
 		evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
@@ -623,7 +623,7 @@ module.exports = function() {
 			var imgOriginalWidthOrHeight = _this[axis === 'x' ? 'imgOriginalWidth' : 'imgOriginalHeight'];
 			var imageAlignIndex = axis === 'x' ? _this.image.position[0] : _this.image.position[1];
 			var imageAxisPosition;
-			switch (imageAlignIndex) {
+			switch(imageAlignIndex) {
 				case 'center':
 					imageAxisPosition = imgOriginalWidthOrHeight > canvasWidthOrHeight ?
 					-(imgOriginalWidthOrHeight - canvasWidthOrHeight) / 2 :
@@ -655,7 +655,7 @@ module.exports = function() {
 
 			if (_this.image.stretchMode) {
 				imageAlignIndex = axis === 'x' ? _this.image.stretchMode[0] : _this.image.stretchMode[1];
-				switch (imageAlignIndex) {
+				switch(imageAlignIndex) {
 					case 'stretch':
 						_this.imagePosition[axis] = 0;
 						_this.imagePosition[axis === 'x' ? 'width' : 'height'] = canvasWidthOrHeight;
@@ -838,7 +838,7 @@ module.exports = function(inputType) {
 		'difference', 'exclusion', 'hue', 'saturation', 'color', 'luminosity'];
 	var directionValues = ['diagonal', 'left-right', 'top-bottom', 'radial', 'custom'];
 
-	switch(inputType) {
+	switch (inputType) {
 		case 'image':
 			// Validate image.position
 			if ((!Array.isArray(this.image.position) || this.image.position.length !== 2) ||
@@ -864,7 +864,7 @@ module.exports = function(inputType) {
 				this.triggerError('direction');
 			} else {
 				if (this.direction === 'custom') {
-					if (!areDefinedAndPixelsOrPercentage([
+					if (!areDefinedInPixelsOrPercentage([
 						this.customDirection.x0,
 						this.customDirection.x1,
 						this.customDirection.y0,
@@ -878,33 +878,34 @@ module.exports = function(inputType) {
 	}
 };
 
-function areDefinedAndPixelsOrPercentage(array) {
-	var definedAndPixelsOrPercentage = true, i = 0;
-	while (definedAndPixelsOrPercentage && i < array.length) {
-		var value = array[i];
+function areDefinedInPixelsOrPercentage(array) {
+	var definedInPixelsOrPercentage = true, i = 0, value;
+	while (definedInPixelsOrPercentage && i < array.length) {
+		value = array[i];
 		if (typeof value !== 'string') {
-			definedAndPixelsOrPercentage = false;
+			definedInPixelsOrPercentage = false;
 		} else {
-			var unit = value.indexOf('px') > -1 ? 'px' : '%',
-				unitIndex = value.indexOf(unit),
-				splittedValue = value.split(unit);
+			var unit, splittedValue;
+			if (value.indexOf('px') !== -1) unit = 'px';
+			if (value.indexOf('%') !== -1) unit = '%';
+			splittedValue = value.split(unit);
+			// Check if there is a unit ('px' or '%'),
+			// a char before the unit,
+			// no char after the unit,
+			// the string without the unit is only composed of digits
 			if (
-				!(unitIndex > -1)
-				|| !splittedValue
+				!unit
+				|| splittedValue.length > 2
 				|| !splittedValue[0]
-				|| splittedValue.join('').length === 0
-				|| (splittedValue.join('').length > 0 && splittedValue.length > 0)
+				|| splittedValue[1]
+				|| !/^\d+$/.test(splittedValue[0])
 			) {
-				definedAndPixelsOrPercentage = false;
-			} else {
-				var pixels = parseInt(splittedValue[0], 10);
-				definedAndPixelsOrPercentage = pixels !== NaN || typeof pixels !== 'number';
+				definedInPixelsOrPercentage = false;
 			}
-			console.log(value, splittedValue, splittedValue.join('').length, definedAndPixelsOrPercentage);
 		}
 		i++;
 	}
-	return definedAndPixelsOrPercentage;
+	return definedInPixelsOrPercentage;
 };
 },{}],28:[function(require,module,exports){
 window.Granim = require('./lib/Granim.js');

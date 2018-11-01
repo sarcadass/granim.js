@@ -135,6 +135,20 @@ describe('Methods: ', function() {
 			}, 200);
 		});
 
+		it("ChangeDirection method to a custom direction with valid 'customDirection' inputs is working", function(done) {
+			setTimeout(function() {
+				granimInstance.customDirection = {
+					x0: '20%',
+					y0: '200px',
+					x1: '30%',
+					y1: '400px'
+				};
+				granimInstance.changeDirection('custom');
+				expect(granimInstance.direction).toEqual('custom');
+				done();
+			}, 200);
+		});
+
 		afterEach(function() {
 			jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
 		});
