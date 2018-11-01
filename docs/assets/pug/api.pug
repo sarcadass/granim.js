@@ -90,6 +90,32 @@ html(lang="en")
 										span.snippet 'top-bottom'
 									li
 										span.snippet 'radial'
+									li
+										span.snippet 'custom'
+						tr
+							td customDirection
+							td '{}'
+							td Object 
+							td 
+								| Let you customise the direction of the gradient with pixels or percentage values with the following format:
+								pre
+									code.language-js
+										| {
+										|   x0: '10%',
+										|   y0: '25px',
+										|   x1: '30%',
+										|   y1: '322px'
+										| }
+								| This property is 
+								span.snippet required
+								|  when the property 
+								span.snippet direction
+								|  is set to 
+								span.snippet custom.
+								<br>
+								| For more details, checkout the documentation of the 
+								a.link(href='https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/createLinearGradient' target='_blank') createLinearGradient 
+								| function.
 						tr
 							td isPausedWhenNotInView
 							td false

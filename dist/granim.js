@@ -1,5 +1,5 @@
 /*! Granim v1.1.1 - https://sarcadass.github.io/granim.js */
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 'use strict';
 
 function Granim(options) {
@@ -10,6 +10,8 @@ function Granim(options) {
 	this.name = options.name || false;
 	this.elToSetClassOn = options.elToSetClassOn || 'body';
 	this.direction = options.direction || 'diagonal';
+	this.customDirection = options.customDirection || {};
+	this.validateInput('direction');
 	this.isPausedWhenNotInView = options.isPausedWhenNotInView || false;
 	this.opacity = options.opacity;
 	this.states = options.states;
@@ -44,7 +46,7 @@ function Granim(options) {
 			blendingMode: options.image.blendingMode || false
 		};
 	}
-	doesGradientUseOpacity = this.opacity.map(function(el) {return el !== 1})
+	doesGradientUseOpacity = this.opacity.map(function(el) { return el !== 1 })
 		.indexOf(true) !== -1;
 	this.shouldClearCanvasOnEachFrame = !!this.image || doesGradientUseOpacity;
 	this.events = {
@@ -341,7 +343,7 @@ module.exports = function() {
 module.exports = function() {
 	if ( typeof window.CustomEvent === "function" ) return;
 
-	function CustomEvent (event, params) {
+	function CustomEvent(event, params) {
 		params = params || { bubbles: false, cancelable: false, detail: undefined };
 		var evt = document.createEvent('CustomEvent');
 		evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
@@ -621,7 +623,7 @@ module.exports = function() {
 			var imgOriginalWidthOrHeight = _this[axis === 'x' ? 'imgOriginalWidth' : 'imgOriginalHeight'];
 			var imageAlignIndex = axis === 'x' ? _this.image.position[0] : _this.image.position[1];
 			var imageAxisPosition;
-			switch (imageAlignIndex) {
+			switch(imageAlignIndex) {
 				case 'center':
 					imageAxisPosition = imgOriginalWidthOrHeight > canvasWidthOrHeight ?
 					-(imgOriginalWidthOrHeight - canvasWidthOrHeight) / 2 :
@@ -653,7 +655,7 @@ module.exports = function() {
 
 			if (_this.image.stretchMode) {
 				imageAlignIndex = axis === 'x' ? _this.image.stretchMode[0] : _this.image.stretchMode[1];
-				switch (imageAlignIndex) {
+				switch(imageAlignIndex) {
 					case 'stretch':
 						_this.imagePosition[axis] = 0;
 						_this.imagePosition[axis === 'x' ? 'width' : 'height'] = canvasWidthOrHeight;
@@ -771,7 +773,7 @@ module.exports = function() {
 		default:
 			this.triggerError('direction');
 			break;
-		
+
 		case 'diagonal':
 			return ctx.createLinearGradient(0, 0, this.x1, this.y1);
 			break;
@@ -787,7 +789,22 @@ module.exports = function() {
 		case 'radial':
 			return ctx.createRadialGradient(this.x1 / 2, this.y1 / 2, this.x1 / 2, this.x1 / 2, this.y1 / 2, 0);
 			break;
+		case 'custom':
+			return ctx.createLinearGradient(
+				getCustomCoordinateInPixels(this.customDirection.x0, this.x1),
+				getCustomCoordinateInPixels(this.customDirection.y0, this.y1),
+				getCustomCoordinateInPixels(this.customDirection.x1, this.x1),
+				getCustomCoordinateInPixels(this.customDirection.y1, this.y1)
+			);
+			break;
+
 	}
+};
+
+function getCustomCoordinateInPixels(coordinate, size) {
+	return coordinate.indexOf('%') > -1
+		? size / 100 * parseInt(coordinate.split('%')[0], 10)
+		: parseInt(coordinate.split('px')[0], 10);
 };
 
 },{}],25:[function(require,module,exports){
@@ -819,20 +836,21 @@ module.exports = function(inputType) {
 	var blendingModeValues = ['multiply', 'screen', 'normal', 'overlay', 'darken',
 		'lighten', 'lighter', 'color-dodge', 'color-burn', 'hard-light', 'soft-light',
 		'difference', 'exclusion', 'hue', 'saturation', 'color', 'luminosity'];
+	var directionValues = ['diagonal', 'left-right', 'top-bottom', 'radial', 'custom'];
 
-	switch(inputType) {
+	switch (inputType) {
 		case 'image':
 			// Validate image.position
 			if ((!Array.isArray(this.image.position) || this.image.position.length !== 2) ||
 				xPositionValues.indexOf(this.image.position[0]) === -1 ||
 				yPositionValues.indexOf(this.image.position[1]) === -1
-			) {this.triggerError('image.position')}
+			) { this.triggerError('image.position') }
 			// Validate image.stretchMode
 			if (this.image.stretchMode) {
 				if ((!Array.isArray(this.image.stretchMode) || this.image.stretchMode.length !== 2) ||
 					stretchModeValues.indexOf(this.image.stretchMode[0]) === -1 ||
 					stretchModeValues.indexOf(this.image.stretchMode[1]) === -1
-				) {this.triggerError('image.stretchMode')}
+				) { this.triggerError('image.stretchMode') }
 			}
 			break;
 		case 'blendingMode':
@@ -840,9 +858,55 @@ module.exports = function(inputType) {
 				this.clear();
 				this.triggerError('blendingMode');
 			}
+			break;
+		case 'direction':
+			if (directionValues.indexOf(this.direction) === -1) {
+				this.triggerError('direction');
+			} else {
+				if (this.direction === 'custom') {
+					if (!areDefinedInPixelsOrPercentage([
+						this.customDirection.x0,
+						this.customDirection.x1,
+						this.customDirection.y0,
+						this.customDirection.y1
+					])) {
+						this.triggerError('customDirection');
+					}
+				}
+			}
+			break;
 	}
 };
 
+function areDefinedInPixelsOrPercentage(array) {
+	var definedInPixelsOrPercentage = true, i = 0, value;
+	while (definedInPixelsOrPercentage && i < array.length) {
+		value = array[i];
+		if (typeof value !== 'string') {
+			definedInPixelsOrPercentage = false;
+		} else {
+			var unit, splittedValue;
+			if (value.indexOf('px') !== -1) unit = 'px';
+			if (value.indexOf('%') !== -1) unit = '%';
+			splittedValue = value.split(unit);
+			// Check if there is a unit ('px' or '%'),
+			// a char before the unit,
+			// no char after the unit,
+			// the string without the unit is only composed of digits
+			if (
+				!unit
+				|| splittedValue.length > 2
+				|| !splittedValue[0]
+				|| splittedValue[1]
+				|| !/^\d+$/.test(splittedValue[0])
+			) {
+				definedInPixelsOrPercentage = false;
+			}
+		}
+		i++;
+	}
+	return definedInPixelsOrPercentage;
+};
 },{}],28:[function(require,module,exports){
 window.Granim = require('./lib/Granim.js');
 
