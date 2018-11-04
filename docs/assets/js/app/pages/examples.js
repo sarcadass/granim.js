@@ -1,5 +1,7 @@
 'use strict';
 
+var codeTemplates = require('../utils/codeTemplate.js');
+
 module.exports = {
 	init: function() {
 		this.examples.init();
@@ -8,7 +10,6 @@ module.exports = {
 	examples: {
 		init: function() {
 			this.basic();
-			this.basicCustom();
 			this.imageBlending();
 			this.imageMask();
 			this.interactive();
@@ -19,33 +20,12 @@ module.exports = {
 				element: '#canvas-basic',
 				name: 'basic-gradient',
 				direction: 'left-right',
-				opacity: [1, 1],
-				isPausedWhenNotInView: true,
-				states: {
-					"default-state": {
-						gradients: [
-							['#ff9966', '#ff5e62'],
-							['#00F260', '#0575E6'],
-							['#e1eec3', '#f05053']
-						]
-					}
-				}
-			});
-			$('#select-direction').on('change', function() {
-				animation.direction = $(this).val();
-			})
-		},
-		basicCustom: function() {
-			var animation = new Granim({
-				element: '#canvas-basic-custom',
-				name: 'basic-gradient-custom',
 				customDirection: {
-					x0: '20%',
-					y0: '200px',
-					x1: '30%',
-					y1: '400px'
+					x0: '40%',
+					y0: '10px',
+					x1: '60%',
+					y1: '50%'
 				},
-				direction: 'custom',
 				opacity: [1, 1],
 				isPausedWhenNotInView: true,
 				states: {
@@ -58,8 +38,15 @@ module.exports = {
 					}
 				}
 			});
+
 			$('#select-direction').on('change', function() {
-				animation.direction = $(this).val();
+				var directionValue = $(this).val();
+				animation.changeDirection(directionValue);
+
+				$('#canvas-basic-bloc .language-js').html(
+					$(codeTemplates.basic({ direction: directionValue }))
+				);
+				Prism.highlightAll();
 			})
 		},
 
@@ -89,7 +76,13 @@ module.exports = {
 			});
 
 			$('#select-blending-mode').on('change', function() {
-				animation.changeBlendingMode($(this).val());
+				var blendingModeValue = $(this).val();
+				animation.changeBlendingMode(blendingModeValue);
+
+				$('#canvas-image-blending-bloc .language-js').html(
+					$(codeTemplates.blendingMode({ blendingMode: blendingModeValue }))
+					);
+				Prism.highlightAll();
 			})
 		},
 

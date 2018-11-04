@@ -6,6 +6,33 @@ body.api {
 	padding-top: 50px;
 }
 
+.api-versions-list li {
+	font-size: 1.75em;
+	margin-bottom: 15px;
+	a {
+		color: #444;
+		&:hover {color: $color-green-main}
+	}
+}
+
+.title-bloc {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	.api-version {
+		font-size: .5em;
+		font-weight: bold;
+	}
+
+	#version-select {
+		padding: 5px;
+    border-color: $color-green-main;
+    font-size: 1em;
+    font-family: $font-main;
+	}
+}
+
 table.api-list {
 	width: 100%;
 	text-align: left;
