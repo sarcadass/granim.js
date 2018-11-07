@@ -24,8 +24,13 @@
 	<script>
 		var granimInstance = new Granim({
 			element: '#granim-canvas',
-			direction: 'top-bottom',
-			opacity: [1, 1],
+			direction: 'left-right',
+			customDirection: {
+				x0: '50px',
+				y0: '00',
+				x1: '0',
+				y1: '0'
+			},
 			isPausedWhenNotInView: true,
 			scrollDebounceThreshold: 300,
 			image: {
@@ -37,11 +42,9 @@
 			states : {
 				"default-state": {
 					gradients: [
-						['#29323c', '#485563'],
-						['#FF6B6B', '#556270'],
-						['#80d3fe', '#7ea0c4'],
-						['#ffb62a', '#eceba3']
-
+						['rgba(255, 153, 102, .33)', '#ff5e62'],
+						['hsla(144, 100%, 47%, .75)', 'hsl(210, 96%, 46%)'],
+						['rgb(225, 238, 195)', '#f05053']
 					],
 					transitionSpeed: 1000
 				}

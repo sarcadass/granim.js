@@ -1,6 +1,6 @@
 describe('Animation: ', function() {
 	var event = document.createEvent('HTMLEvents');
-	var value, granimInstance, gradientColor, canvas,
+	var granimInstance, gradientColor, canvas,
 		canvasWidthMiddle, canvasHeightMiddle;
 
 	beforeEach(function(done) {
@@ -10,7 +10,7 @@ describe('Animation: ', function() {
 		}, 1);
 	});
 
-	it("should support async execution of test preparation and expectations", function(done) {
+	it('should support async execution of test preparation and expectations', function(done) {
 		canvas = setCanvas();
 		granimInstance = new Granim({
 			element: '#granim-canvas',
@@ -20,10 +20,11 @@ describe('Animation: ', function() {
 			states : {
 				"default-state": {
 					gradients: [
-						['#BA8B02', '#181818'],
-						['#7b4397', '#dc2430']
+						['hsl(333, 56%,89%)', '#181818', 'rgba(25,63, 48, .75)'],
+						['#7b4397', 'hsla(126,0%, 19%,.9)', 'rgb(69, 89,169)'],
+						['#222', 'hsl(0, 5%, 5%)', 'rgb(255, 0,0)'],
 					],
-					transitionSpeed: 250,
+					transitionSpeed: 100,
 					loop: true
 				}
 			}
@@ -50,7 +51,7 @@ describe('Animation: ', function() {
 				var isSameGradientImage = compareImages(gradientColor, granimInstance.context.getImageData(canvasWidthMiddle, canvasHeightMiddle, 5, 5));
 				expect(isSameGradientImage).toBe(false);
 				done();
-			}, 250);
+			}, 300);
 		});
 
 		afterEach(function() {

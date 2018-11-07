@@ -34,14 +34,16 @@ the class will be updated during the animation.<br><strong>If you don't set a na
   y1: '322px'
 }</code></pre><strong>This property is required</strong> when the property<span class="snippet">direction</span> is set to<span class="snippet">custom</span>.<br>For more details, checkout the documentation of the <a class="link" href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/createLinearGradient" target="_blank">createLinearGradient </a>function.</td></tr><tr><td>isPausedWhenNotInView</td><td>false</td><td>Boolean</td><td>Does the animation stop when it's not in window view?<br>
 (Despite this parameter, the animation always pause
-when changing tab).</td></tr><tr><td>scrollDebounceThreshold <span class="version">v1.1.0</span></td><td>300</td><td>Int</td><td>What is the scroll <a class="link" href="https://css-tricks.com/debouncing-throttling-explained-examples/" target="_blank">debounce</a> threshold (in ms)?<br><strong>Only useful if </strong><span class="snippet">isPausedWhenNotInView</span> is set to <span class="snippet">true</span>.</td></tr><tr><td>opacity <span class="required">(required)</span></td><td>/</td><td>Array of Int</td><td>You can adapt the opacity of each color of the gradient.<br>
-if you have two colors <span class="snippet">[1, .5]</span>,
-or three <span class="snippet">[1, .5, 1]</span>...</td></tr><tr><td>stateTransitionSpeed</td><td>1000</td><td>Int</td><td>Duration of the animation when changing state.</td></tr><tr><td>defaultStateName</td><td>'default-state'</td><td>String</td><td>The name of the default state.</td></tr><tr><td>states <span class="required">(required)</span></td><td>/</td><td>Object</td><td>Object containing all the states, see more info below.</td></tr><tr><td>image <span class="version">v1.1.0</span></td><td>/</td><td>Object</td><td>Object containing image options, see more info below.</td></tr></tbody></table></div><div class="container bloc"><h2>options.states</h2><p>All the options available to customize the states and the different gradients.<br>
+when changing tab).</td></tr><tr><td>scrollDebounceThreshold <span class="version">v1.1.0</span></td><td>300</td><td>Int</td><td>What is the scroll <a class="link" href="https://css-tricks.com/debouncing-throttling-explained-examples/" target="_blank">debounce</a> threshold (in ms)?<br><strong>Only useful if </strong><span class="snippet">isPausedWhenNotInView</span> is set to <span class="snippet">true</span>.</td></tr><tr><td>stateTransitionSpeed</td><td>1000</td><td>Int</td><td>Duration of the animation when changing state.</td></tr><tr><td>defaultStateName</td><td>'default-state'</td><td>String</td><td>The name of the default state.</td></tr><tr><td>states <span class="required">(required)</span></td><td>/</td><td>Object</td><td>Object containing all the states, see more info below.</td></tr><tr><td>image <span class="version">v1.1.0</span></td><td>/</td><td>Object</td><td>Object containing image options, see more info below.</td></tr></tbody></table></div><div class="container bloc"><h2>options.states</h2><p>All the options available to customize the states and the different gradients.<br>
 Create a state with the name you want then add these parameters.<br>
-By default, the name of your first state is <span class="snippet">'default-state'</span>, you can change it with <span class="snippet">options.defaultStateName</span>.</p><table class="api-list"><thead><tr><th>Property</th><th>Default</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td>gradients <span class="required">(required)</span></td><td>/</td><td>Array of Arrays</td><td>The different gradients with the different colors
-e.g. <span class="snippet">[ ['#FFF', '#000'],
-['#000', '#FFF'] ]</span>.<br>
-The array can contain only one gradient.</td></tr><tr><td>transitionSpeed</td><td>5000</td><td>Int</td><td>Transition duration between each gradient.</td></tr><tr><td>loop</td><td>true</td><td>Boolean</td><td>When the animation has arrived to the last gradient, does it repeat?</td></tr></tbody></table></div><div class="container bloc" id="options-image"><h2>options.image <span class="version">v1.1.0</span></h2><p>All the options available to customize the image.<br>
+By default, the name of your first state is <span class="snippet">'default-state'</span>, you can change it with <span class="snippet">options.defaultStateName</span>.</p><table class="api-list"><thead><tr><th>Property</th><th>Default</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td>gradients <span class="required">(required)</span></td><td>/</td><td>Array of Arrays</td><td>The different gradients with the different colors, e.g.<pre><code class="language-js">[
+  ['rgba(255, 153, 102, .33)', '#ff5e62'],
+  ['hsla(144, 100%, 47%, .75)', 'hsl(210, 96%, 46%)'],
+  ['rgb(225, 238, 195)', '#f05053'],
+]</code></pre>The colors type accepted are: <span class="snippet">hexadecimal</span>,
+<span class="snippet">rgb</span>, <span class="snippet">rgba</span>,
+<span class="snippet">hsl</span> and <span class="snippet">hsla</span>. 
+All the gradients should contain the same number of colors.</td></tr><tr><td>transitionSpeed</td><td>5000</td><td>Int</td><td>Transition duration between each gradient.</td></tr><tr><td>loop</td><td>true</td><td>Boolean</td><td>When the animation has arrived to the last gradient, does it repeat?</td></tr></tbody></table></div><div class="container bloc" id="options-image"><h2>options.image <span class="version">v1.1.0</span></h2><p>All the options available to customize the image.<br>
 The blending Mode works only if you set an image and gradients.</p><table class="api-list"><thead><tr><th>Property</th><th>Default</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td>source <span class="required">(required)</span></td><td>/</td><td>String</td><td>The source of your image,
 e.g. <span class="snippet">'img/800x200.jpg'</span>.</td></tr><tr><td>position</td><td>['center', 'center']</td><td>Array</td><td>The position of your image in the canvas, represented as an <span class="snippet">[x, y]</span> array.<br>
 Possible values for <span class="snippet">x</span>:<ul><li><span class="snippet">'left'</span></li><li><span class="snippet">'center'</span></li><li><span class="snippet">'right'</span></li></ul>Possible values for <span class="snippet">y</span>:<ul><li><span class="snippet">'top'</span></li><li><span class="snippet">'center'</span></li><li><span class="snippet">'bottom'</span></li></ul></td></tr><tr><td>stretchMode</td><td>/</td><td>Array</td><td>Does the image have to stretch ? This option is useful for liquid/responsive design.
@@ -88,7 +90,6 @@ granimInstance.destroy();</code></pre></div><div class="container bloc"><h2>Comp
     direction: 'diagonal',
     isPausedWhenNotInView: false,
     scrollDebounceThreshold: 300,
-    opacity: [1, 1],
     stateTransitionSpeed: 1000,
     image : {
         source: '../assets/img/bg-forest.jpg',
@@ -126,15 +127,13 @@ granimInstance.destroy();</code></pre></div><div class="container bloc"><h2>Comp
     }
 );</code></pre><p>You can use more than 2 colors for the gradients,
 but cannot have different length of colors in the
-different states. you will also have to
-<strong>adapt the opacity</strong>.</p><pre><code class="language-js">var granimInstance = new Granim({
+different states.</p><pre><code class="language-js">var granimInstance = new Granim({
     element: '',
     name: 'granim',
     elToSetClassOn: 'body',
     direction: 'diagonal',
     isPausedWhenNotInView: false,
     scrollDebounceThreshold: 300,
-    opacity: [1, 1, .5, 1],
     stateTransitionSpeed: 1000,
     states : {
         "default-state": {

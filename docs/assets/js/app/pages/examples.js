@@ -18,7 +18,6 @@ module.exports = {
 		basic: function() {
 			var animation = new Granim({
 				element: '#canvas-basic',
-				name: 'basic-gradient',
 				direction: 'left-right',
 				customDirection: {
 					x0: '40%',
@@ -26,7 +25,6 @@ module.exports = {
 					x1: '60%',
 					y1: '50%'
 				},
-				opacity: [1, 1],
 				isPausedWhenNotInView: true,
 				states: {
 					"default-state": {
@@ -54,7 +52,6 @@ module.exports = {
 			var animation = new Granim({
 				element: '#canvas-image-blending',
 				direction: 'top-bottom',
-				opacity: [1, 1],
 				isPausedWhenNotInView: true,
 				image: {
 					source: '../granim.js/assets/img/bg-forest.jpg',
@@ -90,7 +87,6 @@ module.exports = {
 			var animation = new Granim({
 				element: '#canvas-image-mask',
 				direction: 'left-right',
-				opacity: [1, 1],
 				isPausedWhenNotInView: true,
 				states: {
 					"default-state": {
@@ -118,7 +114,6 @@ module.exports = {
 				name: 'interactive-gradient',
 				elToSetClassOn: '.canvas-interactive-wrapper',
 				direction: 'diagonal',
-				opacity: [1, 1],
 				isPausedWhenNotInView: true,
 				stateTransitionSpeed: 500,
 				states: {

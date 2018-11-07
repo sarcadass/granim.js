@@ -1,9 +1,8 @@
 /*! Granim v1.1.1 - https://sarcadass.github.io/granim.js */
-(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
 function Granim(options) {
-	var doesGradientUseOpacity;
 	this.getElement(options.element);
 	this.x1 = 0;
 	this.y1 = 0;
@@ -13,7 +12,7 @@ function Granim(options) {
 	this.customDirection = options.customDirection || {};
 	this.validateInput('direction');
 	this.isPausedWhenNotInView = options.isPausedWhenNotInView || false;
-	this.opacity = options.opacity;
+	// this.opacity = options.opacity;
 	this.states = options.states;
 	this.stateTransitionSpeed = options.stateTransitionSpeed || 1000;
 	this.previousTimeStamp = null;
@@ -21,7 +20,7 @@ function Granim(options) {
 	this.isPaused = false;
 	this.isCleared = false;
 	this.isPausedBecauseNotInView = false;
-	this.iscurrentColorsSet = false;
+	// this.isCurrentColorsSet = false;
 	this.context = this.canvas.getContext('2d');
 	this.channels = {};
 	this.channelsIndex = 0;
@@ -46,9 +45,7 @@ function Granim(options) {
 			blendingMode: options.image.blendingMode || false
 		};
 	}
-	doesGradientUseOpacity = this.opacity.map(function(el) { return el !== 1 })
-		.indexOf(true) !== -1;
-	this.shouldClearCanvasOnEachFrame = !!this.image || doesGradientUseOpacity;
+
 	this.events = {
 		start: new CustomEvent('granim:start'),
 		end: new CustomEvent('granim:end'),
@@ -109,13 +106,13 @@ Granim.prototype.validateInput = require('./validateInput.js');
 
 Granim.prototype.triggerError = require('./triggerError.js');
 
+Granim.prototype.convertColorToRgba = require('./convertColorToRgba.js');
+
 Granim.prototype.prepareImage = require('./prepareImage.js');
 
 Granim.prototype.eventPolyfill = require('./eventPolyfill.js');
 
 Granim.prototype.colorDiff = require('./colorDiff.js');
-
-Granim.prototype.hexToRgb = require('./hexToRgb.js');
 
 Granim.prototype.setDirection = require('./setDirection.js');
 
@@ -155,7 +152,7 @@ Granim.prototype.changeState = require('./changeState.js');
 
 module.exports = Granim;
 
-},{"./animateColors.js":2,"./changeBlendingMode.js":3,"./changeDirection.js":4,"./changeState.js":5,"./clear.js":6,"./colorDiff.js":7,"./destroy.js":8,"./eventPolyfill.js":9,"./getCurrentColors.js":10,"./getDimensions.js":11,"./getElement.js":12,"./getLightness.js":13,"./hexToRgb.js":14,"./makeGradient.js":15,"./onResize.js":16,"./onScroll.js":17,"./pause.js":18,"./pauseWhenNotInView.js":19,"./play.js":20,"./prepareImage.js":21,"./refreshColors.js":22,"./setColors.js":23,"./setDirection.js":24,"./setSizeAttributes.js":25,"./triggerError.js":26,"./validateInput.js":27}],2:[function(require,module,exports){
+},{"./animateColors.js":2,"./changeBlendingMode.js":3,"./changeDirection.js":4,"./changeState.js":5,"./clear.js":6,"./colorDiff.js":7,"./convertColorToRgba.js":8,"./destroy.js":9,"./eventPolyfill.js":10,"./getCurrentColors.js":11,"./getDimensions.js":12,"./getElement.js":13,"./getLightness.js":14,"./makeGradient.js":15,"./onResize.js":16,"./onScroll.js":17,"./pause.js":18,"./pauseWhenNotInView.js":19,"./play.js":20,"./prepareImage.js":21,"./refreshColors.js":22,"./setColors.js":23,"./setDirection.js":24,"./setSizeAttributes.js":25,"./triggerError.js":26,"./validateInput.js":27}],2:[function(require,module,exports){
 'use strict';
 
 module.exports = function(timestamp) {
@@ -290,7 +287,7 @@ module.exports = function(state) {
 	// Compute the gradient diff between the last frame gradient
 	// and the first one of the new state
 	this.states[state].gradients[0].forEach(function(color, i, arr) {
-		nextColors = _this.hexToRgb(_this.states[state].gradients[0][i]);
+		nextColors = _this.convertColorToRgba(_this.states[state].gradients[0][i]);
 		colorDiff = _this.colorDiff(_this.activeColors[i], nextColors);
 		_this.activeColorDiff.push(colorDiff);
 	});
@@ -321,7 +318,7 @@ module.exports = function(colorA, colorB) {
 	var i;
 	var colorDiff = [];
 
-	for (i = 0; i < 3; i++) {
+	for (i = 0; i < 4; i++) {
 		colorDiff.push(colorB[i] - colorA[i])
 	}
 
@@ -329,6 +326,107 @@ module.exports = function(colorA, colorB) {
 };
 
 },{}],8:[function(require,module,exports){
+'use strict'
+
+var regex = {
+	hexa: /^#(?:[0-9a-fA-F]{3}){1,2}$/,
+	rgba: /^rgba\((\d{1,3}), ?(\d{1,3}), ?(\d{1,3}), ?(.?\d{1,3})\)$/,
+	rgb: /^rgb\((\d{1,3}), ?(\d{1,3}), ?(\d{1,3})\)$/,
+	hsla: /^hsla\((\d{1,3}), ?(\d{1,3})%, ?(\d{1,3})%, ?(.?\d{1,3})\)$/,
+	hsl: /^hsl\((\d{1,3}), ?(\d{1,3})%, ?(\d{1,3})%\)$/
+}, match;
+
+module.exports = function(color) {
+	switch(identifyColorType(color)) {
+		default:
+			this.triggerError('colorType');
+
+		case 'hexa':
+			return hexToRgba(color);
+
+		case 'rgba':
+			return [
+				parseInt(match[1], 10),
+				parseInt(match[2], 10),
+				parseInt(match[3], 10),
+				parseFloat(match[4], 10)
+			];
+
+		case 'rgb':
+			return [
+				parseInt(match[1], 10),
+				parseInt(match[2], 10),
+				parseInt(match[3], 10),
+				1
+			];
+
+		case 'hsla':
+			return hslaToRgb(
+				parseInt(match[1], 10) / 360,
+				parseInt(match[2], 10) / 100,
+				parseInt(match[3], 10) / 100,
+				parseFloat(match[4], 10)
+			);
+
+		case 'hsl':
+			return hslaToRgb(
+				parseInt(match[1], 10) / 360,
+				parseInt(match[2], 10) / 100,
+				parseInt(match[3], 10) / 100,
+				1
+			);
+	}
+}
+
+function identifyColorType(color) {
+	var colorTypes = Object.keys(regex);
+	var i = 0;
+	for (i; i < colorTypes.length; i++) {
+		match = regex[colorTypes[i]].exec(color);
+		if (match) return colorTypes[i];
+	}
+	return false;
+}
+
+function hexToRgba(hex) {
+	// Expand shorthand form (e.g. '03F') to full form (e.g. '0033FF')
+	var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+	hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+		return r + r + g + g + b + b;
+	});
+	var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+	return result ? [
+		parseInt(result[1], 16),
+		parseInt(result[2], 16),
+		parseInt(result[3], 16),
+		1
+	] : null;
+}
+
+function hue2rgb(p, q, t) {
+	if (t < 0) t += 1;
+	if (t > 1) t -= 1;
+	if (t < 1 / 6) return p + (q - p) * 6 * t;
+	if (t < 1 / 2) return q;
+	if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+	return p;
+}
+
+function hslaToRgb(h, s, l, a) {
+	var r, g, b, q, p;
+	if (s === 0) {
+		r = g = b = l; // achromatic
+	} else {
+		q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+		p = 2 * l - q;
+		r = hue2rgb(p, q, h + 1/3);
+		g = hue2rgb(p, q, h);
+		b = hue2rgb(p, q, h - 1/3);
+	}
+	return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255), a];
+}
+
+},{}],9:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -337,7 +435,7 @@ module.exports = function() {
 	this.clear();
 };
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -355,7 +453,7 @@ module.exports = function() {
 	window.CustomEvent = CustomEvent;
 };
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -371,7 +469,7 @@ module.exports = function() {
 	return currentColors;
 };
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -379,7 +477,7 @@ module.exports = function() {
 	this.y1 = this.canvas.offsetHeight;
 };
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 'use strict';
 
 module.exports = function(element) {
@@ -398,7 +496,7 @@ module.exports = function(element) {
 	}
 };
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 module.exports = function() {
@@ -427,24 +525,6 @@ module.exports = function() {
 	return lightnessAverage >= 128 ? 'light' : 'dark';
 };
 
-},{}],14:[function(require,module,exports){
-'use strict';
-
-module.exports = function(hex) {
-	// Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
-	var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-	hex = hex.replace(shorthandRegex, function(m, r, g, b) {
-		return r + r + g + g + b + b;
-	});
-
-	var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-	return result ? [
-		parseInt(result[1], 16),
-		parseInt(result[2], 16),
-		parseInt(result[3], 16)
-	] : null;
-};
-
 },{}],15:[function(require,module,exports){
 'use strict';
 
@@ -452,8 +532,7 @@ module.exports = function() {
 	var i, colorPosition;
 	var gradient = this.setDirection();
 	var elToSetClassOnClass = document.querySelector(this.elToSetClassOn).classList;
-
-	if (this.shouldClearCanvasOnEachFrame) this.context.clearRect(0, 0, this.x1, this.y1);
+	this.context.clearRect(0, 0, this.x1, this.y1);
 
 	if (this.image) {
 		this.context.drawImage(
@@ -473,7 +552,7 @@ module.exports = function() {
 			this.currentColors[i][0] + ', ' +
 			this.currentColors[i][1] + ', ' +
 			this.currentColors[i][2] + ', ' +
-			this.opacity[i] + ')'
+			this.currentColors[i][3] + ')'
 		);
 	}
 
@@ -688,9 +767,15 @@ module.exports = function(progressPercent) {
 	// Loop through each colors of the active gradient
 	for (i = 0; i < this.activeColors.length; i++) {
 
-		// Generate RGB colors
-		for (j = 0; j < 3; j++) {
+		// Generate RGBA colors
+		for (j = 0; j < 4; j++) {
+			// If color value [0-255] round to the integer,
+			// Else f opacity [0-1] round to 2 decimals
 			activeChannel = _this.activeColors[i][j] +
+				(j !== 3
+					? Math.ceil(_this.activeColorDiff[i][j] / 100 * progressPercent)
+					: Math.round((_this.activeColorDiff[i][j] / 100 * progressPercent) * 100) / 100
+				)
 				Math.ceil(_this.activeColorDiff[i][j] / 100 * progressPercent);
 
 			// Prevent colors values from going < 0 & > 255
@@ -729,16 +814,16 @@ module.exports = function() {
 
 	// Go on each gradient of the current state
 	this.states[this.activeState].gradients[this.channelsIndex].forEach(function(color, i) {
-		// Push the hex color converted to rgb on the channel and the active color properties
-		var rgbColor = _this.hexToRgb(color);
+		// Push the hex color converted to rgba on the channel and the active color properties
+		var rgbaColor = _this.convertColorToRgba(color);
 		var activeChannel = _this.channels[_this.activeState];
 
-		activeChannel[_this.channelsIndex].colors.push(rgbColor);
-		_this.activeColors.push(rgbColor);
+		activeChannel[_this.channelsIndex].colors.push(rgbaColor);
+		_this.activeColors.push(rgbaColor);
 
 		// If it's the first channel to be set, set the currentColors
-		if (!_this.iscurrentColorsSet) {
-			_this.currentColors.push(_this.hexToRgb(color));
+		if (!_this.isCurrentColorsSet) {
+			_this.currentColors.push(_this.convertColorToRgba(color));
 		}
 
 		// If it's the last gradient, compute the color diff between the last gradient and the first one,
@@ -749,7 +834,7 @@ module.exports = function() {
 				activeChannel[0].colors[i]
 			);
 		} else {
-			nextColors = _this.hexToRgb(_this.states[_this.activeState].gradients[_this.channelsIndex + 1][i]);
+			nextColors = _this.convertColorToRgba(_this.states[_this.activeState].gradients[_this.channelsIndex + 1][i]);
 			colorDiff = _this.colorDiff(
 				activeChannel[_this.channelsIndex].colors[i], nextColors
 			);
@@ -760,7 +845,7 @@ module.exports = function() {
 	});
 
 	this.activetransitionSpeed = this.states[this.activeState].transitionSpeed || 5000;
-	this.iscurrentColorsSet = true;
+	this.isCurrentColorsSet = true;
 };
 
 },{}],24:[function(require,module,exports){

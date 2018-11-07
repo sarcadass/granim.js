@@ -19,12 +19,15 @@ function unsetCanvas(canvasId) {
 	if (canvas) canvas.remove();
 }
 
-function compareImages(img1,img2){
-	if(img1.data.length != img2.data.length)
-		return false;
-	for(var i = 0; i < img1.data.length; ++i){
-		if(img1.data[i] != img2.data[i])
+function compareImages(img1, img2) {
+	if (img1.data.length != img2.data.length) return false;
+	for (var i = 0; i < img1.data.length; ++i) {
+		if (img1.data[i] != img2.data[i])
 			return false;
 	}
 	return true;
+}
+
+function errorMessage(errorType) {
+	return 'Granim: Input error on "' + errorType +'" option.\nCheck the API https://sarcadass.github.io/granim.js/api.html.'
 }

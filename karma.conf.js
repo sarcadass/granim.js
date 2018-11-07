@@ -18,7 +18,8 @@ module.exports = function(config) {
       'dist/granim.js',
       'test/testUtils.js',
       'test/**/*Spec.js',
-      { pattern: 'test/img/*.jpg', watched: false, included: false, served: true }
+      { pattern: 'test/img/*.jpg', watched: false, included: false, served: true },
+      './node_modules/phantomjs-polyfill-object-assign/object-assign-polyfill.js',
     ],
 
     proxies: {

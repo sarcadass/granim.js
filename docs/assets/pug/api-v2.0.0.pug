@@ -120,14 +120,6 @@ html(lang="en")
 								span.snippet true
 								| .
 						tr
-							td opacity <span class="required">(required)</span>
-							td /
-							td Array of Int
-							td
-								| You can adapt the opacity of each color of the gradient.<br>
-								| if you have two colors <span class="snippet">[1, .5]</span>,
-								| or three <span class="snippet">[1, .5, 1]</span>...
-						tr
 							td stateTransitionSpeed
 							td 1000
 							td Int
@@ -169,10 +161,18 @@ html(lang="en")
 							td /
 							td Array of Arrays
 							td
-								| The different gradients with the different colors
-								| e.g. <span class="snippet">[ ['#FFF', '#000'],
-								| ['#000', '#FFF'] ]</span>.<br>
-								| The array can contain only one gradient.
+								| The different gradients with the different colors, e.g.
+								pre
+									code.language-js
+										| [
+										|   ['rgba(255, 153, 102, .33)', '#ff5e62'],
+										|   ['hsla(144, 100%, 47%, .75)', 'hsl(210, 96%, 46%)'],
+										|   ['rgb(225, 238, 195)', '#f05053'],
+										| ]
+								| The colors type accepted are: <span class="snippet">hexadecimal</span>,
+								| <span class="snippet">rgb</span>, <span class="snippet">rgba</span>,
+								| <span class="snippet">hsl</span> and <span class="snippet">hsla</span>. 
+								| All the gradients should contain the same number of colors.
 						tr
 							td transitionSpeed
 							td 5000
@@ -340,7 +340,6 @@ html(lang="en")
 						|     direction: 'diagonal',
 						|     isPausedWhenNotInView: false,
 						|     scrollDebounceThreshold: 300,
-						|     opacity: [1, 1],
 						|     stateTransitionSpeed: 1000,
 						|     image : {
 						|         source: '../assets/img/bg-forest.jpg',
@@ -380,8 +379,7 @@ html(lang="en")
 				p
 					| You can use more than 2 colors for the gradients,
 					| but cannot have different length of colors in the
-					| different states. you will also have to
-					| <strong>adapt the opacity</strong>.
+					| different states.
 				pre
 					code.language-js
 						| var granimInstance = new Granim({
@@ -391,7 +389,6 @@ html(lang="en")
 						|     direction: 'diagonal',
 						|     isPausedWhenNotInView: false,
 						|     scrollDebounceThreshold: 300,
-						|     opacity: [1, 1, .5, 1],
 						|     stateTransitionSpeed: 1000,
 						|     states : {
 						|         "default-state": {
