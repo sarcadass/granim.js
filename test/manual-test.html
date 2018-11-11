@@ -36,8 +36,8 @@
 			image: {
 				source: 'img/800x200.jpg',
 				position: ['center', 'center'],
-				stretchMode: ['stretch-if-smaller', 'stretch-if-bigger'],
-				blendingMode: 'multiply'
+				stretchMode: ['none', 'stretch-if-bigger'],
+				// blendingMode: 'multiply'
 			},
 			states : {
 				"default-state": {
@@ -55,7 +55,7 @@
 				
 				"default-state2": {
 					gradients: [
-						[{ color: '#7ffc25', pos: .5 }, { color: '#61045F', pos: .8 }],
+						[{ color: '#7ffc25', pos: .5 }, { color: 'hsla(144, 100%, 47%, .75)', pos: .8 }],
 						[{ color: '#AA076B', pos: .1 }, { color: '#7ffc25', pos: .3 }]
 					],
 					transitionSpeed: 1000

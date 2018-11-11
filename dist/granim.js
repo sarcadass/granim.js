@@ -796,6 +796,8 @@ module.exports = function() {
 			if (_this.image.stretchMode) {
 				imageAlignIndex = axis === 'x' ? _this.image.stretchMode[0] : _this.image.stretchMode[1];
 				switch(imageAlignIndex) {
+					case 'none':
+						break;
 					case 'stretch':
 						_this.imagePosition[axis] = 0;
 						_this.imagePosition[axis === 'x' ? 'width' : 'height'] = canvasWidthOrHeight;
@@ -1002,7 +1004,7 @@ module.exports = function(element) {
 module.exports = function(inputType) {
 	var xPositionValues = ['left', 'center', 'right'];
 	var yPositionValues = ['top', 'center', 'bottom'];
-	var stretchModeValues = ['stretch', 'stretch-if-smaller', 'stretch-if-bigger'];
+	var stretchModeValues = ['none', 'stretch', 'stretch-if-smaller', 'stretch-if-bigger'];
 	var blendingModeValues = ['multiply', 'screen', 'normal', 'overlay', 'darken',
 		'lighten', 'lighter', 'color-dodge', 'color-burn', 'hard-light', 'soft-light',
 		'difference', 'exclusion', 'hue', 'saturation', 'color', 'luminosity'];
@@ -1081,10 +1083,6 @@ function areDefinedInPixelsOrPercentage(array) {
 	return definedInPixelsOrPercentage;
 };
 
-
-[
-	'10px', '00', '0', '0'
-	]
 },{}],32:[function(require,module,exports){
 window.Granim = require('./lib/Granim.js');
 
