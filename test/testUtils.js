@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 function setCanvas(canvasId) {
 	var canvas;
 	if (canvasId && document.querySelector(canvasId)) {

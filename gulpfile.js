@@ -1,29 +1,37 @@
 'use strict';
 
-var gulp = require('gulp'),
-	browserify = require('browserify'),
-	uglify = require('gulp-uglify'),
-	source = require('vinyl-source-stream'),
-	buffer = require('vinyl-buffer'),
-	rename = require('gulp-rename'),
-	gulpif = require('gulp-if'),
-	sass = require('gulp-sass'),
-	pug = require('gulp-pug'),
-	copy = require('gulp-copy'),
-	sourcemaps = require('gulp-sourcemaps'),
-	header = require('gulp-header'),
-	isSourcemaps = require('minimist')(process.argv.slice(2)).sourcemaps,
-	appVersion = require('./package.json').version;
+var gulp = require('gulp');
+var browserify = require('browserify');
+var uglify = require('gulp-uglify');
+var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
+var rename = require('gulp-rename');
+var gulpif = require('gulp-if');
+var sass = require('gulp-sass');
+var pug = require('gulp-pug');
+var copy = require('gulp-copy');
+var eslint = require('gulp-eslint');
+var sourcemaps = require('gulp-sourcemaps');
+var header = require('gulp-header');
+var isSourcemaps = require('minimist')(process.argv.slice(2)).sourcemaps;
+var appVersion = require('./package.json').version;
 
 
 // LIB
-gulp.task('build', function() {
+gulp.task('lint', function() {
+	return gulp.src('./lib/*.js').pipe(eslint())
+		.pipe(eslint.format())
+		// Brick on failure to be super strict
+		.pipe(eslint.failOnError());
+});
+
+gulp.task('build', gulp.series('lint',function() {
 	return browserify({ entries: 'standalone.js', debug: isSourcemaps }).bundle()
 		.pipe(source('./granim.js'))
 		.pipe(buffer())
 		.pipe(gulpif(!isSourcemaps, header('/*! Granim v' + appVersion + ' - https://sarcadass.github.io/granim.js */\n')))
 		.pipe(gulp.dest('./dist/'));
-});
+}));
 
 gulp.task('buildMin', gulp.series('build', function() { 
 	return gulp.src('./dist/granim.js')
@@ -70,14 +78,14 @@ gulp.task('buildDoc:css', function() {
 
 
 // TASKS
-	// lib
+//// lib
 gulp.task('default', gulp.series('docDist'));
 
 gulp.task('watch', gulp.series('default', function() {
 	gulp.watch('./lib/**/*.js', gulp.series('default'))
 }));
 
-	// doc
+//// doc
 gulp.task('buildDoc', gulp.series(['buildDoc:html', 'buildDoc:js', 'buildDoc:css']));
 
 gulp.task('watchDoc', gulp.series('buildDoc', function() {

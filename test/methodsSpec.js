@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 describe('Methods: ', function() {
 	var granimInstance;
 

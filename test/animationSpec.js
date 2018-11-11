@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 describe('Animation: ', function() {
 	var event = document.createEvent('HTMLEvents');
 	var granimInstance, gradientColor, canvas,

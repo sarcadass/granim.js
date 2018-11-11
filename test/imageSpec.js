@@ -1,3 +1,4 @@
+/* eslint-disable */
 
 describe('Image: ', function() {
 	var granimInstance, gradientColor, canvas,

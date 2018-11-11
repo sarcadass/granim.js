@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 describe('Prelim Checks:', function() {
 	it('Granim is defined', function() {
 		expect(Granim).toBeDefined();

@@ -31,6 +31,7 @@
     "codecov": "^1.0.1",
     "gulp": "^4.0.0",
     "gulp-copy": "0.0.2",
+    "gulp-eslint": "^5.0.0",
     "gulp-header": "^1.8.12",
     "gulp-if": "^2.0.1",
     "gulp-pug": "^3.0.4",
