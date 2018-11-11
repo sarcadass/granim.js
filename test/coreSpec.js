@@ -43,6 +43,15 @@ describe('Granim Core:', function() {
 			expect(func).toThrowError('The element you used is neither a String, nor a HTMLCanvasElement');
 		});
 
+		it('throws an error on invalid direction', function() {
+			var invalidOptions = Object.assign(
+				Object.assign({}, validOptions),
+				{ direction: 'wrongDirectiion' }
+			);
+			var func = function() { return new Granim(invalidOptions) };
+			expect(func).toThrowError(errorMessage('direction'));
+		});
+
 		it('throws an error when the color type of the gradient is not valid', function() {
 			var invalidOptions = Object.assign(
 				Object.assign({}, validOptions),
@@ -76,10 +85,7 @@ describe('Granim Core:', function() {
 				{
 					states: {
 						"default-state": {
-							gradients: [
-								[{ pos: .5 }, { color: '#fff', pos: .6 },],
-								['#1CD8D2', '#93EDC7']
-							]
+							gradients: [[{ pos: .5 }, { color: '#fff', pos: .6 }], ['#1CD8D2', '#93EDC7']]
 						}
 					}
 				}

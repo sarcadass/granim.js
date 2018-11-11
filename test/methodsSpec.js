@@ -1,5 +1,5 @@
 describe('Methods: ', function() {
-	var value, granimInstance;
+	var granimInstance;
 
 	beforeEach(function(done) {
 		setTimeout(function() {
