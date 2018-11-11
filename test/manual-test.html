@@ -24,29 +24,50 @@
 	<script>
 		var granimInstance = new Granim({
 			element: '#granim-canvas',
-			direction: 'top-bottom',
-			opacity: [1, 1],
+			direction: 'left-right',
+			customDirection: {
+				x0: '50px',
+				y0: '00',
+				x1: '0',
+				y1: '0'
+			},
 			isPausedWhenNotInView: true,
 			scrollDebounceThreshold: 300,
 			image: {
 				source: 'img/800x200.jpg',
 				position: ['center', 'center'],
-				stretchMode: ['stretch-if-smaller', 'stretch-if-bigger'],
-				blendingMode: 'multiply'
+				stretchMode: ['none', 'stretch-if-bigger'],
+				// blendingMode: 'multiply'
 			},
 			states : {
 				"default-state": {
 					gradients: [
-						['#29323c', '#485563'],
-						['#FF6B6B', '#556270'],
-						['#80d3fe', '#7ea0c4'],
-						['#ffb62a', '#eceba3']
-
+						[
+							{ color: 'rgba(255, 153, 102, .33)', pos: .5 },
+							{ color: '#ff5e62', pos: 1 }
+						], [
+							{ color: 'hsla(144, 100%, 47%, .75)', pos: .1 },
+							{ color: 'hsl(210, 96%, 46%)', pos: .6 }
+						],
+					],
+					transitionSpeed: 1000
+				},
+				
+				"default-state2": {
+					gradients: [
+						[{ color: '#7ffc25', pos: .5 }, { color: 'hsla(144, 100%, 47%, .75)', pos: .8 }],
+						[{ color: '#AA076B', pos: .1 }, { color: '#7ffc25', pos: .3 }]
 					],
 					transitionSpeed: 1000
 				}
 			}
 		});
+
+		setTimeout(function() {
+			granimInstance.changeState('default-state2');
+			console.log('State Changed');
+			
+		}, 2000);
 	</script>
 </body>
 </html>

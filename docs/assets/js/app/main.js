@@ -4,6 +4,7 @@ module.exports = {
 	init: function() {
 		this.logoAnimation();
 		this.hamburgerIcon();
+		this.setActiveClassOnCurrentNav();
 	},
 
 	logoAnimation: function() {
@@ -27,18 +28,23 @@ module.exports = {
 				}
 			});
 
-			$('.main-header .bloc-logo').css({
-				display: 'none',
-				visibility: 'visible'
-			})
+			$('.main-header .bloc-logo')
+				.css({
+					display: 'none',
+					visibility: 'visible'
+				})
 				.fadeIn();
 		}, 500);
 	},
 
 	hamburgerIcon: function() {
-		$('.hamburger-icon').click(function(){
+		$('.hamburger-icon').click(function() {
 			$(this).toggleClass('open');
 			$('.main-nav').toggleClass('open');
 		});
+	},
+
+	setActiveClassOnCurrentNav: function() {
+		$('#nav-' + pageId).addClass('active');
 	}
 };

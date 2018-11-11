@@ -6,6 +6,33 @@ body.api {
 	padding-top: 50px;
 }
 
+.api-versions-list li {
+	font-size: 1.75em;
+	margin-bottom: 15px;
+	a {
+		color: #444;
+		&:hover {color: $color-green-main}
+	}
+}
+
+.title-bloc {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	.api-version {
+		font-size: .5em;
+		font-weight: bold;
+	}
+
+	#version-select {
+		padding: 5px;
+    border-color: $color-green-main;
+    font-size: 1em;
+    font-family: $font-main;
+	}
+}
+
 table.api-list {
 	width: 100%;
 	text-align: left;
@@ -20,6 +47,10 @@ table.api-list {
 		padding-top: 15px;
 		vertical-align: top;
 		line-height: 1.3;
+
+		&:nth-child(2) {
+			font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+		}
 
 		@include tab-desk {
 			padding-bottom: 15px;

@@ -1,0 +1,23 @@
+header.main-header
+  .container.clearfix
+    .bloc-logo
+      canvas#logo-canvas
+      a.logo-mask(href='index.html') Granim.js
+    .main-nav
+      .hamburger-icon
+        - var n = 0;
+        while n < 6
+          span
+          -n++
+
+      nav
+        ul.clearfix
+          li
+            a.text-link(href='https://github.com/sarcadass/granim.js/releases', target='_blank', rel='external') Download
+          li
+            a.text-link#nav-api(href='api-v2.0.0.html') API
+          li
+            a.text-link#nav-examples(href='examples.html') Examples
+          li
+            a.github(href='https://github.com/sarcadass/granim.js', target='_blank', title='Github', rel='external')
+              include github-logo.html

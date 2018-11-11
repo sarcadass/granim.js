@@ -1,6 +1,6 @@
 {
   "name": "granim",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "description": "Create fluid and interactive gradients animations with this small js library.",
   "main": "index.js",
   "scripts": {
@@ -31,11 +31,12 @@
     "codecov": "^1.0.1",
     "gulp": "^4.0.0",
     "gulp-copy": "0.0.2",
+    "gulp-eslint": "^5.0.0",
     "gulp-header": "^1.8.12",
     "gulp-if": "^2.0.1",
     "gulp-pug": "^3.0.4",
     "gulp-rename": "^1.2.3",
-    "gulp-sass": "^2.3.2",
+    "gulp-sass": "^4.0.2",
     "gulp-sourcemaps": "^1.12.1",
     "gulp-uglify": "^1.5.3",
     "hapi": "^17.6.0",
@@ -50,6 +51,7 @@
     "karma-phantomjs-launcher": "^1.0.2",
     "karma-spec-reporter": "0.0.26",
     "minimist": "^1.2.0",
+    "phantomjs-polyfill-object-assign": "0.0.2",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0"
   }

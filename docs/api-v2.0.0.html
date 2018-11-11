@@ -1,0 +1,191 @@
+<!DOCTYPE html><html lang="en"><head><title>API V2.0.0 | Granim.js</title><meta name="description" content="API for granim.js. Gradients animations in javascript."><meta charset="UTF-8"><meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1"><link type="text/css" rel="stylesheet" href="assets/css/style.css"><link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,700"><link rel="icon" href="favicon.ico" type="image/x-icon"><!-- Facebook Metas--><meta property="og:url" content="http://sarcadass.github.io/granim.js"><meta property="og:type" content="website"><meta property="og:title" content="Granim.js"><meta property="og:description" content="Create fluid and interactive gradients animations with this small (&lt; 17kB) .js library"><meta property="og:image" content="http://sarcadass.github.io/granim.js/assets/img/social-image.png"><!-- Twitter Metas--><meta property="twitter:card" content="summary_large_image"><meta property="twitter:creator" content="@Sarcadass"><meta property="twitter:title" content="Granim.js"><meta property="twitter:description" content="Create fluid and interactive gradients animations with this small (&lt; 17kB) .js library"><meta property="twitter:image" content="http://sarcadass.github.io/granim.js/assets/img/social-image.png"><meta property="twitter:image:width" content="1200"><meta property="twitter:image:height" content="630"><link type="text/css" rel="stylesheet" href="assets/css/prism.css"></head><body class="api"><header class="main-header"><div class="container clearfix"><div class="bloc-logo"><canvas id="logo-canvas"></canvas><a class="logo-mask" href="index.html">Granim.js</a></div><div class="main-nav"><div class="hamburger-icon"><span></span><span></span><span></span><span></span><span></span><span></span></div><nav><ul class="clearfix"><li><a class="text-link" href="https://github.com/sarcadass/granim.js/releases" target="_blank" rel="external">Download</a></li><li><a class="text-link" id="nav-api" href="api-v2.0.0.html">API</a></li><li><a class="text-link" id="nav-examples" href="examples.html">Examples</a></li><li><a class="github" href="https://github.com/sarcadass/granim.js" target="_blank" title="Github" rel="external"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25">
+    <g>
+        <path fill-rule="evenodd" clip-rule="evenodd" fill="#221E1B" d="M12.476,0C5.587,0,0,5.586,0,12.476
+		c0,5.512,3.575,10.189,8.533,11.842c0.623,0.113,0.853-0.271,0.853-0.604c0-0.296-0.011-1.279-0.017-2.32
+		c-3.471,0.754-4.203-1.473-4.203-1.473c-0.568-1.444-1.386-1.827-1.386-1.827c-1.132-0.772,0.085-0.758,0.085-0.758
+		c1.253,0.088,1.913,1.286,1.913,1.286c1.113,1.908,2.919,1.356,3.631,1.039c0.112-0.81,0.435-1.358,0.791-1.67
+		c-2.771-0.315-5.684-1.385-5.684-6.167c0-1.362,0.487-2.475,1.286-3.349c-0.13-0.314-0.558-1.582,0.121-3.301
+		c0,0,1.047-0.336,3.432,1.278c0.995-0.276,2.062-0.415,3.122-0.419c1.061,0.004,2.129,0.143,3.125,0.419
+		c2.384-1.614,3.43-1.278,3.43-1.278c0.68,1.719,0.25,2.987,0.122,3.301c0.801,0.874,1.283,1.986,1.283,3.349
+		c0,4.792-2.918,5.847-5.696,6.157c0.447,0.385,0.847,1.146,0.847,2.309c0,1.671-0.015,3.015-0.015,3.424
+		c0,0.333,0.224,0.723,0.855,0.602c4.957-1.652,8.526-6.329,8.526-11.84C24.953,5.586,19.365,0,12.476,0z"/>
+        <path fill="#221E1B" d="M4.726,17.914c-0.028,0.062-0.124,0.081-0.213,0.037c-0.091-0.04-0.142-0.124-0.113-0.188
+		c0.028-0.063,0.125-0.082,0.214-0.038C4.705,17.766,4.757,17.852,4.726,17.914L4.726,17.914z M4.572,17.8"/>
+        <path fill="#221E1B" d="M5.231,18.477c-0.059,0.057-0.176,0.031-0.255-0.058c-0.081-0.086-0.096-0.202-0.036-0.256
+		c0.061-0.058,0.173-0.033,0.256,0.055C5.277,18.306,5.293,18.421,5.231,18.477L5.231,18.477z M5.112,18.351"/>
+        <path fill="#221E1B" d="M5.723,19.195c-0.076,0.055-0.201,0.003-0.278-0.105c-0.077-0.112-0.077-0.245,0.001-0.298
+		c0.078-0.055,0.201-0.006,0.279,0.103C5.801,19.009,5.801,19.142,5.723,19.195L5.723,19.195z M5.723,19.195"/>
+        <path fill="#221E1B" d="M6.397,19.892c-0.069,0.074-0.214,0.055-0.321-0.049c-0.108-0.102-0.14-0.245-0.072-0.319
+		c0.07-0.076,0.216-0.054,0.324,0.048C6.437,19.673,6.469,19.815,6.397,19.892L6.397,19.892z M6.397,19.892"/>
+        <path fill="#221E1B" d="M7.328,20.294c-0.031,0.097-0.171,0.141-0.313,0.101c-0.141-0.043-0.233-0.158-0.205-0.256
+		c0.029-0.099,0.171-0.146,0.313-0.101C7.263,20.08,7.355,20.194,7.328,20.294L7.328,20.294z M7.328,20.294"/>
+        <path fill="#221E1B" d="M8.347,20.368c0.004,0.102-0.116,0.188-0.264,0.189c-0.149,0.005-0.271-0.079-0.272-0.181
+		c0-0.104,0.117-0.188,0.267-0.19C8.226,20.185,8.347,20.266,8.347,20.368L8.347,20.368z M8.347,20.368"/>
+        <path fill="#221E1B" d="M9.297,20.206c0.018,0.1-0.084,0.203-0.232,0.231c-0.145,0.025-0.279-0.036-0.297-0.135
+		C8.749,20.2,8.856,20.097,8.999,20.07C9.147,20.044,9.279,20.104,9.297,20.206L9.297,20.206z M9.297,20.206"/>
+    </g>
+</svg>
+</a></li></ul></nav></div></div></header><div class="main-content"><div class="container bloc"><div class="title-bloc"><h1>API <span class="api-version">V2.0.0</span></h1><select id="version-select"><option value="/api-v2.0.0.html">v2.0.0</option><option value="/api-v1.1.1.html">v1.1.1</option></select></div><h2>options</h2><p>All the global options available.</p><table class="api-list"><thead><tr><th>Property</th><th>Default</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td>element <span class="required">(required)</span></td><td>/</td><td>String or HTMLCanvasElement</td><td>A CSS selector for the <span class="snippet">canvas</span> element or the <span class="snippet">HTMLCanvasElement</span> itself (e.g. <span class="snippet">'#granim-canvas'</span> or <span class="snippet">document.querySelector('#granim-canvas')</span>) that will be used for the gradient animation.</td></tr><tr><td>name</td><td>false</td><td>String</td><td>This is the prefix used for the dark / light class name added
+on the <span class="snippet">options.elToSetClassOn</span> element depending on the average gradient lightness,
+the class will be updated during the animation.<br><strong>If you don't set a name, the class won't be set.</strong></td></tr><tr><td>elToSetClassOn</td><td>'body'</td><td>String</td><td>The element to set the dark / light class on (e.g. <span class="snippet">'#canvas-wrapper'</span>)<br><strong>Only useful if you set a <span class="snippet">name</span>.</strong></td></tr><tr><td>direction</td><td>'diagonal'</td><td>String</td><td>The orientation of the gradient, you can choose between:<ul><li><span class="snippet">'diagonal'</span></li><li><span class="snippet">'left-right'</span></li><li><span class="snippet">'top-bottom'</span></li><li><span class="snippet">'radial'</span></li><li><span class="snippet">'custom'</span></li></ul></td></tr><tr><td>customDirection</td><td>/</td><td>Object</td><td>Let you customize the direction of the gradient with pixels or percentage values with the following format:<pre><code class="language-js">{
+  x0: '10%',
+  y0: '25px',
+  x1: '30%',
+  y1: '322px'
+}</code></pre><strong>This property is required</strong> when the property<span class="snippet">direction</span> is set to<span class="snippet">custom</span>.<br>For more details, checkout the documentation of the <a class="link" href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/createLinearGradient" target="_blank">createLinearGradient </a>function.</td></tr><tr><td>isPausedWhenNotInView</td><td>false</td><td>Boolean</td><td>Does the animation stop when it's not in window view?<br>
+(Despite this parameter, the animation always pause
+when changing tab).</td></tr><tr><td>scrollDebounceThreshold</td><td>300</td><td>Int</td><td>What is the scroll <a class="link" href="https://css-tricks.com/debouncing-throttling-explained-examples/" target="_blank">debounce</a> threshold (in ms)?<br><strong>Only useful if </strong><span class="snippet">isPausedWhenNotInView</span> is set to <span class="snippet">true</span>.</td></tr><tr><td>stateTransitionSpeed</td><td>1000</td><td>Int</td><td>Duration of the animation when changing state (in ms).</td></tr><tr><td>defaultStateName</td><td>'default-state'</td><td>String</td><td>The name of the default state.</td></tr><tr><td>states <span class="required">(required)</span></td><td>/</td><td>Object</td><td>Object containing all the states, see more info below.</td></tr><tr><td>image</td><td>/</td><td>Object</td><td>Object containing image options, see more info below.</td></tr></tbody></table></div><div class="container bloc"><h2>options.states</h2><p>All the options available to customize the states and the different gradients.<br>
+Create a state with the name you want then add these parameters.<br>
+By default, the name of your first state is <span class="snippet">'default-state'</span>, you can change it with <span class="snippet">options.defaultStateName</span>.</p><table class="api-list"><thead><tr><th>Property</th><th>Default</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td>gradients <span class="required">(required)</span></td><td>/</td><td>Array of Arrays</td><td>You can set the gradients in two different ways: <br><strong>1. The simple way</strong>, you only set the colors that will be evenly distributed, e.g.<pre><code class="language-js">[
+  ['rgba(255, 153, 102, .33)', '#ff5e62', ...],
+  ['hsla(144, 100%, 47%, .75)', 'hsl(210, 96%, 46%)', ...],
+  ...
+]</code></pre><strong>2. The complex way</strong>, you set the colors and their positions (ranging from 0 to 1), e.g.<pre><code class="language-js">[
+  [
+    { color: 'rgba(255, 153, 102, .33)', pos: .5 },
+    { color: '#ff5e62', pos: 1 }, ...
+  ], [
+    { color: 'hsla(144, 100%, 47%, .75)', pos: .1 },
+    { color: 'hsl(210, 96%, 46%)', pos: .6 }, ...
+  ],
+  ...
+]</code></pre>The colors type accepted are: <span class="snippet">hexadecimal</span>,
+<span class="snippet">rgb</span>, <span class="snippet">rgba</span>,
+<span class="snippet">hsl</span> and <span class="snippet">hsla</span>. <strong></strong>All the gradients should contain the same number of colors.</td></tr><tr><td>transitionSpeed</td><td>5000</td><td>Int</td><td>Transition duration between each gradient (in ms).</td></tr><tr><td>loop</td><td>true</td><td>Boolean</td><td>When the animation has arrived to the last gradient, does it repeat?</td></tr></tbody></table></div><div class="container bloc" id="options-image"><h2>options.image</h2><p>All the options available to customize the image.<br>
+The blending Mode works only if you set an image and gradients.</p><table class="api-list"><thead><tr><th>Property</th><th>Default</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td>source <span class="required">(required)</span></td><td>/</td><td>String</td><td>The source of your image,
+e.g. <span class="snippet">'img/800x200.jpg'</span>.</td></tr><tr><td>position</td><td>['center', 'center']</td><td>Array</td><td>The position of your image in the canvas, represented as an <span class="snippet">[x, y]</span> array.<br>
+Possible values for <span class="snippet">x</span>:<ul><li><span class="snippet">'left'</span></li><li><span class="snippet">'center'</span></li><li><span class="snippet">'right'</span></li></ul>Possible values for <span class="snippet">y</span>:<ul><li><span class="snippet">'top'</span></li><li><span class="snippet">'center'</span></li><li><span class="snippet">'bottom'</span></li></ul></td></tr><tr><td>stretchMode</td><td>/</td><td>Array</td><td>Does the image have to stretch ? This option is useful for liquid/responsive design.
+Represented as an <span class="snippet">[x, y]</span> array.<br>
+Possible values for <span class="snippet">x</span> and <span class="snippet">y</span>:<ul><li><span class="snippet">'none'</span></li><li><span class="snippet">'stretch'</span></li><li><span class="snippet">'stretch-if-smaller'</span></li><li><span class="snippet">'stretch-if-bigger'</span></li></ul></td></tr><tr><td>blendingMode</td><td>/</td><td>String</td><td>How the image should blend with the gradient ?
+You can see all the possible values on&nbsp;<a class="link" href="https://developer.mozilla.org/fr/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation" target="_blank">MDN</a>.</td></tr></tbody></table></div><div class="container bloc"><h2>Callbacks</h2><p>You can set callbacks.</p><table class="api-list"><thead><tr><th>Property</th><th>Default</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td>onStart</td><td>false</td><td>Function</td><td>Triggered when the animation start.</td></tr><tr><td>onGradientChange</td><td>false</td><td>Function</td><td>Triggered when a gradient change and loop.</td></tr><tr><td>onEnd</td><td>false</td><td>Function</td><td>Triggered when the animation end.</td></tr></tbody></table></div><div class="container bloc"><h2>Emitted events</h2><p>Granim will emit events you can listen to at key moments.</p><pre><code class="language-js">// You can listen to these events:
+// - granim:start
+// - granim:end
+// - granim:loop
+// - granim:gradientChange
+<br>
+// js
+var canvasElement = document.querySelector('#granim-canvas');
+canvasElement.addEventListener('granim:start', function(event) {
+    console.log(event);
+});
+<br>
+// with jQuery
+$('#granim-canvas').on('granim:start', function(event) {
+    console.log(event);
+})</code></pre></div><div class="container bloc"><h2>Methods</h2><p>Methods to control the gradients.</p><pre><code class="language-js">// Play the animation
+granimInstance.play();
+<br>
+// Pause the animation
+granimInstance.pause();
+<br>
+// Stop the animation and clear the gradient
+granimInstance.clear();
+<br>
+// Change state by putting its name in the argument
+granimInstance.changeState('state-name');
+<br>
+// [v1.1.0] Change the direction
+granimInstance.changeDirection('direction-name');
+<br>
+// [v1.1.0] Change the blending mode (useful only if you use an image)
+granimInstance.changeBlendingMode('blending-mode-name');
+<br>
+// [v1.1.0] Destroy an instance and remove its events listeners
+granimInstance.destroy();</code></pre></div><div class="container bloc"><h2>Complete configuration</h2><p>Complete configuration with two states, an image and callbacks set.</p><pre><code class="language-js">var granimInstance = new Granim({
+    element: '',
+    name: 'granim',
+    elToSetClassOn: 'body',
+    direction: 'diagonal',
+    isPausedWhenNotInView: false,
+    scrollDebounceThreshold: 300,
+    stateTransitionSpeed: 1000,
+    image : {
+        source: '../assets/img/bg-forest.jpg',
+        position: ['center', 'bottom'],
+        stretchMode: ['stretch', 'stretch-if-bigger'],
+        blendingMode: 'multiply',
+    },
+    states : {
+        "default-state": {
+            gradients: [
+                ['#834d9b', '#d04ed6'],
+                ['#1CD8D2', '#93EDC7']
+            ],
+            transitionSpeed: 5000,
+            loop: true
+        },
+        "dark-state": {
+            gradients: [
+                ['#757F9A', '#D7DDE8'],
+                ['#5C258D', '#4389A2']
+            ],
+            transitionSpeed: 5000,
+            loop: true
+        }
+    },
+    onStart: function() {
+        console.log('Granim: onStart');
+    },
+    onGradientChange: function(colorDetails) {
+        console.log('Granim: onGradientChange, details: ');
+        console.log(colorDetails);
+    },
+    onEnd: function() {
+        console.log('Granim: onEnd');
+    }
+);</code></pre><p> <strong>You can use more than 2 colors for the gradients,
+but cannot have different length of colors in the
+different states.</strong></p><pre><code class="language-js">var granimInstance = new Granim({
+    element: '',
+    name: 'granim',
+    elToSetClassOn: 'body',
+    direction: 'diagonal',
+    isPausedWhenNotInView: false,
+    scrollDebounceThreshold: 300,
+    stateTransitionSpeed: 1000,
+    states : {
+        "default-state": {
+            gradients: [
+                ['#834d9b', '#d04ed6', '#1CD8D2', '#93EDC7'],
+                ['#1CD8D2', '#93EDC7', '#757F9A', '#4389A2']
+            ],
+            transitionSpeed: 5000,
+            loop: true
+        },
+        "dark-state": {
+            gradients: [
+                ['#757F9A', '#D7DDE8', '#1CD8D2', '#93EDC7'],
+                ['#5C258D', '#4389A2', '#1CD8D2', '#93EDC7']
+            ],
+            transitionSpeed: 5000,
+            loop: true
+        }
+    }
+);</code></pre></div><div class="footer container bloc clearfix"><p><strong>Granim v<span>2.0.0</span></strong>, created by <a href="https://twitter.com/Sarcadass" target="_blank">Benjamin Blonde</a>.
+MIT license.<br>
+Thanks to <a href="https://twitter.com/designcouch" target="_blank">@designcouch</a>
+for the <a href="https://codepen.io/designcouch/pen/Atyop" target="_blank">hamburger icon</a>.
+Inspired by <a href="http://uigradients.com/" target="_blank">uiGradients</a>.</p><div class="bloc-social"><a class="cta-social cta-facebook" href="http://www.facebook.com/sharer.php?u=http://sarcadass.github.io/granim.js" target="_blank"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+<path d="M8,5.333H6V8h2v8h3.334V8h2.428L14,5.333h-2.666V4.222c0-0.637,0.127-0.889,0.742-0.889H14V0h-2.539
+	C9.064,0,8,1.055,8,3.077V5.333z"/>
+</svg>
+Share on Facebook</a><a class="cta-social cta-twitter" href="https://twitter.com/share?text=Create%20fluid%20and%20interactive%20gradients%20animations%20with%20this%20small%20%28&lt;%2010kB%29%20.js%20library&amp;via=Sarcadass&amp;url=http%3A%2F%2Fsarcadass.github.io%2Fgranim.js" target="_blank"><svg version="1.1" xmlns="http://www.w3.org/2000/svg"x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+<path d="M16,3.538c-0.588,0.261-1.221,0.437-1.885,0.516c0.677-0.406,1.198-1.049,1.442-1.816c-0.634,0.376-1.337,0.65-2.084,0.797
+	c-0.599-0.638-1.452-1.037-2.396-1.037c-2.119,0-3.676,1.977-3.198,4.03c-2.727-0.137-5.146-1.444-6.765-3.43
+	c-0.86,1.475-0.446,3.405,1.016,4.383C1.592,6.964,1.085,6.817,0.644,6.571C0.607,8.092,1.698,9.514,3.276,9.83
+	C2.814,9.956,2.308,9.985,1.793,9.887C2.21,11.19,3.422,12.14,4.86,12.166c-1.38,1.082-3.119,1.565-4.86,1.36
+	C1.453,14.458,3.179,15,5.032,15c6.094,0,9.539-5.146,9.33-9.763C15.003,4.774,15.561,4.195,16,3.538z"/>
+</svg>
+Share on Twitter</a></div></div></div><script src="assets/js/vendor/jquery-3.1.0.min.js"></script><script src="assets/js/vendor/granim.min.js"></script><script src="assets/js/vendor/prism.js"></script><script type="text/javascript">var pageId = 'api';</script><script src="assets/js/script.js"></script><script type="text/javascript">(function(i, s, o, g, r, a, m) {
+  i['GoogleAnalyticsObject'] = r;
+  i[r] = i[r] || function() {
+    (i[r].q = i[r].q || []).push(arguments)
+  }, i[r].l = 1 * new Date();
+  a = s.createElement(o),
+  m = s.getElementsByTagName(o)[0];
+  a.async = 1;
+  a.src = g;
+  m.parentNode.insertBefore(a, m)
+})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+ga('create', 'UA-83387901-1', 'auto');
+ga('send', 'pageview');</script></body></html>

@@ -1,9 +1,29 @@
+## 2.0.0
+
+### Features
+
+- Add custom direction ([rhanb](https://github.com/rhanb))
+- Add support for other color types: `rgb`, `rgba`, `hsl`, `hsla`
+- Add custom color positions
+
+### Improvements
+
+- Add `image.strecthMode` property `'none'` to allow `strecthMode` on only one axis
+- Add ESLint for better code consistency
+- Add tests and doc updates for all the new feature
+
+### Miscellaneous
+
+- Update local server config to latest Hapi version
+- Add multiple API versions page
+
+
 ## 1.1.1
 
 ### Miscellaneous
 
 - Update dependencies
-- Update gulpfile with last gulp version
+- Update gulpfile with latest gulp version
 - Update node versions on for Travis CI tests
 
 
@@ -39,15 +59,15 @@
 
 - Reduce CPU footprint for Chrome
 - Add option to change default state name
-- Add Karma / Jasmine tests
-- Add Code coverage
+- Add Karma / Jasmine tests ([pranaygp](https://github.com/pranaygp))
+- Add Code coverage ([pranaygp](https://github.com/pranaygp))
+- Can set HTMLCanvasElement directly instead of CSS selector ([suhaotian](https://github.com/suhaotian))
 
 ### Miscellaneous
 
-- Add to NPM registry
-- Add to Bower registry
-- Add `CONTRIBUTING.md`
+- Add to NPM and Bower registry
+- Add `CONTRIBUTING.md` ([pranaygp](https://github.com/pranaygp))
 - Add `CHANGELOG.md`
 - Updated `README.md`
-- Docs fixes and improvements
+- Docs fixes and improvements ([howdy39](https://github.com/howdy39), [M-arcus](https://github.com/M-arcus) and [YLiohenki](https://github.com/YLiohenki))
 - Create a Gitter Channel

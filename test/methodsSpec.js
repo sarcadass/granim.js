@@ -1,5 +1,7 @@
+/* eslint-disable */
+
 describe('Methods: ', function() {
-	var value, granimInstance;
+	var granimInstance;
 
 	beforeEach(function(done) {
 		setTimeout(function() {
@@ -8,7 +10,7 @@ describe('Methods: ', function() {
 		}, 1);
 	});
 
-	it("should support async execution of test preparation and expectations", function(done) {
+	it('should support async execution of test preparation and expectations', function(done) {
 		setCanvas();
 		granimInstance = new Granim({
 			element: '#granim-canvas',
@@ -37,14 +39,14 @@ describe('Methods: ', function() {
 		done();
 	});
 
-	describe("Asynchronous specs:", function() {
+	describe('Asynchronous specs:', function() {
 		var originalTimeout;
 		beforeEach(function() {
 			originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
 			jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 		});
 
-		it("Pause method is working", function(done) {
+		it('Pause method is working', function(done) {
 			setTimeout(function() {
 				granimInstance.pause();
 				expect(granimInstance.isPaused).toBe(true);
@@ -52,7 +54,7 @@ describe('Methods: ', function() {
 			}, 105);
 		});
 
-		it("Play method is working", function(done) {
+		it('Play method is working', function(done) {
 			setTimeout(function() {
 				granimInstance.play();
 				expect(granimInstance.isPaused).toBe(false);
@@ -60,7 +62,7 @@ describe('Methods: ', function() {
 			}, 10);
 		});
 
-		it("ChangeState method is working", function(done) {
+		it('ChangeState method is working', function(done) {
 			setTimeout(function() {
 				granimInstance.changeState('default-state');
 				granimInstance.changeState('second-state');
@@ -69,7 +71,7 @@ describe('Methods: ', function() {
 			}, 200);
 		});
 
-		it("ChangeDirection method is working", function(done) {
+		it('ChangeDirection method is working', function(done) {
 			setTimeout(function() {
 				granimInstance.changeDirection('left-right');
 				expect(granimInstance.direction).toEqual('left-right');
@@ -77,7 +79,7 @@ describe('Methods: ', function() {
 			}, 200);
 		});
 
-		it("Clear method is working", function(done) {
+		it('Clear method is working', function(done) {
 			setTimeout(function() {
 				granimInstance.clear();
 				expect(granimInstance.context.getImageData(1, 1, 1, 1).data[0]).toEqual(0);
@@ -85,15 +87,15 @@ describe('Methods: ', function() {
 			}, 10);
 		});
 
-		it("ChangeDirection should throw an error when passed 'custom' value without a customDirection object", function(done) {
+		it('ChangeDirection should throw an error when passed \'custom\' value without a customDirection object', function(done) {
 			setTimeout(function() {
 				var func = function() { return granimInstance.changeDirection('custom'); };
-				expect(func).toThrowError('Granim: Input error on "customDirection" option.\nCheck the API https://sarcadass.github.io/granim.js/api.html.');
+				expect(func).toThrowError(errorMessage('customDirection'));
 				done();
 			}, 200);
 		});
 
-		it("ChangeDirection should throw an error when passed 'custom' value with a poorly formatted customDirection object", function(done) {
+		it('ChangeDirection should throw an error when passed \'custom\' value with a poorly formatted customDirection object', function(done) {
 			setTimeout(function() {
 				granimInstance.customDirection = {
 					x0: '1px1',
@@ -102,12 +104,12 @@ describe('Methods: ', function() {
 					y1: '1%na'
 				};
 				var func = function() { return granimInstance.changeDirection('custom'); };
-				expect(func).toThrowError('Granim: Input error on "customDirection" option.\nCheck the API https://sarcadass.github.io/granim.js/api.html.');
+				expect(func).toThrowError(errorMessage('customDirection'));
 				done();
 			}, 200);
 		});
 
-		it("ChangeDirection should throw an error when passed 'custom' value with a customDirection object which has number values", function(done) {
+		it('ChangeDirection should throw an error when passed \'custom\' value with a customDirection object which has number values', function(done) {
 			setTimeout(function() {
 				granimInstance.customDirection = {
 					x0: 0,
@@ -116,12 +118,12 @@ describe('Methods: ', function() {
 					y1: 3
 				};
 				var func = function() { return granimInstance.changeDirection('custom'); };
-				expect(func).toThrowError('Granim: Input error on "customDirection" option.\nCheck the API https://sarcadass.github.io/granim.js/api.html.');
+				expect(func).toThrowError(errorMessage('customDirection'));
 				done();
 			}, 200);
 		});
 
-		it("ChangeDirection should throw an error when passed 'custom' value with a customDirection object which has no number values in front of unit", function(done) {
+		it('ChangeDirection should throw an error when passed \'custom\' value with a customDirection object which has no number values in front of unit', function(done) {
 			setTimeout(function() {
 				granimInstance.customDirection = {
 					x0: 'px',
@@ -130,12 +132,26 @@ describe('Methods: ', function() {
 					y1: 'px'
 				};
 				var func = function() { return granimInstance.changeDirection('custom'); };
-				expect(func).toThrowError('Granim: Input error on "customDirection" option.\nCheck the API https://sarcadass.github.io/granim.js/api.html.');
+				expect(func).toThrowError(errorMessage('customDirection'));
 				done();
 			}, 200);
 		});
 
-		it("ChangeDirection method to a custom direction with valid 'customDirection' inputs is working", function(done) {
+		it('ChangeDirection should throw an error when passed \'custom\' value with a customDirection object which has only one good value', function(done) {
+			setTimeout(function() {
+				granimInstance.customDirection = {
+					x0: '50px',
+					y0: '00',
+					x1: '0',
+					y1: '0'
+				};
+				var func = function() { return granimInstance.changeDirection('custom'); };
+				expect(func).toThrowError(errorMessage('customDirection'));
+				done();
+			}, 200);
+		});
+
+		it('ChangeDirection method to a custom direction with valid \'customDirection\' inputs is working', function(done) {
 			setTimeout(function() {
 				granimInstance.customDirection = {
 					x0: '20%',

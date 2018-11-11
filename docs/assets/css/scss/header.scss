@@ -61,22 +61,22 @@
 				transition-property: color, border;
 				transition-duration: .3s;
 				&:first-child {margin-left: 0}
-				&.text:hover {
+				&.text-link:hover {
 					color: #1abc9c;
 					@include tab-desk {
 						border-color: #1abc9c;
 					}
 				}
-				&.text {
+				&.text-link {
 					padding: 15px 5px;
 					@include tab-desk {
 						border-bottom: solid 2px #eee;
 					}
 				}
-				&.text.active, &.text.active:hover  {
-					color: #16a085;
+				&.text-link.active, &.text-link.active:hover {
+					color: $color-green-main;
 					@include tab-desk {
-						border-color: #16a085;
+						border-color: $color-green-main;
 					}
 				}
 			}
@@ -142,7 +142,7 @@
 				position: absolute;
 				height: 5px;
 				width: 50%;
-				background: #16a085;
+				background: $color-green-main;
 				opacity: 1;
 				-webkit-transform: rotate(0deg);
 				-moz-transform: rotate(0deg);

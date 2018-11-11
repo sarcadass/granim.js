@@ -1,5 +1,7 @@
 'use strict';
 
+var codeTemplates = require('../utils/codeTemplate.js');
+
 module.exports = {
 	init: function() {
 		this.examples.init();
@@ -8,7 +10,7 @@ module.exports = {
 	examples: {
 		init: function() {
 			this.basic();
-			this.basicCustom();
+			this.complex();
 			this.imageBlending();
 			this.imageMask();
 			this.interactive();
@@ -17,9 +19,13 @@ module.exports = {
 		basic: function() {
 			var animation = new Granim({
 				element: '#canvas-basic',
-				name: 'basic-gradient',
 				direction: 'left-right',
-				opacity: [1, 1],
+				customDirection: {
+					x0: '40%',
+					y0: '10px',
+					x1: '60%',
+					y1: '50%'
+				},
 				isPausedWhenNotInView: true,
 				states: {
 					"default-state": {
@@ -31,43 +37,45 @@ module.exports = {
 					}
 				}
 			});
+
 			$('#select-direction').on('change', function() {
-				animation.direction = $(this).val();
+				var directionValue = $(this).val();
+				animation.changeDirection(directionValue);
+
+				$('#canvas-basic-bloc .language-js').html(
+					$(codeTemplates.basic({ direction: directionValue }))
+				);
+				Prism.highlightAll();
 			})
 		},
-		basicCustom: function() {
+
+		complex: function() {
 			var animation = new Granim({
-				element: '#canvas-basic-custom',
-				name: 'basic-gradient-custom',
-				customDirection: {
-					x0: '20%',
-					y0: '200px',
-					x1: '30%',
-					y1: '400px'
-				},
-				direction: 'custom',
-				opacity: [1, 1],
+				element: '#canvas-complex',
+				direction: 'left-right',
 				isPausedWhenNotInView: true,
 				states: {
 					"default-state": {
 						gradients: [
-							['#ff9966', '#ff5e62'],
-							['#00F260', '#0575E6'],
-							['#e1eec3', '#f05053']
+							[
+								{ color: '#833ab4', pos: .2 },
+								{ color: '#fd1d1d', pos: .8 },
+								{ color: '#38ef7d', pos: 1 }
+							], [
+								{ color: '#40e0d0', pos: 0 },
+								{ color: '#ff8c00', pos: .2 },
+								{ color: '#ff0080', pos: .75 }
+							]
 						]
 					}
 				}
 			});
-			$('#select-direction').on('change', function() {
-				animation.direction = $(this).val();
-			})
 		},
 
 		imageBlending: function() {
 			var animation = new Granim({
 				element: '#canvas-image-blending',
 				direction: 'top-bottom',
-				opacity: [1, 1],
 				isPausedWhenNotInView: true,
 				image: {
 					source: '../granim.js/assets/img/bg-forest.jpg',
@@ -89,7 +97,13 @@ module.exports = {
 			});
 
 			$('#select-blending-mode').on('change', function() {
-				animation.changeBlendingMode($(this).val());
+				var blendingModeValue = $(this).val();
+				animation.changeBlendingMode(blendingModeValue);
+
+				$('#canvas-image-blending-bloc .language-js').html(
+					$(codeTemplates.blendingMode({ blendingMode: blendingModeValue }))
+					);
+				Prism.highlightAll();
 			})
 		},
 
@@ -97,7 +111,6 @@ module.exports = {
 			var animation = new Granim({
 				element: '#canvas-image-mask',
 				direction: 'left-right',
-				opacity: [1, 1],
 				isPausedWhenNotInView: true,
 				states: {
 					"default-state": {
@@ -125,7 +138,6 @@ module.exports = {
 				name: 'interactive-gradient',
 				elToSetClassOn: '.canvas-interactive-wrapper',
 				direction: 'diagonal',
-				opacity: [1, 1],
 				isPausedWhenNotInView: true,
 				stateTransitionSpeed: 500,
 				states: {

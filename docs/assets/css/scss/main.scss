@@ -4,11 +4,11 @@
 
 body {
 	margin: 0;
-	font-family: Roboto, Helvetica, Arial, sans-serif;
+	font-family: $font-main;
 	color: #252525;
 }
 
-h1, h2, h3 {color: #16a085}
+h1, h2, h3 {color: $color-green-main}
 
 h1 {
 	font-size: 2.875em;

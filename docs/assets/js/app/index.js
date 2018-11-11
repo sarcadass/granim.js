@@ -2,7 +2,8 @@
 
 var main = require('./main.js'),
 	home = require('./pages/home.js'),
-	examples = require('./pages/examples.js');
+	examples = require('./pages/examples.js'),
+	api = require('./pages/api.js');
 
 $(document).on('DOMContentLoaded', function() {
 	switch(pageId) {
@@ -18,6 +19,7 @@ $(document).on('DOMContentLoaded', function() {
 
 		case 'api':
 			main.init();
+			api.init();
 			break;
 	}
 });

@@ -28,21 +28,28 @@ body.examples {
 
 .sandbox-footer {
 	position: relative;
+	display: flex;
+	align-items: baseline;
 	padding: 10px 20px;
 	background-color: #f5f2f0;
 	margin-top: -4px;
 	border-radius: 0 0 4px 4px;
 	z-index: 1;
 
-	span {
+	.option {
 		font-size: 14px;
 		font-weight: bold;
+		margin-right: 15px;
+		&:last-child {margin-right: 0}
+
+		input[type=checkbox] {
+			position: relative;
+			top: 2px;
+		}
+	
+		select {margin-left: 5px}
 	}
-
-	select {margin-left: 5px}
 }
-
-.sandbox-footer p {margin: 0}
 
 .code-wrapper {margin-top: 30px}
 

@@ -1,0 +1,395 @@
+doctype html
+html(lang="en")
+	head
+		title API V1.1.1 | Granim.js
+		meta(name='description', content='API for granim.js. Gradients animations in javascript.')
+		include includes/head
+		link(type='text/css', rel='stylesheet', href='assets/css/prism.css')
+
+	body.api
+		include includes/header
+
+		.main-content
+			.container.bloc
+				div.title-bloc
+					h1 API 
+						span.api-version V1.1.1
+					include includes/api-version-select
+				h2 options
+				p All the global options available.
+				table.api-list
+					thead
+						tr
+							th Property
+							th Default
+							th Type
+							th Description
+					tbody
+						tr
+							td element <span class="required">(required)</span>
+							td /
+							td String or HTMLCanvasElement
+							td
+								| A CSS selector for the 
+								span.snippet canvas
+								|  element or the 
+								span.snippet HTMLCanvasElement
+								|  itself (e.g. 
+								span.snippet '#granim-canvas'
+								|  or 
+								span.snippet document.querySelector('#granim-canvas')
+								| ) that will be used for the gradient animation.
+						tr
+							td name
+							td false
+							td String
+							td
+								| This is the prefix used for the dark / light class name added
+								| on the <span class="snippet">options.elToSetClassOn</span> element depending on the average gradient lightness,
+								| the class will be updated during the animation.<br>
+								strong If you don't set a name, the class won't be set.
+						tr
+							td elToSetClassOn
+							td 'body'
+							td String
+							td
+								| The element to set the dark / light class on (e.g. 
+								span.snippet '#canvas-wrapper'
+								| )<br>
+								strong Only useful if you set a <span class="snippet">name</span>.
+						tr
+							td direction
+							td 'diagonal'
+							td String
+							td The orientation of the gradient, you can choose between:
+								ul
+									li
+										span.snippet 'diagonal'
+									li
+										span.snippet 'left-right'
+									li
+										span.snippet 'top-bottom'
+									li
+										span.snippet 'radial'
+						tr
+							td isPausedWhenNotInView
+							td false
+							td Boolean
+							td
+								| Does the animation stop when it's not in window view?<br>
+								| (Despite this parameter, the animation always pause
+								| when changing tab).
+						tr
+							td scrollDebounceThreshold 
+								span.version v1.1.0
+							td 300
+							td Int
+							td
+								| What is the scroll 
+								a.link(href='https://css-tricks.com/debouncing-throttling-explained-examples/' target='_blank') debounce
+								|  threshold (in ms)?<br>
+								strong Only useful if 
+								span.snippet isPausedWhenNotInView
+								|  is set to 
+								span.snippet true
+								| .
+						tr
+							td opacity <span class="required">(required)</span>
+							td /
+							td Array of Int
+							td
+								| You can adapt the opacity of each color of the gradient.<br>
+								| if you have two colors <span class="snippet">[1, .5]</span>,
+								| or three <span class="snippet">[1, .5, 1]</span>...
+						tr
+							td stateTransitionSpeed
+							td 1000
+							td Int
+							td Duration of the animation when changing state.
+						tr
+							td defaultStateName
+							td 'default-state'
+							td String
+							td The name of the default state.
+						tr
+							td states <span class="required">(required)</span>
+							td /
+							td Object
+							td Object containing all the states, see more info below.
+						tr
+							td image 
+								span.version v1.1.0
+							td /
+							td Object
+							td Object containing image options, see more info below.
+
+			.container.bloc
+				h2 options.states
+				p
+					| All the options available to customize the states and the different gradients.<br>
+					| Create a state with the name you want then add these parameters.<br>
+					| By default, the name of your first state is <span class="snippet">'default-state'</span>, you can change it with <span class="snippet">options.defaultStateName</span>.
+				table.api-list
+					thead
+						tr
+							th Property
+							th Default
+							th Type
+							th Description
+					tbody
+						tr
+							td gradients <span class="required">(required)</span>
+							td /
+							td Array of Arrays
+							td
+								| The different gradients with the different colors
+								| e.g. <span class="snippet">[ ['#FFF', '#000'],
+								| ['#000', '#FFF'] ]</span>.<br>
+								| The array can contain only one gradient.
+						tr
+							td transitionSpeed
+							td 5000
+							td Int
+							td Transition duration between each gradient.
+						tr
+							td loop
+							td true
+							td Boolean
+							td When the animation has arrived to the last gradient, does it repeat?
+
+			.container.bloc#options-image
+				h2 options.image 
+					span.version v1.1.0
+				p
+					| All the options available to customize the image.<br>
+					| The blending Mode works only if you set an image and gradients.
+				table.api-list
+					thead
+						tr
+							th Property
+							th Default
+							th Type
+							th Description
+					tbody
+						tr
+							td source <span class="required">(required)</span>
+							td /
+							td String
+							td
+								| The source of your image,
+								| e.g. <span class="snippet">'img/800x200.jpg'</span>.
+						tr
+							td position
+							td ['center', 'center']
+							td Array
+							td
+								| The position of your image in the canvas, represented as an <span class="snippet">[x, y]</span> array.<br>
+								| Possible values for <span class="snippet">x</span>:
+								ul
+									li
+										span.snippet 'left'
+									li
+										span.snippet 'center'
+									li
+										span.snippet 'right'
+								| Possible values for <span class="snippet">y</span>:
+								ul
+									li
+										span.snippet 'top'
+									li
+										span.snippet 'center'
+									li
+										span.snippet 'bottom'
+
+						tr
+							td stretchMode
+							td /
+							td Array
+							td
+								| Does the image have to stretch ? This option is useful for liquid/responsive design.
+								| Represented as an <span class="snippet">[x, y]</span> array.<br>
+								| Possible values for <span class="snippet">x</span> and <span class="snippet">y</span>:
+								ul
+									li
+										span.snippet 'stretch'
+									li
+										span.snippet 'stretch-if-smaller'
+									li
+										span.snippet 'stretch-if-bigger'
+						tr
+							td blendingMode
+							td /
+							td String
+							td
+								| How the image should blend with the gradient ?
+								| You can see all the possible values on&nbsp;
+								a.link(href='https://developer.mozilla.org/fr/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation' target='_blank') MDN
+								| .
+
+			.container.bloc
+				h2 Callbacks
+				p You can set callbacks.
+				table.api-list
+					thead
+						tr
+							th Property
+							th Default
+							th Type
+							th Description
+					tbody
+						tr
+							td onStart
+							td false
+							td Function
+							td Triggered when the animation start.
+						tr
+							td onGradientChange
+							td false
+							td Function
+							td Triggered when a gradient change and loop.
+						tr
+							td onEnd
+							td false
+							td Function
+							td Triggered when the animation end.
+
+			.container.bloc
+				h2 Emitted events
+				p Granim will emit events you can listen to at key moments.
+				pre
+					code.language-js
+						| // You can listen to these events:
+						| // - granim:start
+						| // - granim:end
+						| // - granim:loop
+						| // - granim:gradientChange
+						| <br>
+						| // js
+						| var canvasElement = document.querySelector('#granim-canvas');
+						| canvasElement.addEventListener('granim:start', function(event) {
+						|     console.log(event);
+						| });
+						| <br>
+						| // with jQuery
+						| $('#granim-canvas').on('granim:start', function(event) {
+						|     console.log(event);
+						| })
+
+			.container.bloc
+				h2 Methods
+				p Methods to control the gradients.
+				pre
+					code.language-js
+						| // Play the animation
+						| granimInstance.play();
+						| <br>
+						| // Pause the animation
+						| granimInstance.pause();
+						| <br>
+						| // Stop the animation and clear the gradient
+						| granimInstance.clear();
+						| <br>
+						| // Change state by putting its name in the argument
+						| granimInstance.changeState('state-name');
+						| <br>
+						| // [v1.1.0] Change the direction
+						| granimInstance.changeDirection('direction-name');
+						| <br>
+						| // [v1.1.0] Change the blending mode (useful only if you use an image)
+						| granimInstance.changeBlendingMode('blending-mode-name');
+						| <br>
+						| // [v1.1.0] Destroy an instance and remove its events listeners
+						| granimInstance.destroy();
+
+			.container.bloc
+				h2 Complete configuration
+				p Complete configuration with two states, an image and callbacks set.
+				pre
+					code.language-js
+						| var granimInstance = new Granim({
+						|     element: '',
+						|     name: 'granim',
+						|     elToSetClassOn: 'body',
+						|     direction: 'diagonal',
+						|     isPausedWhenNotInView: false,
+						|     scrollDebounceThreshold: 300,
+						|     opacity: [1, 1],
+						|     stateTransitionSpeed: 1000,
+						|     image : {
+						|         source: '../assets/img/bg-forest.jpg',
+						|         position: ['center', 'bottom'],
+						|         stretchMode: ['stretch', 'stretch-if-bigger'],
+						|         blendingMode: 'multiply',
+						|     },
+						|     states : {
+						|         "default-state": {
+						|             gradients: [
+						|                 ['#834d9b', '#d04ed6'],
+						|                 ['#1CD8D2', '#93EDC7']
+						|             ],
+						|             transitionSpeed: 5000,
+						|             loop: true
+						|         },
+						|         "dark-state": {
+						|             gradients: [
+						|                 ['#757F9A', '#D7DDE8'],
+						|                 ['#5C258D', '#4389A2']
+						|             ],
+						|             transitionSpeed: 5000,
+						|             loop: true
+						|         }
+						|     },
+						|     onStart: function() {
+						|         console.log('Granim: onStart');
+						|     },
+						|     onGradientChange: function(colorDetails) {
+						|         console.log('Granim: onGradientChange, details: ');
+						|         console.log(colorDetails);
+						|     },
+						|     onEnd: function() {
+						|         console.log('Granim: onEnd');
+						|     }
+						| );
+				p
+					| You can use more than 2 colors for the gradients,
+					| but cannot have different length of colors in the
+					| different states. you will also have to
+					| <strong>adapt the opacity</strong>.
+				pre
+					code.language-js
+						| var granimInstance = new Granim({
+						|     element: '',
+						|     name: 'granim',
+						|     elToSetClassOn: 'body',
+						|     direction: 'diagonal',
+						|     isPausedWhenNotInView: false,
+						|     scrollDebounceThreshold: 300,
+						|     opacity: [1, 1, .5, 1],
+						|     stateTransitionSpeed: 1000,
+						|     states : {
+						|         "default-state": {
+						|             gradients: [
+						|                 ['#834d9b', '#d04ed6', '#1CD8D2', '#93EDC7'],
+						|                 ['#1CD8D2', '#93EDC7', '#757F9A', '#4389A2']
+						|             ],
+						|             transitionSpeed: 5000,
+						|             loop: true
+						|         },
+						|         "dark-state": {
+						|             gradients: [
+						|                 ['#757F9A', '#D7DDE8', '#1CD8D2', '#93EDC7'],
+						|                 ['#5C258D', '#4389A2', '#1CD8D2', '#93EDC7']
+						|             ],
+						|             transitionSpeed: 5000,
+						|             loop: true
+						|         }
+						|     }
+						| );
+
+			include includes/footer
+
+		include includes/js-vendor
+		script(type='text/javascript').
+			var pageId = 'api';
+		script(src='assets/js/script.js')
+		include includes/js-analytics

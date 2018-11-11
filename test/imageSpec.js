@@ -1,6 +1,7 @@
+/* eslint-disable */
 
 describe('Image: ', function() {
-	var value, granimInstance, gradientColor, canvas,
+	var granimInstance, gradientColor, canvas,
 		canvasWidthMiddle, canvasHeightMiddle;
 	var event = document.createEvent('HTMLEvents');
 
@@ -154,7 +155,7 @@ describe('Image: ', function() {
 			done();
 		});
 
-		it('Different parameters are working 1/2', function(done) {
+		it('Different parameters are working 1/3', function(done) {
 			granimInstance = new Granim({
 				element: '#granim-canvas',
 				name: 'basic-gradient',
@@ -175,7 +176,28 @@ describe('Image: ', function() {
 			done();
 		});
 
-		it('Different parameters are working 2/2', function(done) {
+		it('Different parameters are working 2/3', function(done) {
+			granimInstance = new Granim({
+				element: '#granim-canvas',
+				name: 'basic-gradient',
+				direction: 'radial',
+				opacity: [1, 1, 1],
+				isPausedWhenNotInView: true,
+				image: {
+					source: 'img/800x200.jpg',
+					position: ['center', 'bottom'],
+					stretchMode: ['none', 'stretch']
+				},
+				states: {
+					'default-state': { gradients: [['#485563', '#29323c', '#29323c']] }
+				}
+			});
+
+			expect(granimInstance).toBeDefined();
+			done();
+		});
+
+		it('Different parameters are working 3/3', function(done) {
 			canvas.style.height = '300px';
 			granimInstance = new Granim({
 				element: '#granim-canvas',
