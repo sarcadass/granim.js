@@ -1055,7 +1055,8 @@ function areDefinedInPixelsOrPercentage(array) {
 		if (typeof value !== 'string') {
 			definedInPixelsOrPercentage = false;
 		} else {
-			var unit, splittedValue;
+			var splittedValue = null;
+			var unit = null;
 			if (value.indexOf('px') !== -1) unit = 'px';
 			if (value.indexOf('%') !== -1) unit = '%';
 			splittedValue = value.split(unit).filter(function(value) {
@@ -1079,6 +1080,11 @@ function areDefinedInPixelsOrPercentage(array) {
 	}
 	return definedInPixelsOrPercentage;
 };
+
+
+[
+	'10px', '00', '0', '0'
+	]
 },{}],32:[function(require,module,exports){
 window.Granim = require('./lib/Granim.js');
 

@@ -135,6 +135,20 @@ describe('Methods: ', function() {
 			}, 200);
 		});
 
+		it('ChangeDirection should throw an error when passed \'custom\' value with a customDirection object which has only one good value', function(done) {
+			setTimeout(function() {
+				granimInstance.customDirection = {
+					x0: '50px',
+					y0: '00',
+					x1: '0',
+					y1: '0'
+				};
+				var func = function() { return granimInstance.changeDirection('custom'); };
+				expect(func).toThrowError(errorMessage('customDirection'));
+				done();
+			}, 200);
+		});
+
 		it('ChangeDirection method to a custom direction with valid \'customDirection\' inputs is working', function(done) {
 			setTimeout(function() {
 				granimInstance.customDirection = {
