@@ -12,7 +12,7 @@ html(lang="en")
 		.main-content
 			.container.bloc#canvas-basic-bloc
 				h1 Examples
-				h2 Basic gradients animation
+				h2 Basic gradient animation
 				p Basic gradients animation with 3 gradients in queue composed of 2 colors.
 				.sandbox
 					canvas#canvas-basic
@@ -68,14 +68,69 @@ html(lang="en")
 									|     left: 0;
 									| }
 
+			.container.bloc#canvas-complex-bloc
+				h2 Complex gradient animation
+				p Complex gradient animation with 2 gradients in queue with different positions composed of 3 colors.
+				.sandbox
+					canvas#canvas-complex
+				.code-wrapper
+					ul.tab-titles
+						li.active
+							a(href='#complex-js', data-toggle='tab') JS
+						li
+							a(href='#complex-html', data-toggle='tab') HTML
+						li
+							a(href='#complex-css', data-toggle='tab') CSS
+
+					.tab-content
+						.tab.active#complex-js(data-toggle='pill')
+							pre
+								code.language-js
+									| var granimInstance = new Granim({
+									|     element: '#canvas-complex',
+									|     direction: 'left-right',
+									|     isPausedWhenNotInView: true,
+									|     states : {
+									|         "default-state": {
+									|             gradients: [
+									|                 [
+									|                     { color: '#833ab4', pos: .2 },
+									|                     { color: '#fd1d1d', pos: .8 },
+									|                     { color: '#38ef7d', pos: 1 }
+									|                 ], [
+									|                     { color: '#40e0d0', pos: 0 },
+									|                     { color: '#ff8c00', pos: .2 },
+									|                     { color: '#ff0080', pos: .75 }
+									|                 ],
+									|             ]
+									|         }
+									|     }
+									| });
+
+						.tab#complex-html(data-toggle='pill')
+							pre
+								code.language-html='<canvas id="canvas-complex"></canvas>'
+
+						.tab#complex-css(data-toggle='pill')
+							pre
+								code.language-css
+									| #canvas-basic {
+									|     position: absolute;
+									|     display: block;
+									|     width: 100%;
+									|     height: 100%;
+									|     top: 0;
+									|     right: 0;
+									|     bottom: 0;
+									|     left: 0;
+									| }
+
 			.container.bloc#canvas-image-blending-bloc
-				h2 Gradients with an image and blending mode 
-					span.version v1.1.0
+				h2 Gradient animation with an image and blending mode
 				p
-					| Gradients with 2 colors, a background image and a blending mode set.<br>
-					| This is a new, more powerful way (since v1.1.0) to blend an image with a gradient.<br>
+					| Gradient animation with 2 colors, a background image and a blending mode set.<br>
 					| More parameters for <span class="snippet">options.image</span> are available in the&nbsp;
-					a.link(href='api.html#options-image') API
+					a.link(href='api-v2.0.0.html#options-image') API
 					|  page.
 				.sandbox
 					canvas#canvas-image-blending
@@ -139,7 +194,7 @@ html(lang="en")
 			.container.bloc
 				h2 Gradients with an image mask
 				p
-					| Gradients with an image mask to create a gradient animation under a shape.<br>
+					| Gradient animation with an image mask to create a gradient animation under a shape.<br>
 					| Look at the logo on the left of the header.
 				.sandbox.canvas-image-wrapper
 					.bloc-logo
@@ -213,7 +268,7 @@ html(lang="en")
 			.container.bloc
 				h2 Interactive Gradients
 				p
-					| Create a gradients animation that responds to events.<br>
+					| Create a gradient animation that responds to events.<br>
 					| Click on the different states in the gradient animation to see the gradients change.
 				.sandbox.canvas-interactive-wrapper
 					canvas#canvas-interactive

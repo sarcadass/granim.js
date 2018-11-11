@@ -22,6 +22,9 @@ describe('Animation: ', function() {
 					gradients: [
 						['hsl(333, 56%,89%)', '#181818', 'rgba(25,63, 48, .75)'],
 						['#7b4397', 'hsla(126,0%, 19%,.9)', 'rgb(69, 89,169)'],
+
+						[{ color: '#833ab4', pos: .2 }, { color: 'rgb(255, 0,25)', pos: .6 }, { color: '#ff0080', pos: .95 }],
+
 						['#222', 'hsl(0, 5%, 5%)', 'rgb(255, 0,0)'],
 					],
 					transitionSpeed: 100,

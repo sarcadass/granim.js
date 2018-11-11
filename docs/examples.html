@@ -25,7 +25,7 @@
 		C8.749,20.2,8.856,20.097,8.999,20.07C9.147,20.044,9.279,20.104,9.297,20.206L9.297,20.206z M9.297,20.206"/>
     </g>
 </svg>
-</a></li></ul></nav></div></div></header><div class="main-content"><div class="container bloc" id="canvas-basic-bloc"><h1>Examples</h1><h2>Basic gradients animation</h2><p>Basic gradients animation with 3 gradients in queue composed of 2 colors.</p><div class="sandbox"><canvas id="canvas-basic"></canvas></div><div class="sandbox-footer"><div class="option">Change gradient direction:<select id="select-direction"><option value="left-right">left-right</option><option value="diagonal">diagonal</option><option value="top-bottom">top-bottom</option><option value="radial">radial</option><option value="custom">custom</option></select></div></div><div class="code-wrapper"><ul class="tab-titles"><li class="active"><a href="#basic-js" data-toggle="tab">JS</a></li><li><a href="#basic-html" data-toggle="tab">HTML</a></li><li><a href="#basic-css" data-toggle="tab">CSS</a></li></ul><div class="tab-content"><div class="tab active" id="basic-js" data-toggle="pill"><pre><code class="language-js">var granimInstance = new Granim({
+</a></li></ul></nav></div></div></header><div class="main-content"><div class="container bloc" id="canvas-basic-bloc"><h1>Examples</h1><h2>Basic gradient animation</h2><p>Basic gradients animation with 3 gradients in queue composed of 2 colors.</p><div class="sandbox"><canvas id="canvas-basic"></canvas></div><div class="sandbox-footer"><div class="option">Change gradient direction:<select id="select-direction"><option value="left-right">left-right</option><option value="diagonal">diagonal</option><option value="top-bottom">top-bottom</option><option value="radial">radial</option><option value="custom">custom</option></select></div></div><div class="code-wrapper"><ul class="tab-titles"><li class="active"><a href="#basic-js" data-toggle="tab">JS</a></li><li><a href="#basic-html" data-toggle="tab">HTML</a></li><li><a href="#basic-css" data-toggle="tab">CSS</a></li></ul><div class="tab-content"><div class="tab active" id="basic-js" data-toggle="pill"><pre><code class="language-js">var granimInstance = new Granim({
     element: '#canvas-basic',
     direction: 'left-right',
     isPausedWhenNotInView: true,
@@ -47,9 +47,36 @@
     right: 0;
     bottom: 0;
     left: 0;
-}</code></pre></div></div></div></div><div class="container bloc" id="canvas-image-blending-bloc"><h2>Gradients with an image and blending mode <span class="version">v1.1.0</span></h2><p>Gradients with 2 colors, a background image and a blending mode set.<br>
-This is a new, more powerful way (since v1.1.0) to blend an image with a gradient.<br>
-More parameters for <span class="snippet">options.image</span> are available in the&nbsp;<a class="link" href="api.html#options-image">API</a> page.</p><div class="sandbox"><canvas id="canvas-image-blending"></canvas></div><div class="sandbox-footer"><span>Change blending mode:<select id="select-blending-mode"><option value="multiply">multiply</option><option value="screen">screen</option><option value="normal">normal</option><option value="overlay">overlay</option><option value="darken">darken</option><option value="lighten">lighten</option><option value="lighter">lighter</option><option value="color-dodge">color-dodge</option><option value="color-burn">color-burn</option><option value="hard-light">hard-light</option><option value="soft-light">soft-light</option><option value="difference">difference</option><option value="exclusion">exclusion</option><option value="hue">hue</option><option value="saturation">saturation</option><option value="color">color</option><option value="luminosity">luminosity</option></select></span></div><div class="code-wrapper"><ul class="tab-titles"><li class="active"><a href="#image-blending-js" data-toggle="tab">JS</a></li><li><a href="#image-blending-html" data-toggle="tab">HTML</a></li><li><a href="#image-blending-css" data-toggle="tab">CSS</a></li></ul><div class="tab-content"><div class="tab active" id="image-blending-js" data-toggle="pill"><pre><code class="language-js">var granimInstance = new Granim({
+}</code></pre></div></div></div></div><div class="container bloc" id="canvas-complex-bloc"><h2>Complex gradient animation</h2><p>Complex gradient animation with 2 gradients in queue with different positions composed of 3 colors.</p><div class="sandbox"><canvas id="canvas-complex"></canvas></div><div class="code-wrapper"><ul class="tab-titles"><li class="active"><a href="#complex-js" data-toggle="tab">JS</a></li><li><a href="#complex-html" data-toggle="tab">HTML</a></li><li><a href="#complex-css" data-toggle="tab">CSS</a></li></ul><div class="tab-content"><div class="tab active" id="complex-js" data-toggle="pill"><pre><code class="language-js">var granimInstance = new Granim({
+    element: '#canvas-complex',
+    direction: 'left-right',
+    isPausedWhenNotInView: true,
+    states : {
+        "default-state": {
+            gradients: [
+                [
+                    { color: '#833ab4', pos: .2 },
+                    { color: '#fd1d1d', pos: .8 },
+                    { color: '#38ef7d', pos: 1 }
+                ], [
+                    { color: '#40e0d0', pos: 0 },
+                    { color: '#ff8c00', pos: .2 },
+                    { color: '#ff0080', pos: .75 }
+                ],
+            ]
+        }
+    }
+});</code></pre></div><div class="tab" id="complex-html" data-toggle="pill"><pre><code class="language-html">&lt;canvas id=&quot;canvas-complex&quot;&gt;&lt;/canvas&gt;</code></pre></div><div class="tab" id="complex-css" data-toggle="pill"><pre><code class="language-css">#canvas-basic {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}</code></pre></div></div></div></div><div class="container bloc" id="canvas-image-blending-bloc"><h2>Gradient animation with an image and blending mode</h2><p>Gradient animation with 2 colors, a background image and a blending mode set.<br>
+More parameters for <span class="snippet">options.image</span> are available in the&nbsp;<a class="link" href="api-v2.0.0.html#options-image">API</a> page.</p><div class="sandbox"><canvas id="canvas-image-blending"></canvas></div><div class="sandbox-footer"><span>Change blending mode:<select id="select-blending-mode"><option value="multiply">multiply</option><option value="screen">screen</option><option value="normal">normal</option><option value="overlay">overlay</option><option value="darken">darken</option><option value="lighten">lighten</option><option value="lighter">lighter</option><option value="color-dodge">color-dodge</option><option value="color-burn">color-burn</option><option value="hard-light">hard-light</option><option value="soft-light">soft-light</option><option value="difference">difference</option><option value="exclusion">exclusion</option><option value="hue">hue</option><option value="saturation">saturation</option><option value="color">color</option><option value="luminosity">luminosity</option></select></span></div><div class="code-wrapper"><ul class="tab-titles"><li class="active"><a href="#image-blending-js" data-toggle="tab">JS</a></li><li><a href="#image-blending-html" data-toggle="tab">HTML</a></li><li><a href="#image-blending-css" data-toggle="tab">CSS</a></li></ul><div class="tab-content"><div class="tab active" id="image-blending-js" data-toggle="pill"><pre><code class="language-js">var granimInstance = new Granim({
     element: '#canvas-image-blending',
     direction: 'top-bottom',
     isPausedWhenNotInView: true,
@@ -77,7 +104,7 @@ More parameters for <span class="snippet">options.image</span> are available in 
     right: 0;
     bottom: 0;
     left: 0;
-}</code></pre></div></div></div></div><div class="container bloc"><h2>Gradients with an image mask</h2><p>Gradients with an image mask to create a gradient animation under a shape.<br>
+}</code></pre></div></div></div></div><div class="container bloc"><h2>Gradients with an image mask</h2><p>Gradient animation with an image mask to create a gradient animation under a shape.<br>
 Look at the logo on the left of the header.</p><div class="sandbox canvas-image-wrapper"><div class="bloc-logo"><canvas id="canvas-image-mask"></canvas><a class="logo-mask" href="index.html">Granim.js</a></div></div><div class="code-wrapper"><ul class="tab-titles"><li class="active"><a href="#image-mask-js" data-toggle="tab">JS</a></li><li><a href="#image-mask-html" data-toggle="tab">HTML</a></li><li><a href="#image-mask-css" data-toggle="tab">CSS</a></li></ul><div class="tab-content"><div class="tab active" id="image-mask-js" data-toggle="pill"><pre><code class="language-js">var granimInstance = new Granim({
     element: '#logo-canvas',
     direction: 'left-right',
@@ -118,7 +145,7 @@ Look at the logo on the left of the header.</p><div class="sandbox canvas-image-
     background-size: 130px;
     background-image: url("../img/logo-mask.png");
     text-indent: -9999px;
-}</code></pre></div></div></div></div><div class="container bloc"><h2>Interactive Gradients</h2><p>Create a gradients animation that responds to events.<br>
+}</code></pre></div></div></div></div><div class="container bloc"><h2>Interactive Gradients</h2><p>Create a gradient animation that responds to events.<br>
 Click on the different states in the gradient animation to see the gradients change.</p><div class="sandbox canvas-interactive-wrapper"><canvas id="canvas-interactive"></canvas><div class="cta-wrapper"><span><a class="active" id="default-state-cta" href="#default-state">Default state</a></span><span><a id="violet-state-cta" href="#violet-state">Violet animated state</a></span><span><a id="orange-state-cta" href="#orange-state">Orange static state</a></span></div></div><div class="code-wrapper"><ul class="tab-titles"><li class="active"><a href="#interactive-js" data-toggle="tab">JS</a></li><li><a href="#interactive-html" data-toggle="tab">HTML</a></li><li><a href="#interactive-css" data-toggle="tab">CSS</a></li></ul><div class="tab-content"><div class="tab active" id="interactive-js" data-toggle="pill"><pre><code class="language-js">var granimInstance = new Granim({
     element: '#canvas-interactive',
     name: 'interactive-gradient',

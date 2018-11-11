@@ -61,7 +61,7 @@ describe('Granim Core:', function() {
 			expect(func).toThrowError(errorMessage('colorType'));
 		});
 
-		it('throws an error when the option direction has the value "custom" but not the customDirection object when a new Granim instance is created', function() {
+		it('throws an error when the option direction has the value \'custom\' but not the customDirection object when a new Granim instance is created', function() {
 			var invalidOptions = Object.assign(
 				Object.assign({}, validOptions),
 				{ direction: 'custom' }
@@ -69,6 +69,25 @@ describe('Granim Core:', function() {
 			var func = function() { return new Granim(invalidOptions) };
 			expect(func).toThrowError(errorMessage('customDirection'));
 		});
+
+		it('throws an error when the color value of a gradient is an object without the \'color\' key', function() {
+			var invalidOptions = Object.assign(
+				Object.assign({}, validOptions),
+				{
+					states: {
+						"default-state": {
+							gradients: [
+								[{ pos: .5 }, { color: '#fff', pos: .6 },],
+								['#1CD8D2', '#93EDC7']
+							]
+						}
+					}
+				}
+			);
+			var func = function() { return new Granim(invalidOptions) };
+			expect(func).toThrowError(errorMessage('gradient.color'));
+		});
+
 	});
 
 	it('Can use a HTMLCanvasElement as an element', function() {

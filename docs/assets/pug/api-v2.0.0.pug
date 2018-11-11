@@ -33,7 +33,7 @@ html(lang="en")
 								| A CSS selector for the 
 								span.snippet canvas
 								|  element or the 
-								sapn.snippet HTMLCanvasElement
+								span.snippet HTMLCanvasElement
 								|  itself (e.g. 
 								span.snippet '#granim-canvas'
 								|  or 
@@ -75,7 +75,7 @@ html(lang="en")
 										span.snippet 'custom'
 						tr
 							td customDirection
-							td {}
+							td /
 							td Object
 							td
 								| Let you customize the direction of the gradient with pixels or percentage values with the following format:
@@ -106,8 +106,7 @@ html(lang="en")
 								| (Despite this parameter, the animation always pause
 								| when changing tab).
 						tr
-							td scrollDebounceThreshold 
-								span.version v1.1.0
+							td scrollDebounceThreshold
 							td 300
 							td Int
 							td
@@ -123,7 +122,7 @@ html(lang="en")
 							td stateTransitionSpeed
 							td 1000
 							td Int
-							td Duration of the animation when changing state.
+							td Duration of the animation when changing state (in ms).
 						tr
 							td defaultStateName
 							td 'default-state'
@@ -135,12 +134,10 @@ html(lang="en")
 							td Object
 							td Object containing all the states, see more info below.
 						tr
-							td image 
-								span.version v1.1.0
+							td image
 							td /
 							td Object
 							td Object containing image options, see more info below.
-
 
 			.container.bloc
 				h2 options.states
@@ -161,23 +158,42 @@ html(lang="en")
 							td /
 							td Array of Arrays
 							td
-								| The different gradients with the different colors, e.g.
+								| You can set the gradients in two different ways: <br>
+								strong
+									| 1. The simple way
+								| , you only set the colors that will be evenly distributed, e.g.
 								pre
 									code.language-js
 										| [
-										|   ['rgba(255, 153, 102, .33)', '#ff5e62'],
-										|   ['hsla(144, 100%, 47%, .75)', 'hsl(210, 96%, 46%)'],
-										|   ['rgb(225, 238, 195)', '#f05053'],
+										|   ['rgba(255, 153, 102, .33)', '#ff5e62', ...],
+										|   ['hsla(144, 100%, 47%, .75)', 'hsl(210, 96%, 46%)', ...],
+										|   ...
+										| ]
+								strong
+									| 2. The complex way
+								| , you set the colors and their positions (ranging from 0 to 1), e.g.
+								pre
+									code.language-js
+										| [
+										|   [
+										|     { color: 'rgba(255, 153, 102, .33)', pos: .5 },
+										|     { color: '#ff5e62', pos: 1 }, ...
+										|   ], [
+										|     { color: 'hsla(144, 100%, 47%, .75)', pos: .1 },
+										|     { color: 'hsl(210, 96%, 46%)', pos: .6 }, ...
+										|   ],
+										|   ...
 										| ]
 								| The colors type accepted are: <span class="snippet">hexadecimal</span>,
 								| <span class="snippet">rgb</span>, <span class="snippet">rgba</span>,
 								| <span class="snippet">hsl</span> and <span class="snippet">hsla</span>. 
+								strong
 								| All the gradients should contain the same number of colors.
 						tr
 							td transitionSpeed
 							td 5000
 							td Int
-							td Transition duration between each gradient.
+							td Transition duration between each gradient (in ms).
 						tr
 							td loop
 							td true
@@ -185,8 +201,7 @@ html(lang="en")
 							td When the animation has arrived to the last gradient, does it repeat?
 
 			.container.bloc#options-image
-				h2 options.image 
-					span.version v1.1.0
+				h2 options.image
 				p
 					| All the options available to customize the image.<br>
 					| The blending Mode works only if you set an image and gradients.
@@ -376,10 +391,11 @@ html(lang="en")
 						|         console.log('Granim: onEnd');
 						|     }
 						| );
-				p
-					| You can use more than 2 colors for the gradients,
-					| but cannot have different length of colors in the
-					| different states.
+				p 
+					strong
+						| You can use more than 2 colors for the gradients,
+						| but cannot have different length of colors in the
+						| different states.
 				pre
 					code.language-js
 						| var granimInstance = new Granim({

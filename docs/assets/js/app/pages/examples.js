@@ -10,6 +10,7 @@ module.exports = {
 	examples: {
 		init: function() {
 			this.basic();
+			this.complex();
 			this.imageBlending();
 			this.imageMask();
 			this.interactive();
@@ -46,6 +47,29 @@ module.exports = {
 				);
 				Prism.highlightAll();
 			})
+		},
+
+		complex: function() {
+			var animation = new Granim({
+				element: '#canvas-complex',
+				direction: 'left-right',
+				isPausedWhenNotInView: true,
+				states: {
+					"default-state": {
+						gradients: [
+							[
+								{ color: '#833ab4', pos: .2 },
+								{ color: '#fd1d1d', pos: .8 },
+								{ color: '#38ef7d', pos: 1 }
+							], [
+								{ color: '#40e0d0', pos: 0 },
+								{ color: '#ff8c00', pos: .2 },
+								{ color: '#ff0080', pos: .75 }
+							]
+						]
+					}
+				}
+			});
 		},
 
 		imageBlending: function() {
