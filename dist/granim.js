@@ -888,7 +888,9 @@ function areDefinedInPixelsOrPercentage(array) {
 			var unit, splittedValue;
 			if (value.indexOf('px') !== -1) unit = 'px';
 			if (value.indexOf('%') !== -1) unit = '%';
-			splittedValue = value.split(unit);
+			splittedValue = value.split(unit).filter(function(value) {
+				return value.length > 0;
+			});
 			// Check if there is a unit ('px' or '%'),
 			// a char before the unit,
 			// no char after the unit,
@@ -898,7 +900,7 @@ function areDefinedInPixelsOrPercentage(array) {
 				|| splittedValue.length > 2
 				|| !splittedValue[0]
 				|| splittedValue[1]
-				|| !/^\d+$/.test(splittedValue[0])
+				|| !/^-?\d+\.?\d*$/.test(splittedValue[0])
 			) {
 				definedInPixelsOrPercentage = false;
 			}
