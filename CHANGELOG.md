@@ -1,12 +1,21 @@
-## X.X.X
+## 2.0.0
 
 ### Features
 
 - Add custom direction ([rhanb](https://github.com/rhanb))
+- Add support for other color types: `rgb`, `rgba`, `hsl`, `hsla`
+- Add custom color positions
+
+### Improvements
+
+- Add `image.strecthMode` property `'none'` to allow `strecthMode` on only one axis
+- Add ESLint for better code consistency
+- Add tests and doc updates for all the new feature
 
 ### Miscellaneous
 
 - Update local server config to latest Hapi version
+- Add multiple API versions page
 
 
 ## 1.1.1
