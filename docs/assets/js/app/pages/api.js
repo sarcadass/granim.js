@@ -11,7 +11,8 @@ module.exports = {
 	},
 
 	setDefaultVersionOnDropDown: function() {
-		var pathName = location.pathname.split('/')[1];
+		var pathnameSplit = location.pathname.split('/');
+		var pathName = pathnameSplit[pathnameSplit.length - 1];
 		$('#version-select option').each(function(i, el) {
 			if (el.value === pathName) {
 				$(el).attr({ selected: true });
