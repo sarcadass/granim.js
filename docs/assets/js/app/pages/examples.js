@@ -1,6 +1,8 @@
 'use strict';
 
 var codeTemplates = require('../utils/codeTemplate.js');
+var baseURL = location.hostname.indexOf('localhost') !== -1
+	? '' : 'granim.js/';
 
 module.exports = {
 	init: function() {
@@ -28,7 +30,7 @@ module.exports = {
 				},
 				isPausedWhenNotInView: true,
 				states: {
-					"default-state": {
+					'default-state': {
 						gradients: [
 							['#ff9966', '#ff5e62'],
 							['#00F260', '#0575E6'],
@@ -55,7 +57,7 @@ module.exports = {
 				direction: 'left-right',
 				isPausedWhenNotInView: true,
 				states: {
-					"default-state": {
+					'default-state': {
 						gradients: [
 							[
 								{ color: '#833ab4', pos: .2 },
@@ -78,13 +80,13 @@ module.exports = {
 				direction: 'top-bottom',
 				isPausedWhenNotInView: true,
 				image: {
-					source: '../granim.js/assets/img/bg-forest.jpg',
+					source: '../' + baseURL + 'assets/img/bg-forest.jpg',
 					position: ['center', 'center'],
 					stretchMode: ['stretch-if-smaller', 'stretch-if-bigger'],
 					blendingMode: 'multiply'
 				},
 				states: {
-					"default-state": {
+					'default-state': {
 						gradients: [
 							['#29323c', '#485563'],
 							['#FF6B6B', '#556270'],
@@ -102,7 +104,7 @@ module.exports = {
 
 				$('#canvas-image-blending-bloc .language-js').html(
 					$(codeTemplates.blendingMode({ blendingMode: blendingModeValue }))
-					);
+				);
 				Prism.highlightAll();
 			})
 		},
@@ -113,7 +115,7 @@ module.exports = {
 				direction: 'left-right',
 				isPausedWhenNotInView: true,
 				states: {
-					"default-state": {
+					'default-state': {
 						gradients: [
 							['#EB3349', '#F45C43'],
 							['#FF8008', '#FFC837'],
@@ -129,7 +131,7 @@ module.exports = {
 
 			$('.canvas-image-wrapper .logo-mask').on('click', function(event) {
 				event.preventDefault();
-			})
+			});
 		},
 
 		interactive: function() {
@@ -141,7 +143,7 @@ module.exports = {
 				isPausedWhenNotInView: true,
 				stateTransitionSpeed: 500,
 				states: {
-					"default-state": {
+					'default-state': {
 						gradients: [
 							['#B3FFAB', '#12FFF7'],
 							['#ADD100', '#7B920A'],
@@ -149,14 +151,14 @@ module.exports = {
 						],
 						transitionSpeed: 10000
 					},
-					"violet-state": {
+					'violet-state': {
 						gradients: [
 							['#9D50BB', '#6E48AA'],
 							['#4776E6', '#8E54E9']
 						],
 						transitionSpeed: 2000
 					},
-					"orange-state": {
+					'orange-state': {
 						gradients: [['#FF4E50', '#F9D423']],
 						loop: false
 					}

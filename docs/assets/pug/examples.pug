@@ -135,7 +135,8 @@ html(lang="en")
 				.sandbox
 					canvas#canvas-image-blending
 				.sandbox-footer
-					span Change blending mode:
+					div.option
+						| Change blending mode:
 						select#select-blending-mode
 							each val in ['multiply', 'screen', 'normal', 'overlay', 'darken', 'lighten', 'lighter', 'color-dodge', 'color-burn', 'hard-light', 'soft-light', 'difference', 'exclusion', 'hue', 'saturation', 'color', 'luminosity']
 								option(value=val)=val

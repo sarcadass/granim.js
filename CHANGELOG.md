@@ -1,10 +1,11 @@
-## 2.0.0
+## v2.0.0
 
 ### Features
 
 - Add custom direction ([rhanb](https://github.com/rhanb))
 - Add support for other color types: `rgb`, `rgba`, `hsl`, `hsla`
 - Add custom color positions
+- **Remove `opacity` property**, use `rgba` or `hsla` alpha color channel if you want to use opacity in the colors
 
 ### Improvements
 
@@ -18,7 +19,7 @@
 - Add multiple API versions page
 
 
-## 1.1.1
+## v1.1.1
 
 ### Miscellaneous
 
@@ -27,7 +28,7 @@
 - Update node versions on for Travis CI tests
 
 
-## 1.1.0
+## v1.1.0
 
 ### Features
 
@@ -44,7 +45,7 @@
 - Doc addition and improvements
 
 
-## 1.0.6 (from 1.0.0)
+## v1.0.6 (from v1.0.0)
 
 ### Bug Fixes
 

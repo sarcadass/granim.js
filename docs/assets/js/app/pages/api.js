@@ -1,5 +1,8 @@
 'use strict';
 
+var baseURL = location.hostname.indexOf('localhost') !== -1
+	? '' : 'granim.js/';
+
 module.exports = {
 	init: function() {
 		this.setDefaultVersionOnDropDown();
@@ -8,17 +11,17 @@ module.exports = {
 	},
 
 	setDefaultVersionOnDropDown: function() {
-		var pathName = document.location.pathname;
+		var pathName = location.pathname.split('/')[1];
 		$('#version-select option').each(function(i, el) {
 			if (el.value === pathName) {
-				$(el).attr({ selected: true })
+				$(el).attr({ selected: true });
 			}
-		})
+		});
 	},
 
 	HandleVersionDropDown: function() {
 		$('#version-select').on('change', function(event) {
-			$(location).attr({ pathname: $(this).val() })
-		})
+			$(location).attr({ pathname: baseURL + $(this).val() });
+		});
 	}
 };

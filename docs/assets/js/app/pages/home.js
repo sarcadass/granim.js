@@ -32,7 +32,7 @@ module.exports = {
 			stateTransitionSpeed: 1000,
 			opacity: [1, 1],
 			states : {
-				"default-state": {
+				'default-state': {
 					gradients: [
 						['#00d2ff', '#3a7bd5'],
 						['#4776E6', '#8E54E9'],
@@ -45,21 +45,21 @@ module.exports = {
 					]
 				},
 
-				"dark-state": {
+				'dark-state': {
 					gradients: [
 						['#16222A', '#3A6073'],
 						['#000428', '#004e92']
 					]
 				},
 
-				"light-state": {
+				'light-state': {
 					gradients: [
 						['#FF8008', '#FFC837'],
 						['#FF512F', '#F09819']
 					]
 				},
 
-				"green-state": {
+				'green-state': {
 					gradients: [
 						['#134E5E', '#71B280'],
 						['#93F9B9', '#1D976C']

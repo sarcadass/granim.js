@@ -1,9 +1,9 @@
 'use strict';
 
-var main = require('./main.js'),
-	home = require('./pages/home.js'),
-	examples = require('./pages/examples.js'),
-	api = require('./pages/api.js');
+var main = require('./main.js');
+var home = require('./pages/home.js');
+var examples = require('./pages/examples.js');
+var api = require('./pages/api.js');
 
 $(document).on('DOMContentLoaded', function() {
 	switch(pageId) {
