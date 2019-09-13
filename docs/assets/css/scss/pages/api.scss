@@ -88,7 +88,11 @@ table.api-list {
 	}
 
 	@include mob {
+		display: block;
+
 		thead {display: none}
+
+		tbody {display: block}
 
 		tr {
 			display: block;
