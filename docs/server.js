@@ -1,4 +1,4 @@
-const Hapi = require('hapi')
+const Hapi = require('@hapi/hapi')
 const server = new Hapi.Server({ port: 8080, host: 'localhost' })
 const init = async () => {
 	await server.register([
